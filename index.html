@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Davi Macêdo Gomes — Full-Stack Developer + AI Engineer</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Full-stack developer and AI engineer portfolio of Davi Macêdo Gomes. Building practical tools, AI-powered automation, and developer infrastructure.">
+  <meta name="theme-color" content="#09090B">
+  <link rel="canonical" href="https://davimgdev.github.io/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Davi Macêdo Gomes — Full-Stack Developer + AI Engineer">
+  <meta property="og:description" content="Full-stack developer and AI engineer portfolio. Building practical tools at the intersection of backend engineering, CLI tooling, and LLM-based agent systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://davimgdev.github.io/">
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts: Newsreader + JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,650&family=JetBrains+Mono:wght@400;450;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- htmx -->
+  <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"></script>
+</head>
+<body>
+
+  <!-- ==========================================================
+       APP SHELL
+       ========================================================== -->
+  <div id="app">
+
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link" tabindex="1">Skip to main content</a>
+
+    <!-- HEADER -->
+    <header class="header" role="banner">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/" class="nav-logo" aria-label="Home">DMG</a>
+        <ul class="nav-links" role="list">
+          <li>
+            <a href="/"
+               class="nav-link active"
+               hx-get="/fragments/home.html"
+               hx-target="#main-content"
+               hx-push-url="/"
+               hx-swap="innerHTML show:window:top"
+               hx-indicator="#loading"
+               data-route="/">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/projects/"
+               class="nav-link"
+               hx-get="/fragments/projects.html"
+               hx-target="#main-content"
+               hx-push-url="/projects/"
+               hx-swap="innerHTML show:window:top"
+               hx-indicator="#loading"
+               data-route="/projects/">
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="/about/"
+               class="nav-link"
+               hx-get="/fragments/about.html"
+               hx-target="#main-content"
+               hx-push-url="/about/"
+               hx-swap="innerHTML show:window:top"
+               hx-indicator="#loading"
+               data-route="/about/">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/contact/"
+               class="nav-link"
+               hx-get="/fragments/contact.html"
+               hx-target="#main-content"
+               hx-push-url="/contact/"
+               hx-swap="innerHTML show:window:top"
+               hx-indicator="#loading"
+               data-route="/contact/">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT (home embedded for no-JS fallback) -->
+    <main id="main-content" class="main-content" role="main" tabindex="-1">
+
+      <!-- ===== HOME PAGE ===== -->
+      <div class="page-container" id="page-home">
+
+        <!-- Loading indicator (hidden by default) -->
+        <div id="loading" class="loading-spinner" role="status" aria-label="Loading content"></div>
+
+        <!-- Identity / Hero Section -->
+        <section class="section pt-0" aria-labelledby="identity-heading">
+          <div class="identity-row">
+            <img src="/images/profile.svg" alt="Profile photo of Davi Macêdo Gomes" class="profile-photo" width="120" height="120" loading="eager">
+            <div>
+              <h1 id="identity-heading" class="identity-name">Davi Macêdo Gomes</h1>
+              <p class="identity-title">Full-Stack Developer + AI Engineer</p>
+              <p class="identity-location">Remote / Feira de Santana, Bahia, Brasil</p>
+              <div class="identity-links">
+                <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="identity-link" aria-label="Email dev.davi.macedo.gomes@gmail.com">Email</a>
+                <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener" class="identity-link" aria-label="GitHub profile">GitHub</a>
+                <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener" class="identity-link" aria-label="LinkedIn profile">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider" role="separator">
+
+        <!-- About Section -->
+        <section class="section" aria-labelledby="about-heading">
+          <h2 id="about-heading" class="section-title">About</h2>
+          <p class="body-text text-lead text-secondary" style="max-width: 680px;">
+            Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing a degree in Computer Engineering at UEFS while working as a freelancer, delivering web applications and AI-powered automation solutions. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems — always looking for ways to simplify the developer experience and automate the tedious.
+          </p>
+        </section>
+
+        <hr class="divider" role="separator">
+
+        <!-- Tech Stack Section -->
+        <section class="section" aria-labelledby="tech-heading">
+          <h2 id="tech-heading" class="section-title">Tech Stack</h2>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">Languages</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">Python</span>
+              <span class="badge badge-info">Go</span>
+              <span class="badge badge-info">JavaScript</span>
+              <span class="badge badge-info">TypeScript</span>
+              <span class="badge badge-info">HTML / CSS</span>
+              <span class="badge badge-info">Shell</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">Frontend</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">React</span>
+              <span class="badge badge-info">HTMX</span>
+              <span class="badge badge-info">Vite</span>
+              <span class="badge badge-info">Tailwind CSS</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">Backend</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">FastAPI</span>
+              <span class="badge badge-info">Gin</span>
+              <span class="badge badge-info">Django</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">Databases</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">PostgreSQL</span>
+              <span class="badge badge-info">MySQL</span>
+              <span class="badge badge-info">SQLite</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">AI / LLM</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">LangChain</span>
+              <span class="badge badge-info">OpenAI API</span>
+              <span class="badge badge-info">Tool-calling agents</span>
+              <span class="badge badge-info">LLM orchestration</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">DevOps &amp; Tools</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">Docker</span>
+              <span class="badge badge-info">Git</span>
+              <span class="badge badge-info">GitHub Actions</span>
+              <span class="badge badge-info">Linux</span>
+            </div>
+          </div>
+
+          <div class="tech-category">
+            <h3 class="tech-category-title">Testing</h3>
+            <div class="tech-badges">
+              <span class="badge badge-info">Gherkin (BDD)</span>
+              <span class="badge badge-info">MSW (API mocking)</span>
+              <span class="badge badge-info">Go tests</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider" role="separator">
+
+        <!-- Projects Section -->
+        <section class="section" aria-labelledby="projects-heading">
+          <h2 id="projects-heading" class="section-title">Projects</h2>
+
+          <!-- Featured: RouteHub -->
+          <div class="project-card featured mb-xl">
+            <h3 class="project-card-title">RouteHub — Bus Transportation Platform</h3>
+            <p class="project-card-meta">Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven</p>
+            <p class="project-card-desc">Digital platform for managing, scheduling, and monitoring institutional bus transportation. Supports user registration &amp; auth, trip scheduling &amp; booking, operational check-in, PDF reports, and in-app/email notifications — serving students, staff, drivers, and administrators.</p>
+            <div class="flex-row gap-md" style="flex-wrap: wrap;">
+              <button class="btn btn-ghost"
+                      hx-get="/fragments/project-detail.html?id=routehub"
+                      hx-target="#main-content"
+                      hx-push-url="/projects/routehub/"
+                      hx-swap="innerHTML show:window:top"
+                      aria-label="View details for RouteHub">
+                View details
+              </button>
+              <a href="https://github.com/DaviMGDev/RouteHub" target="_blank" rel="noopener" class="identity-link">GitHub →</a>
+            </div>
+          </div>
+
+          <hr class="divider mb-xl">
+
+          <!-- Secondary projects - 2-column grid -->
+          <div class="project-grid">
+            <!-- my-agent -->
+            <div class="project-card">
+              <h3 class="project-card-title">my-agent</h3>
+              <p class="project-card-meta">LLM Agent Framework · Go</p>
+              <span class="badge badge-info badge-sm mb-md">Tool-calling</span>
+              <div style="margin-top: var(--space-md);">
+                <button class="btn btn-ghost"
+                        hx-get="/fragments/project-detail.html?id=myagent"
+                        hx-target="#main-content"
+                        hx-push-url="/projects/myagent/"
+                        hx-swap="innerHTML show:window:top">
+                  View
+                </button>
+              </div>
+            </div>
+
+            <!-- unipm -->
+            <div class="project-card">
+              <h3 class="project-card-title">unipm</h3>
+              <p class="project-card-meta">Universal Package Manager · Go · CLI</p>
+              <span class="badge badge-info badge-sm mb-md">Cross-platform</span>
+              <div style="margin-top: var(--space-md);">
+                <button class="btn btn-ghost"
+                        hx-get="/fragments/project-detail.html?id=unipm"
+                        hx-target="#main-content"
+                        hx-push-url="/projects/unipm/"
+                        hx-swap="innerHTML show:window:top">
+                  View
+                </button>
+              </div>
+            </div>
+
+            <!-- denteclean -->
+            <div class="project-card">
+              <h3 class="project-card-title">denteclean</h3>
+              <p class="project-card-meta">Dental Clinic Landing Page · HTML / CSS / JS</p>
+              <span class="badge badge-info badge-sm mb-md">Responsive</span>
+              <div style="margin-top: var(--space-md);">
+                <button class="btn btn-ghost"
+                        hx-get="/fragments/project-detail.html?id=denteclean"
+                        hx-target="#main-content"
+                        hx-push-url="/projects/denteclean/"
+                        hx-swap="innerHTML show:window:top">
+                  View
+                </button>
+              </div>
+            </div>
+
+            <!-- Early Experiments -->
+            <div class="project-card">
+              <h3 class="project-card-title">Early Experiments</h3>
+              <p class="project-card-meta">TUI Clinic · Manga Translator · OpenCV</p>
+              <span class="badge badge-info badge-sm mb-md">Exploratory</span>
+              <div style="margin-top: var(--space-md);">
+                <button class="btn btn-ghost"
+                        hx-get="/fragments/project-detail.html?id=experiments"
+                        hx-target="#main-content"
+                        hx-push-url="/projects/experiments/"
+                        hx-swap="innerHTML show:window:top">
+                  View
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-xl);">
+            <a href="/projects/"
+               class="btn btn-ghost"
+               hx-get="/fragments/projects.html"
+               hx-target="#main-content"
+               hx-push-url="/projects/"
+               hx-swap="innerHTML show:window:top">
+              View all projects →
+            </a>
+          </div>
+        </section>
+
+        <hr class="divider" role="separator">
+
+        <!-- Strengths Section -->
+        <section class="section" aria-labelledby="strengths-heading">
+          <h2 id="strengths-heading" class="section-title">Strengths</h2>
+
+          <div class="flex-row collapse-mobile gap-xl" style="margin-bottom: var(--space-lg);">
+            <div class="flex-1">
+              <div class="strength-item">
+                <h3 class="strength-title">Self-directed learner</h3>
+                <p class="strength-desc">Picks up new tools and languages quickly by building real projects.</p>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="strength-item">
+                <h3 class="strength-title">Problem finder &amp; solver</h3>
+                <p class="strength-desc">Spots edge cases and failure modes others overlook.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-row collapse-mobile gap-xl">
+            <div class="flex-1">
+              <div class="strength-item">
+                <h3 class="strength-title">Detail-oriented</h3>
+                <p class="strength-desc">Careful about correctness, error handling, and UX polish.</p>
+              </div>
+            </div>
+            <div class="flex-1">
+              <div class="strength-item">
+                <h3 class="strength-title">Tool builder mindset</h3>
+                <p class="strength-desc">Creates developer tools and automation that simplify workflows.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="divider" role="separator">
+
+        <!-- Contact CTA Section -->
+        <section class="section" aria-labelledby="cta-heading">
+          <h2 id="cta-heading" class="section-title">Let's build something</h2>
+          <p class="cta-text">
+            Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure roles, but curious about any project where shipping quality software is the goal.
+          </p>
+          <a href="/contact/"
+             class="btn btn-primary"
+             hx-get="/fragments/contact.html"
+             hx-target="#main-content"
+             hx-push-url="/contact/"
+             hx-swap="innerHTML show:window:top">
+            Get in touch →
+          </a>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-inner">
+        <p class="footer-text">© 2025 Davi Macêdo Gomes. Built with htmx.</p>
+        <div class="footer-links">
+          <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener" class="footer-link" aria-label="GitHub profile">GitHub</a>
+          <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener" class="footer-link" aria-label="LinkedIn profile">LinkedIn</a>
+          <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="footer-link" aria-label="Send email">Email</a>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /#app -->
+
+  <!-- ==========================================================
+       SCRIPTS
+       ========================================================== -->
+  <script>
+    (function() {
+      'use strict';
+
+      /* ---- Active nav link on page load ---- */
+      function updateActiveNav(path) {
+        document.querySelectorAll('.nav-link').forEach(function(link) {
+          var route = link.getAttribute('data-route');
+          link.classList.toggle('active', route === path || 
+            (path.startsWith('/projects/') && route === '/projects/') ||
+            (path === '/' && route === '/'));
+        });
+      }
+
+      /* ---- htmx event: after swap, update nav and scroll ---- */
+      document.addEventListener('htmx:afterSwap', function(evt) {
+        if (evt.detail.target && evt.detail.target.id === 'main-content') {
+          var path = window.location.pathname;
+          updateActiveNav(path);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          // Update document title based on page
+          var pageTitles = {
+            '/': 'Davi Macêdo Gomes — Full-Stack Developer + AI Engineer',
+            '/projects/': 'Projects — Davi Macêdo Gomes',
+            '/about/': 'About — Davi Macêdo Gomes',
+            '/contact/': 'Contact — Davi Macêdo Gomes',
+          };
+          if (pageTitles[path]) {
+            document.title = pageTitles[path];
+          } else if (path.startsWith('/projects/')) {
+            // Project detail pages handle their own title
+          }
+        }
+      });
+
+      /* ---- htmx event: on load (initial page or fragment load) ---- */
+      document.addEventListener('htmx:load', function(evt) {
+        // Reinitialize any handlers in the loaded content
+      });
+
+      /* ---- Initial page routing ---- */
+      function routeInitial() {
+        var path = window.location.pathname;
+
+        // Normalize trailing slash
+        if (path.length > 1 && !path.endsWith('/')) {
+          path = path + '/';
+        }
+
+        // If already on home, nothing to do
+        if (path === '/' || path === '') {
+          updateActiveNav('/');
+          return;
+        }
+
+        // Map path to fragment
+        var fragmentMap = {
+          '/projects/': '/fragments/projects.html',
+          '/about/': '/fragments/about.html',
+          '/contact/': '/fragments/contact.html',
+        };
+
+        // Check for project detail routes
+        var projectMatch = path.match(/^\/projects\/([^\/]+)\/$/);
+        if (projectMatch) {
+          var projectId = projectMatch[1];
+          htmx.ajax('GET', '/fragments/project-detail.html?id=' + projectId, {
+            target: '#main-content',
+            swap: 'innerHTML',
+            pushUrl: path
+          });
+          updateActiveNav('/projects/');
+          return;
+        }
+
+        var fragment = fragmentMap[path];
+        if (fragment) {
+          htmx.ajax('GET', fragment, {
+            target: '#main-content',
+            swap: 'innerHTML',
+            pushUrl: path
+          });
+          updateActiveNav(path);
+          return;
+        }
+
+        // Unknown path → load home
+        updateActiveNav('/');
+      }
+
+      /* ---- Wait for htmx to be ready, then route ---- */
+      if (typeof htmx !== 'undefined') {
+        routeInitial();
+      } else {
+        document.addEventListener('htmx:load', routeInitial);
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

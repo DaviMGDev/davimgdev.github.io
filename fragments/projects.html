@@ -1,0 +1,168 @@
+<div class="page-container" id="page-projects">
+
+  <div id="loading" class="loading-spinner" role="status" aria-label="Loading content"></div>
+
+  <!-- Back link -->
+  <a href="/"
+     class="back-link"
+     hx-get="/fragments/home.html"
+     hx-target="#main-content"
+     hx-push-url="/"
+     hx-swap="innerHTML show:window:top">
+    ← Back to home
+  </a>
+
+  <!-- Section Heading -->
+  <section class="section pt-0" aria-labelledby="projects-heading">
+    <h1 id="projects-heading" class="section-title">Projects</h1>
+    <p class="section-subtitle">Full-stack applications, CLI tools, LLM frameworks, and experimental work.</p>
+  </section>
+
+  <hr class="divider mb-xl">
+
+  <!-- Filter Bar -->
+  <div class="filter-bar" role="group" aria-label="Filter projects by technology">
+    <span class="filter-bar-label">Filter</span>
+    <button class="badge badge-primary badge-filter filter-btn active" data-filter="all" aria-pressed="true" type="button">All</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="react" aria-pressed="false" type="button">React</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="go" aria-pressed="false" type="button">Go</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="python" aria-pressed="false" type="button">Python</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="fastapi" aria-pressed="false" type="button">FastAPI</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="cli" aria-pressed="false" type="button">CLI</button>
+    <button class="badge badge-default badge-filter filter-btn" data-filter="html-css" aria-pressed="false" type="button">HTML / CSS</button>
+  </div>
+
+  <!-- Project Grid -->
+  <div id="project-results" class="project-grid">
+
+    <!-- RouteHub -->
+    <div class="project-card featured" data-tags="react fastapi postgresql docker jwt">
+      <h2 class="project-card-title">RouteHub</h2>
+      <p class="project-card-meta">Bus Transportation Platform</p>
+      <p class="project-card-desc">React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven. Digital platform for managing, scheduling, and monitoring institutional bus transportation.</p>
+      <div class="flex-row flex-wrap gap-sm mb-md">
+        <span class="badge badge-info badge-sm">React</span>
+        <span class="badge badge-info badge-sm">FastAPI</span>
+        <span class="badge badge-info badge-sm">PostgreSQL</span>
+      </div>
+      <button class="btn btn-ghost"
+              hx-get="/fragments/project-detail.html?id=routehub"
+              hx-target="#main-content"
+              hx-push-url="/projects/routehub/"
+              hx-swap="innerHTML show:window:top">
+        Details
+      </button>
+    </div>
+
+    <!-- my-agent -->
+    <div class="project-card" data-tags="go llm cli">
+      <h2 class="project-card-title">my-agent</h2>
+      <p class="project-card-meta">LLM Agent Framework</p>
+      <p class="project-card-desc">Go · Tool-calling · Streaming · Mock implementation. A provider-agnostic LLM agent framework.</p>
+      <div class="flex-row flex-wrap gap-sm mb-md">
+        <span class="badge badge-info badge-sm">Go</span>
+        <span class="badge badge-info badge-sm">LLM</span>
+        <span class="badge badge-info badge-sm">CI/CD</span>
+      </div>
+      <button class="btn btn-ghost"
+              hx-get="/fragments/project-detail.html?id=myagent"
+              hx-target="#main-content"
+              hx-push-url="/projects/myagent/"
+              hx-swap="innerHTML show:window:top">
+        Details
+      </button>
+    </div>
+
+    <!-- unipm -->
+    <div class="project-card" data-tags="go cli">
+      <h2 class="project-card-title">unipm</h2>
+      <p class="project-card-meta">Universal Package Manager</p>
+      <p class="project-card-desc">Go · CLI · Cross-platform · Distrobox. A meta package manager unifying apt, npm, pip, flatpak, brew, and more.</p>
+      <div class="flex-row flex-wrap gap-sm mb-md">
+        <span class="badge badge-info badge-sm">Go</span>
+        <span class="badge badge-info badge-sm">CLI</span>
+        <span class="badge badge-info badge-sm">Gherkin</span>
+      </div>
+      <button class="btn btn-ghost"
+              hx-get="/fragments/project-detail.html?id=unipm"
+              hx-target="#main-content"
+              hx-push-url="/projects/unipm/"
+              hx-swap="innerHTML show:window:top">
+        Details
+      </button>
+    </div>
+
+    <!-- denteclean -->
+    <div class="project-card" data-tags="html-css responsive">
+      <h2 class="project-card-title">denteclean</h2>
+      <p class="project-card-meta">Dental Clinic Landing Page</p>
+      <p class="project-card-desc">HTML5 · CSS3 · Vanilla JS · Responsive · No frameworks. Static single-page site for a premium dental clinic.</p>
+      <div class="flex-row flex-wrap gap-sm mb-md">
+        <span class="badge badge-info badge-sm">HTML / CSS</span>
+        <span class="badge badge-info badge-sm">Responsive</span>
+      </div>
+      <button class="btn btn-ghost"
+              hx-get="/fragments/project-detail.html?id=denteclean"
+              hx-target="#main-content"
+              hx-push-url="/projects/denteclean/"
+              hx-swap="innerHTML show:window:top">
+        Details
+      </button>
+    </div>
+
+    <!-- Early Experiments -->
+    <div class="project-card" data-tags="python opencv tui cli">
+      <h2 class="project-card-title">Early Experiments</h2>
+      <p class="project-card-meta">TUI Dental Clinic · Manga Translator (PT-BR)</p>
+      <p class="project-card-desc">Terminal UI · OpenCV · Python. Exploratory projects in TUI and computer vision.</p>
+      <div class="flex-row flex-wrap gap-sm mb-md">
+        <span class="badge badge-info badge-sm">Python</span>
+        <span class="badge badge-info badge-sm">OpenCV</span>
+        <span class="badge badge-info badge-sm">TUI</span>
+      </div>
+      <button class="btn btn-ghost"
+              hx-get="/fragments/project-detail.html?id=experiments"
+              hx-target="#main-content"
+              hx-push-url="/projects/experiments/"
+              hx-swap="innerHTML show:window:top">
+        Details
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    'use strict';
+    var container = document.getElementById('page-projects');
+    if (!container) return;
+
+    var filterBtns = container.querySelectorAll('.filter-btn');
+    var projectCards = container.querySelectorAll('.project-card');
+
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var filter = this.getAttribute('data-filter');
+
+        // Update active state on buttons
+        filterBtns.forEach(function(b) {
+          b.className = b.className.replace('badge-primary', 'badge-default');
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        this.className = this.className.replace('badge-default', 'badge-primary');
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+
+        // Filter project cards
+        projectCards.forEach(function(card) {
+          var tags = card.getAttribute('data-tags') || '';
+          var show = filter === 'all' || tags.split(' ').indexOf(filter) !== -1;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>

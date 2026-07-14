@@ -1,0 +1,193 @@
+<div class="page-container" id="page-contact">
+
+  <div id="loading" class="loading-spinner" role="status" aria-label="Loading content"></div>
+
+  <!-- Back link -->
+  <a href="/"
+     class="back-link"
+     hx-get="/fragments/home.html"
+     hx-target="#main-content"
+     hx-push-url="/"
+     hx-swap="innerHTML show:window:top">
+    ← Back to home
+  </a>
+
+  <!-- Contact Intro -->
+  <section class="section pt-0" aria-labelledby="contact-heading">
+    <h1 id="contact-heading" class="section-title">Get in touch</h1>
+    <p class="cta-text">
+      I'm open to freelance contracts, internships, and full-time opportunities — remote or hybrid.
+    </p>
+    <p class="body-text text-secondary">
+      Prefer email directly? <a href="mailto:dev.davi.macedo.gomes@gmail.com" style="color: var(--color-primary);">dev.davi.macedo.gomes@gmail.com</a>
+    </p>
+  </section>
+
+  <hr class="divider" role="separator">
+
+  <!-- Contact Form Section -->
+  <section class="section" aria-labelledby="form-heading">
+    <h2 id="form-heading" class="section-title">Send a message</h2>
+
+    <div id="form-container">
+      <form id="contact-form"
+            class="contact-form"
+            style="max-width: 560px;"
+            hx-post="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID"
+            hx-target="#form-container"
+            hx-swap="innerHTML"
+            hx-indicator="#form-spinner"
+            hx-disabled-elt="button[type=submit]"
+            novalidate>
+
+        <fieldset style="border: none; padding: 0; margin: 0;">
+          <legend class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">Contact form</legend>
+
+          <div class="form-group">
+            <label for="name" class="form-label">Your name</label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   class="form-input"
+                   placeholder="Name"
+                   required
+                   aria-required="true"
+                   minlength="2">
+            <span class="form-error hidden" id="name-error" role="alert">Name is required</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Your email</label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   class="form-input"
+                   placeholder="you@example.com"
+                   required
+                   aria-required="true">
+            <span class="form-error hidden" id="email-error" role="alert">Email is required</span>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message"
+                      name="message"
+                      class="form-input form-textarea"
+                      placeholder="Tell me about your project or opportunity..."
+                      required
+                      aria-required="true"
+                      minlength="10"></textarea>
+            <span class="form-error hidden" id="message-error" role="alert">Message is required</span>
+          </div>
+
+          <div class="flex-row items-center gap-md" style="flex-wrap: wrap;">
+            <button type="submit" class="btn btn-primary" id="submit-btn">
+              Send message
+            </button>
+            <div id="form-spinner" class="loading-spinner" style="margin: 0; width: 20px; height: 20px;" role="status" aria-label="Sending message"></div>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+
+  </section>
+
+  <hr class="divider" role="separator">
+
+  <!-- Alternative Contact -->
+  <section class="section" aria-labelledby="social-heading">
+    <h2 id="social-heading" class="section-title">Or find me on</h2>
+    <div class="identity-links">
+      <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener" class="identity-link" aria-label="GitHub profile">GitHub</a>
+      <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener" class="identity-link" aria-label="LinkedIn profile">LinkedIn</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function() {
+    'use strict';
+
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+
+    var submitBtn = document.getElementById('submit-btn');
+
+    /* ---- Client-side validation ---- */
+    function validateField(input) {
+      var errorEl = document.getElementById(input.id + '-error');
+      if (!input.validity.valid || !input.value.trim()) {
+        input.classList.add('error');
+        if (errorEl) {
+          errorEl.classList.remove('hidden');
+          input.setAttribute('aria-describedby', input.id + '-error');
+        }
+        return false;
+      } else {
+        input.classList.remove('error');
+        if (errorEl) {
+          errorEl.classList.add('hidden');
+          input.removeAttribute('aria-describedby');
+        }
+        return true;
+      }
+    }
+
+    function validateAll() {
+      var fields = form.querySelectorAll('input, textarea');
+      var valid = true;
+      fields.forEach(function(f) {
+        if (!validateField(f)) valid = false;
+      });
+      return valid;
+    }
+
+    /* Real-time validation on blur */
+    form.querySelectorAll('input, textarea').forEach(function(input) {
+      input.addEventListener('blur', function() {
+        if (this.value.trim()) validateField(this);
+      });
+      input.addEventListener('input', function() {
+        if (this.classList.contains('error')) validateField(this);
+      });
+    });
+
+    /* ---- Form submission handler ---- */
+    form.addEventListener('submit', function(e) {
+      if (!validateAll()) {
+        e.preventDefault();
+        // Focus first invalid field
+        var firstInvalid = form.querySelector('.error');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      // Demo mode: if form action hasn't been configured (still has placeholder),
+      // handle submission client-side
+      var action = form.getAttribute('action') || form.getAttribute('hx-post') || '';
+      if (action.includes('REPLACE_WITH_YOUR_FORM_ID')) {
+        e.preventDefault();
+
+        // Show loading state
+        submitBtn.classList.add('btn-loading');
+        submitBtn.disabled = true;
+
+        // Simulate submission
+        setTimeout(function() {
+          var container = document.getElementById('form-container');
+          container.innerHTML =
+            '<div class="alert alert-success" role="alert" style="margin-bottom: var(--space-md);">' +
+              'Thanks for reaching out! I\'ll get back to you as soon as possible.' +
+            '</div>' +
+            '<button class="btn btn-ghost" onclick="location.reload()">' +
+              'Send another message' +
+            '</button>';
+        }, 1500);
+      }
+      // Formspree will handle if configured — htmx does the rest
+    });
+
+  })();
+</script>
