@@ -1,0 +1,384 @@
+@*
+  Portfolio page for Davi Macêdo Gomes — Full-Stack Developer + AI Engineer.
+  Single-page layout: header hero, about, tech stack table, project cards,
+  experience, education, languages, strengths, personal interests, CTA, footer.
+
+  Viewport-safe pattern: root column fills viewport and scrolls internally.
+  Content centered with max-width on desktop; stacks naturally on mobile.
+  Each section is self-contained; use dividers between major zones.
+*@
+
+@ ---------------------------------------------------------------
+@ Data — all portfolio content extracted from PORTFOLIO.md
+@ ---------------------------------------------------------------
+
+const fullName = "Davi Macêdo Gomes"
+const role = "Full-Stack Developer + AI Engineer"
+const location = "Remote / Feira de Santana, Bahia, Brasil"
+const email = "dev.davi.macedo.gomes@gmail.com"
+const githubUrl = "https://github.com/DaviMGDev"
+const linkedinUrl = "https://linkedin.com/in/dav1-maced0-g0mes-dev"
+
+@ --- About ---
+const aboutText = "Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing a degree in Computer Engineering at UEFS while working as a freelancer, delivering web applications and AI-powered automation solutions. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems — always looking for ways to simplify the developer experience and automate the tedious."
+
+@ --- Tech Stack ---
+const techColumns = ["Category", "Technologies"]
+const techRows = [
+    ["Languages",          "Python, Go, JavaScript / TypeScript, HTML, CSS, Shell"],
+    ["Frontend",           "React, HTMX, Vite, Tailwind CSS, vanilla JS"],
+    ["Backend",            "FastAPI, Gin, Go standard library, Django"],
+    ["Databases",          "PostgreSQL, MySQL, SQLite"],
+    ["AI / LLM",           "LangChain, OpenAI API, tool-calling agents, LLM orchestration"],
+    ["DevOps & Tools",     "Docker, Git, CI/CD (GitHub Actions), Linux (Debian/Arch), Bash"],
+    ["Testing",            "Gherkin (BDD), MSW (API mocking), Go tests"],
+    ["Editor",             "Neovim, VS Code · Agent: pi"]
+]
+
+@ --- Experience ---
+const experienceTitle = "Freelance Developer"
+const experienceDuration = "< 1 year"
+const experienceDescription = "Web development and AI/automation projects. Building full-stack applications, CLI tools, and LLM-powered workflows for diverse clients."
+
+@ --- Education ---
+const educationDegree = "B.Sc. Computer Engineering"
+const educationPeriod = "2023 – 2029"
+const educationInstitution = "Universidade Estadual de Feira de Santana (UEFS) — Feira de Santana, Bahia, Brasil"
+const educationExtras = [
+    "IoT Certificate",
+    "Programming Marathon participant (competitive programming)"
+]
+
+@ --- Languages ---
+const languages = [
+    ["Portuguese", "Native"],
+    ["English",    "Advanced reading & listening / Conversational speaking & writing"]
+]
+
+@ --- Strengths ---
+const strengths = [
+    "Self-directed learner — I pick up new tools and languages quickly by building real projects",
+    "Problem finder & solver — I naturally spot edge cases and failure modes others overlook",
+    "Detail-oriented — Careful about correctness, error handling, and UX polish",
+    "Tool builder mindset — I enjoy creating developer tools and automation that make life easier for everyone"
+]
+
+@ --- Beyond Code ---
+const beyondItems = [
+    "Linux enthusiast — Debian daily driver, Arch at heart, eyeing Void Linux",
+    "Harness engineering — Currently deep into AI/automation as a hobby and craft",
+    "MOBA player — For when the terminal needs a break"
+]
+
+@ --- Currently / CTA ---
+const ctaText = "Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure roles, but curious about any project where shipping quality software is the goal."
+
+@ --- Footer ---
+const footerQuote = "The best way to predict the future is to build it."
+
+@ ---------------------------------------------------------------
+@ Components
+@ ---------------------------------------------------------------
+
+@*
+  Section wrapper with a heading, divider, and content area.
+  Children append below the divider.
+  Use this for every top-level portfolio zone so the implementer
+  has a consistent structural anchor for spacing and hierarchy.
+*@
+component PortfolioSection(title) {
+    column {
+        @ Section heading — prominent, top-level visual anchor
+        Text(title)
+        Divider()
+    }
+}
+
+@ ---------------------------------------------------------------
+@ Main Page
+@ ---------------------------------------------------------------
+
+page Main() {
+    column {
+        scrollable: true
+        align: (center, top)
+
+        @ ==========================================
+        @ Header / Hero
+        @ ==========================================
+
+        @* Hero zone — centered, prominent.
+           Name is the primary heading; role is sub-heading.
+           Contact links in a row below, badges for location.
+           On narrow viewports the link row collapses to a column. *@
+        column {
+            Text(fullName)
+            Text(role)
+
+            row {
+                wrap: true
+                collapse: true
+
+                @ external: email — mailto link, opens email client
+                Link(email) {
+                    on click { log("Contact via email") }
+                }
+
+                @ external: GitHub profile — opens in new tab
+                Link("GitHub") {
+                    on click { log("Open GitHub profile") }
+                }
+
+                @ external: LinkedIn profile — opens in new tab
+                Link("LinkedIn") {
+                    on click { log("Open LinkedIn profile") }
+                }
+            }
+
+            Badge(location)
+        }
+
+        Divider()
+
+        @ ==========================================
+        @ About Me
+        @ ==========================================
+
+        PortfolioSection("About Me") {
+            Text(aboutText)
+        }
+
+        @ ==========================================
+        @ Tech Stack
+        @ ==========================================
+
+        PortfolioSection("Tech Stack") {
+            @*
+              Tech stack table — two columns: Category | Technologies.
+              On desktop: full-width table with readable column widths.
+              On mobile (narrow viewports): the table wrapper must scroll
+              horizontally so rows don't overflow the viewport.
+            *@
+            @ viewport-safe — constrain to viewport, allow horizontal scroll
+            @ constrained — limit max-width for readability on wide screens
+            Table(techColumns, techRows)
+        }
+
+        @ ==========================================
+        @ Projects
+        @ ==========================================
+
+        PortfolioSection("Projects") {
+            @*
+              Project cards, one per project.
+              RouteHub, my-agent, and unipm come first (major projects),
+              followed by denteclean (smaller project).
+              On desktop: constrained max-width, single column of cards.
+              On mobile: full-width, stacked vertically.
+            *@
+
+            @ --- RouteHub ---
+            @ role: primary-project
+            Card("RouteHub") {
+                Text("Bus Transportation Platform")
+
+                row {
+                    wrap: true
+                    Badge("React")
+                    Badge("FastAPI")
+                    Badge("PostgreSQL")
+                    Badge("Docker")
+                    Badge("JWT")
+                    Badge("Spec-Driven")
+                }
+
+                @ external: https://github.com/DaviMGDev/RouteHub
+                Link("github.com/DaviMGDev/RouteHub") {
+                    on click { log("Open RouteHub repository") }
+                }
+
+                Text("Digital platform for managing, scheduling, and monitoring institutional bus transportation. Supports user registration & auth, trip scheduling & booking, operational check-in, PDF reports, and in-app/email notifications — serving students, staff, drivers, and administrators.")
+                Text("Frontend: React 18 + Vite, MSW for browser-based development without backend")
+                Text("Backend: FastAPI, SQLAlchemy ORM, Alembic migrations, JWT auth, rate limiting")
+                Text("Architecture: Spec-driven (specs/ defines every user story, API endpoint, and edge case)")
+                Text("Stack: HTML, JavaScript, CSS, Python, Gherkin, Docker")
+            }
+
+            @ --- my-agent ---
+            @ role: primary-project
+            Card("my-agent") {
+                Text("LLM Agent Framework")
+
+                row {
+                    wrap: true
+                    Badge("Go")
+                    Badge("LLM")
+                    Badge("Tool-Calling")
+                    Badge("Streaming")
+                    Badge("Mock")
+                }
+
+                @ external: https://github.com/DaviMGDev/my-agent
+                Link("github.com/DaviMGDev/my-agent") {
+                    on click { log("Open my-agent repository") }
+                }
+
+                Text("A Go-based LLM agent framework defining a minimal provider-agnostic interface with chat completion, tool-calling agent loop, and built-in mock implementation for testing without API keys.")
+                Text("Generic LLM interface: Chat, Complete, StreamChat")
+                Text("Tool-calling agent that orchestrates multi-step interactions")
+                Text("MockLLM echoes user input — great for prototyping and TDD")
+                Text("Streaming support via iterator pattern (ChatStream)")
+                Text("CI pipeline with GitHub Actions")
+            }
+
+            @ --- unipm ---
+            @ role: primary-project
+            Card("unipm") {
+                Text("Universal Package Manager")
+
+                row {
+                    wrap: true
+                    Badge("Go")
+                    Badge("CLI")
+                    Badge("Cross-Platform")
+                    Badge("Distrobox")
+                }
+
+                @ external: https://github.com/DaviMGDev/unipm
+                Link("github.com/DaviMGDev/unipm") {
+                    on click { log("Open unipm repository") }
+                }
+
+                Text("A meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox containers under a single CLI. Search, install, and remove software across ecosystems without memorizing per-tool flags.")
+                Text("Interactive source selection when packages exist in multiple ecosystems")
+                Text("Gherkin-based BDD test suite")
+                Text("Shell scripting for AppImage and containerized workflows")
+            }
+
+            @ --- denteclean ---
+            @ role: secondary-project
+            Card("denteclean") {
+                Text("Dental Clinic Landing Page")
+
+                row {
+                    wrap: true
+                    Badge("HTML5")
+                    Badge("CSS3")
+                    Badge("Vanilla JS")
+                    Badge("Responsive")
+                    Badge("No Frameworks")
+                }
+
+                @ external: https://github.com/DaviMGDev/denteclean
+                Link("github.com/DaviMGDev/denteclean") {
+                    on click { log("Open denteclean repository") }
+                }
+
+                @ external: https://davimgdev.github.io/denteclean/
+                Link("Live Demo") {
+                    on click { log("Open denteclean live demo") }
+                }
+
+                Text("Static single-page website for a fictional premium dental clinic. Built with zero frameworks and zero build steps — pure HTML, CSS, and JavaScript with full responsive design across desktop, tablet, and mobile.")
+                Text("Content in Brazilian Portuguese")
+                Text("Deployed via GitHub Pages")
+                Text("MIT licensed")
+            }
+
+            @ --- Early Experiments ---
+            Card("Early Experiments") {
+                Text("TUI Dental Clinic System — Simple terminal-based management interface (exploratory project)")
+                Text("Manga Translator (PT-BR) — OpenCV-based script automating English-to-Portuguese manga translation pipeline")
+            }
+        }
+
+        @ ==========================================
+        @ Experience
+        @ ==========================================
+
+        PortfolioSection("Experience") {
+            Card(experienceTitle) {
+                Badge(experienceDuration) {
+                    variant: info
+                }
+                Text(experienceDescription)
+            }
+        }
+
+        @ ==========================================
+        @ Education
+        @ ==========================================
+
+        PortfolioSection("Education") {
+            column {
+                Text(educationDegree)
+                Text(educationInstitution)
+
+                Badge(educationPeriod) {
+                    variant: info
+                }
+
+                Divider()
+
+                @ Certificates and activities
+                for item in educationExtras {
+                    Badge(item) {
+                        variant: success
+                    }
+                }
+            }
+        }
+
+        @ ==========================================
+        @ Languages
+        @ ==========================================
+
+        PortfolioSection("Languages") {
+            @ Language proficiency — two columns: Language | Proficiency
+            Table(["Language", "Proficiency"], languages)
+        }
+
+        @ ==========================================
+        @ Strengths
+        @ ==========================================
+
+        PortfolioSection("Strengths") {
+            column {
+                for strength in strengths {
+                    Text(strength)
+                }
+            }
+        }
+
+        @ ==========================================
+        @ Beyond Code
+        @ ==========================================
+
+        PortfolioSection("Beyond Code") {
+            column {
+                for item in beyondItems {
+                    Text(item)
+                }
+            }
+        }
+
+        @ ==========================================
+        @ Currently / Call to Action
+        @ ==========================================
+
+        PortfolioSection("Currently") {
+            Text(ctaText)
+        }
+
+        @ ==========================================
+        @ Footer
+        @ ==========================================
+
+        Divider()
+
+        column {
+            @ Footer — muted, centered quote
+            Text(footerQuote)
+        }
+    }
+}
