@@ -1,0 +1,44 @@
+<!-- RouteHub detail — loaded via htmx into #project-detail -->
+<div class="detail-header">
+  <div class="detail-title-group">
+    <h3 class="detail-title">RouteHub</h3>
+    <p class="detail-subtitle">Bus Transportation Platform</p>
+  </div>
+  <button
+    class="detail-close"
+    onclick="closeDetail()"
+    aria-label="Close detail"
+  >✕ Close</button>
+</div>
+
+<div class="detail-badges badge-row">
+  <span class="badge">React</span>
+  <span class="badge">FastAPI</span>
+  <span class="badge">PostgreSQL</span>
+  <span class="badge">Docker</span>
+  <span class="badge">JWT</span>
+  <span class="badge">Spec-Driven</span>
+  <span class="badge badge-accent">Full-Stack</span>
+</div>
+
+<div class="detail-links">
+  <a class="detail-link" href="https://github.com/DaviMGDev/RouteHub" target="_blank" rel="noopener">
+    View on GitHub →
+  </a>
+</div>
+
+<div class="detail-description">
+  <p>
+    Digital platform for managing, scheduling, and monitoring institutional bus
+    transportation. Supports user registration &amp; auth, trip scheduling &amp; booking,
+    operational check-in, PDF reports, and in-app/email notifications — serving
+    students, staff, drivers, and administrators.
+  </p>
+
+  <ul class="detail-features">
+    <li><strong>Frontend:</strong> React 18 + Vite, MSW for browser-based development without backend</li>
+    <li><strong>Backend:</strong> FastAPI, SQLAlchemy ORM, Alembic migrations, JWT auth, rate limiting</li>
+    <li><strong>Architecture:</strong> Spec-driven — <code>specs/</code> defines every user story, API endpoint, and edge case</li>
+    <li><strong>Stack:</strong> HTML, JavaScript, CSS, Python, Gherkin, Docker</li>
+  </ul>
+</div>
