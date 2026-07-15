@@ -1,647 +1,213 @@
-@* Davi Macêdo Gomes — Full-Stack Developer + AI Engineer portfolio.
-   Viewport-safe: root column on every page fills viewport height and scrolls internally.
-   Content centered with max-width constraint for desktop readability.
-   Four pages: home (Main), projects listing, about, and contact form.
-   External links (GitHub, LinkedIn, Email) are rendered as anchor tags.
-   Profile photo at /images/profile.webp — circular crop, 120-160px preferred. *@
-
-// ========================
-// Components
-// ========================
-
-@ Role: tech-category — groups related technology badges under a heading
-component TechCategory(name) {
-    Text(name) { weight: horizontal }
-    @ Responsive: badges wrap to next line on narrow viewports
-    row { wrap: true }
-}
-
-// ========================
-// Pages
-// ========================
-
-@ Role: home-page — portfolio landing with identity, about, tech stack,
-  featured projects, strengths, and contact CTA
+@* Viewport-safe single-page portfolio for Davi Macêdo Gomes.
+   Root column fills viewport height and scrolls internally.
+   Content centered with max-width constraint on desktop.
+   Sections separated by dividers for scannability.
+   Contact modal at page level (outside scrollable). *@
 page Main() {
+    state contactOpen = false
+
     column {
         scrollable: true
         align: (center, top)
 
-        @ Role: identity-section — profile photo left, name/title/links right
+        @ Identity header — compact, no hero imagery
         Section("Davi Macêdo Gomes") {
             row {
-                @ Role: profile-photo — personal photo, not decorative; circular crop preferred
-                Image("/images/profile.webp")
-                column {
-                    Text("Full-Stack Developer + AI Engineer")
-                    Text("Remote / Feira de Santana, Bahia, Brasil")
-                    row {
-                        @ A11y: external-link — renders as mailto: anchor
-                        Link("dev.davi.macedo.gomes@gmail.com")
-                        @ A11y: external-link — renders as anchor to GitHub profile
-                        Link("GitHub")
-                        @ A11y: external-link — renders as anchor to LinkedIn profile
-                        Link("LinkedIn")
-                    }
+                collapse: true
+                Badge("Full-Stack Developer + AI Engineer") {
+                    variant: info
+                }
+                Text("📍 Remote / Feira de Santana, BA, Brasil")
+            }
+
+            @ responsive: collapse to stacked links on mobile
+            row {
+                collapse: true
+                Link("📧 Email") {
+                    on click { Toast("Open email client") }
+                }
+                Link("🐙 GitHub") {
+                    on click { Toast("Open GitHub profile") }
+                }
+                Link("🔗 LinkedIn") {
+                    on click { Toast("Open LinkedIn profile") }
                 }
             }
         }
 
         Divider()
 
-        @ Role: about-section
-        Section("About") {
-            Text("Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing a degree in Computer Engineering at UEFS while working as a freelancer, delivering web applications and AI-powered automation solutions. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems — always looking for ways to simplify the developer experience and automate the tedious.")
+        Section("About Me") {
+            Text("Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing Computer Engineering at UEFS while freelancing — delivering web applications and AI-powered automation. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems, always looking to simplify developer experience and automate the tedious.")
         }
 
         Divider()
 
-        @ Role: tech-stack-section
         Section("Tech Stack") {
-            TechCategory("Languages") {
-                Badge("Python") { variant: info }
-                Badge("Go") { variant: info }
-                Badge("JavaScript") { variant: info }
-                Badge("TypeScript") { variant: info }
-                Badge("HTML / CSS") { variant: info }
-                Badge("Shell") { variant: info }
-            }
-            TechCategory("Frontend") {
-                Badge("React") { variant: info }
-                Badge("HTMX") { variant: info }
-                Badge("Vite") { variant: info }
-                Badge("Tailwind CSS") { variant: info }
-            }
-            TechCategory("Backend") {
-                Badge("FastAPI") { variant: info }
-                Badge("Gin") { variant: info }
-                Badge("Django") { variant: info }
-            }
-            TechCategory("Databases") {
-                Badge("PostgreSQL") { variant: info }
-                Badge("MySQL") { variant: info }
-                Badge("SQLite") { variant: info }
-            }
-            TechCategory("AI / LLM") {
-                Badge("LangChain") { variant: info }
-                Badge("OpenAI API") { variant: info }
-                Badge("Tool-calling agents") { variant: info }
-                Badge("LLM orchestration") { variant: info }
-            }
-            TechCategory("DevOps & Tools") {
-                Badge("Docker") { variant: info }
-                Badge("Git") { variant: info }
-                Badge("GitHub Actions") { variant: info }
-                Badge("Linux") { variant: info }
-            }
-            TechCategory("Testing") {
-                Badge("Gherkin (BDD)") { variant: info }
-                Badge("MSW (API mocking)") { variant: info }
-                Badge("Go tests") { variant: info }
-            }
+            @ responsive: collapse table rows to stacked label-value cards on mobile
+            Table(["Category", "Technologies"], [
+                ["Languages", "Python, Go, JavaScript / TypeScript, HTML, CSS, Shell"],
+                ["Frontend", "React, HTMX, Vite, Tailwind CSS, vanilla JS"],
+                ["Backend", "FastAPI, Gin, Go std lib, Django"],
+                ["Databases", "PostgreSQL, MySQL, SQLite"],
+                ["AI / LLM", "LangChain, OpenAI API, tool-calling agents, LLM orchestration"],
+                ["DevOps", "Docker, Git, CI/CD (GitHub Actions), Linux, Bash"],
+                ["Testing", "Gherkin (BDD), MSW (API mocking), Go tests"],
+                ["Editor", "Neovim, VS Code · Agent: pi"]
+            ])
         }
 
         Divider()
 
-        @ Role: projects-section — featured project full-width, others compact
+        @ Projects — varied structure: featured card, standard cards, compact rows for experiments
         Section("Projects") {
-            @ Role: featured-project — RouteHub is flagship, gets richest presentation
+            @ role: featured-card
             Card("RouteHub — Bus Transportation Platform") {
-                @ Role: hero-card
                 Text("Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven")
-                Text("Digital platform for managing, scheduling, and monitoring institutional bus transportation. Supports user registration & auth, trip scheduling & booking, operational check-in, PDF reports, and in-app/email notifications — serving students, staff, drivers, and administrators.")
+                Text("Digital platform for managing, scheduling, and monitoring institutional bus transportation. Serves students, staff, drivers, and administrators with auth, trip booking, check-in, PDF reports, and notifications. Built spec-first with specs/ defining every story and edge case.")
                 row {
-                    Button("View details") {
-                        on click { navigate ProjectDetail(projectId: "routehub") }
-                    }
-                    @ A11y: external-link
-                    Link("GitHub →")
-                }
-            }
-
-            Divider()
-
-            @ Responsive: collapse to single column on narrow viewports
-            @ Role: secondary-projects — compact entries with varied layout
-            row {
-                collapse: true
-                @ Role: compact-project
-                column {
-                    Text("my-agent") { weight: horizontal }
-                    Text("LLM Agent Framework · Go")
-                    Badge("Tool-calling") { variant: info }
-                    Button("View") {
-                        on click { navigate ProjectDetail(projectId: "myagent") }
-                    }
-                }
-                @ Role: compact-project
-                column {
-                    Text("unipm") { weight: horizontal }
-                    Text("Universal Package Manager · Go · CLI")
-                    Badge("Cross-platform") { variant: info }
-                    Button("View") {
-                        on click { navigate ProjectDetail(projectId: "unipm") }
-                    }
-                }
-            }
-            row {
-                collapse: true
-                @ Role: compact-project
-                column {
-                    Text("denteclean") { weight: horizontal }
-                    Text("Dental Clinic Landing Page · HTML / CSS / JS")
-                    Badge("Responsive") { variant: info }
-                    Button("View") {
-                        on click { navigate ProjectDetail(projectId: "denteclean") }
-                    }
-                }
-                @ Role: compact-project
-                column {
-                    Text("Early Experiments") { weight: horizontal }
-                    Text("TUI Clinic · Manga Translator · OpenCV")
-                    Badge("Exploratory") { variant: info }
-                    Button("View") {
-                        on click { navigate ProjectDetail(projectId: "experiments") }
-                    }
-                }
-            }
-
-            Divider()
-
-            Button("View all projects →") {
-                on click { navigate Projects() }
-            }
-        }
-
-        Divider()
-
-        @ Role: strengths-section — two-column layout on desktop, stacked on mobile
-        Section("Strengths") {
-            @ Responsive: collapse to single column on narrow viewports
-            row {
-                collapse: true
-                column {
-                    Text("Self-directed learner") { weight: horizontal }
-                    Text("Picks up new tools and languages quickly by building real projects.")
-                }
-                column {
-                    Text("Problem finder & solver") { weight: horizontal }
-                    Text("Spots edge cases and failure modes others overlook.")
-                }
-            }
-            row {
-                collapse: true
-                column {
-                    Text("Detail-oriented") { weight: horizontal }
-                    Text("Careful about correctness, error handling, and UX polish.")
-                }
-                column {
-                    Text("Tool builder mindset") { weight: horizontal }
-                    Text("Creates developer tools and automation that simplify workflows.")
-                }
-            }
-        }
-
-        Divider()
-
-        @ Role: contact-cta — clear next step, bottom of page
-        Section("Let's build something") {
-            Text("Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure roles, but curious about any project where shipping quality software is the goal.")
-            @ Role: primary-action
-            Button("Get in touch →") {
-                on click { navigate Contact() }
-            }
-        }
-    }
-}
-
-@ Role: projects-page — full listing of all projects with tag-based filter
-page Projects() {
-    state activeFilter = null
-
-    column {
-        scrollable: true
-        align: (center, top)
-
-        row {
-            @ A11y: back-navigation — returns to home page
-            Link("← Back to home") {
-                on click { back() }
-            }
-        }
-
-        Section("Projects") {
-            Text("Full-stack applications, CLI tools, LLM frameworks, and experimental work.")
-        }
-
-        @ Role: filter-bar — tags narrow the visible project list
-        Section("Filter by technology") {
-            row {
-                wrap: true
-                @ Role: filter-tag — clicking sets activeFilter
-                Badge("All") {
-                    variant: activeFilter == null ? primary : info
-                    on click { activeFilter = null }
-                }
-                Badge("React") {
-                    variant: activeFilter == "react" ? primary : info
-                    on click { activeFilter = "react" }
-                }
-                Badge("Go") {
-                    variant: activeFilter == "go" ? primary : info
-                    on click { activeFilter = "go" }
-                }
-                Badge("Python") {
-                    variant: activeFilter == "python" ? primary : info
-                    on click { activeFilter = "python" }
-                }
-                Badge("FastAPI") {
-                    variant: activeFilter == "fastapi" ? primary : info
-                    on click { activeFilter = "fastapi" }
-                }
-                Badge("CLI") {
-                    variant: activeFilter == "cli" ? primary : info
-                    on click { activeFilter = "cli" }
-                }
-                Badge("HTML / CSS") {
-                    variant: activeFilter == "html-css" ? primary : info
-                    on click { activeFilter = "html-css" }
-                }
-            }
-        }
-
-        @ Responsive: collapse to single column on narrow viewports
-        @ Role: project-grid — varied card sizes, not uniform
-        row {
-            collapse: true
-            @ Role: project-card
-            column {
-                Card("RouteHub") {
-                    Text("Bus Transportation Platform")
-                    Text("React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven")
-                    row { wrap: true
-                        Badge("React") { variant: info }
-                        Badge("FastAPI") { variant: info }
-                        Badge("PostgreSQL") { variant: info }
-                    }
-                    Button("Details") {
-                        on click { navigate ProjectDetail(projectId: "routehub") }
-                    }
-                }
-            }
-            @ Role: project-card
-            column {
-                Card("my-agent") {
-                    Text("LLM Agent Framework")
-                    Text("Go · Tool-calling · Streaming · Mock implementation")
-                    row { wrap: true
-                        Badge("Go") { variant: info }
-                        Badge("LLM") { variant: info }
-                        Badge("CI/CD") { variant: info }
-                    }
-                    Button("Details") {
-                        on click { navigate ProjectDetail(projectId: "myagent") }
-                    }
-                }
-            }
-        }
-        row {
-            collapse: true
-            @ Role: project-card
-            column {
-                Card("unipm") {
-                    Text("Universal Package Manager")
-                    Text("Go · CLI · Cross-platform · Distrobox")
-                    row { wrap: true
-                        Badge("Go") { variant: info }
-                        Badge("CLI") { variant: info }
-                        Badge("Gherkin") { variant: info }
-                    }
-                    Button("Details") {
-                        on click { navigate ProjectDetail(projectId: "unipm") }
-                    }
-                }
-            }
-            @ Role: project-card
-            column {
-                Card("denteclean") {
-                    Text("Dental Clinic Landing Page")
-                    Text("HTML5 · CSS3 · Vanilla JS · Responsive")
-                    row { wrap: true
-                        Badge("HTML / CSS") { variant: info }
-                        Badge("Responsive") { variant: info }
-                    }
-                    Button("Details") {
-                        on click { navigate ProjectDetail(projectId: "denteclean") }
-                    }
-                }
-            }
-        }
-        row {
-            @ Role: project-card
-            column {
-                Card("Early Experiments") {
-                    Text("TUI Dental Clinic · Manga Translator (PT-BR)")
-                    Text("Terminal UI · OpenCV · Python")
-                    row { wrap: true
-                        Badge("Python") { variant: info }
-                        Badge("OpenCV") { variant: info }
-                        Badge("TUI") { variant: info }
-                    }
-                    Button("Details") {
-                        on click { navigate ProjectDetail(projectId: "experiments") }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@ Role: project-detail-page — deep dive into an individual project
-page ProjectDetail(projectId) {
-    column {
-        scrollable: true
-        align: (center, top)
-
-        row {
-            Link("← Back to projects") {
-                on click { back() }
-            }
-        }
-
-        @ Role: project-content — conditional rendering per project
-        Section("${projectId}") {
-            if projectId == "routehub" {
-                Text("RouteHub — Bus Transportation Platform")
-                Text("Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven")
-                Divider()
-                Text("Digital platform for managing, scheduling, and monitoring institutional bus transportation. Supports user registration & auth, trip scheduling & booking, operational check-in, PDF reports, and in-app/email notifications — serving students, staff, drivers, and administrators.")
-                Text("Architecture: Spec-driven. The specs/ directory defines every user story, API endpoint, and edge case before implementation.")
-                row { wrap: true
+                    collapse: true
                     Badge("React") { variant: info }
                     Badge("FastAPI") { variant: info }
                     Badge("PostgreSQL") { variant: info }
                     Badge("Docker") { variant: info }
                     Badge("JWT") { variant: info }
-                    Badge("Gherkin") { variant: info }
+                    Badge("Spec-Driven") { variant: success }
                 }
-                @ A11y: external-link
-                Link("View on GitHub →")
-            } else if projectId == "myagent" {
-                Text("my-agent — LLM Agent Framework")
+                Link("View on GitHub →") {
+                    on click { Toast("Open RouteHub repo") }
+                }
+            }
+
+            Card("my-agent — LLM Agent Framework") {
                 Text("Go · LLM · Tool-Calling · Streaming · Mock Implementation")
-                Divider()
-                Text("A Go-based LLM agent framework defining a minimal provider-agnostic interface with chat completion, tool-calling agent loop, and built-in mock implementation for testing without API keys.")
-                row { wrap: true
+                Text("Go-based LLM agent framework with a provider-agnostic interface, tool-calling agent loop, and MockLLM for testing without API keys. Supports streaming via iterator pattern, with CI pipeline via GitHub Actions.")
+                row {
+                    collapse: true
                     Badge("Go") { variant: info }
-                    Badge("LLM") { variant: info }
+                    Badge("Tool-Calling") { variant: info }
                     Badge("Streaming") { variant: info }
-                    Badge("CI/CD") { variant: info }
                 }
-                @ A11y: external-link
-                Link("View on GitHub →")
-            } else if projectId == "unipm" {
-                Text("unipm — Universal Package Manager")
+                Link("View on GitHub →") {
+                    on click { Toast("Open my-agent repo") }
+                }
+            }
+
+            Card("unipm — Universal Package Manager") {
                 Text("Go · CLI · Cross-Platform · Distrobox")
-                Divider()
-                Text("A meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox containers under a single CLI. Search, install, and remove software across ecosystems without memorizing per-tool flags.")
-                row { wrap: true
+                Text("Meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox under one CLI. Interactive source selection when packages exist in multiple ecosystems. Gherkin-based BDD test suite.")
+                row {
+                    collapse: true
                     Badge("Go") { variant: info }
                     Badge("CLI") { variant: info }
-                    Badge("Gherkin") { variant: info }
                 }
-                @ A11y: external-link
-                Link("View on GitHub →")
-            } else if projectId == "denteclean" {
-                Text("denteclean — Dental Clinic Landing Page")
+                Link("View on GitHub →") {
+                    on click { Toast("Open unipm repo") }
+                }
+            }
+
+            Card("denteclean — Dental Clinic Landing Page") {
                 Text("HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks")
-                Divider()
-                Text("Static single-page website for a fictional premium dental clinic. Built with zero frameworks and zero build steps — pure HTML, CSS, and JavaScript with full responsive design across desktop, tablet, and mobile. Content in Brazilian Portuguese. Deployed via GitHub Pages. MIT licensed.")
-                row { wrap: true
+                Text("Static single-page site for a fictional premium dental clinic. Zero frameworks, zero build steps — pure HTML/CSS/JS with full responsive design across desktop, tablet, and mobile. Deployed via GitHub Pages.")
+                row {
+                    collapse: true
                     Badge("HTML5") { variant: info }
                     Badge("CSS3") { variant: info }
                     Badge("Vanilla JS") { variant: info }
-                    Badge("Responsive") { variant: info }
+                    Badge("Responsive") { variant: success }
                 }
-                @ A11y: external-link
-                Link("View on GitHub →")
-                @ A11y: external-link
-                Link("Live Demo →")
-            } else if projectId == "experiments" {
-                Text("Early Experiments")
-                Divider()
-                Text("TUI Dental Clinic System — Simple terminal-based management interface for dental clinic operations (exploratory project).")
-                Text("Manga Translator (PT-BR) — OpenCV-based script automating English-to-Portuguese manga translation pipeline.")
-                row { wrap: true
-                    Badge("Python") { variant: info }
-                    Badge("OpenCV") { variant: info }
-                    Badge("TUI") { variant: info }
-                }
-            } else {
-                EmptyState("Project not found") {
-                    Button("← Back to projects") {
-                        on click { back() }
+                row {
+                    Link("🔗 Live Demo →") {
+                        on click { Toast("Open live demo") }
+                    }
+                    Link("View on GitHub →") {
+                        on click { Toast("Open denteclean repo") }
                     }
                 }
             }
-        }
-    }
-}
 
-@ Role: about-page — experience, education, strengths, languages, beyond code
-page About() {
-    column {
-        scrollable: true
-        align: (center, top)
-
-        row {
-            Link("← Back to home") {
-                on click { back() }
+            @ role: compact-summary
+            Section("Early Experiments") {
+                Text("• TUI Dental Clinic System — Terminal-based management interface (exploratory)")
+                Text("• Manga Translator (PT-BR) — OpenCV-based English-to-Portuguese manga translation pipeline")
             }
-        }
-
-        @ Role: about-intro
-        Section("About") {
-            Text("Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing a degree in Computer Engineering at UEFS while working as a freelancer, delivering web applications and AI-powered automation solutions.")
         }
 
         Divider()
 
-        @ Role: experience-section
         Section("Experience") {
-            Text("Freelance Developer") { weight: horizontal }
-            Text("Web development and AI/automation projects. Building full-stack applications, CLI tools, and LLM-powered workflows for diverse clients.")
-            Text("Less than 1 year of professional experience.")
+            Card("Freelance Developer") {
+                Text("Less than 1 year")
+                Text("Full-stack applications, CLI tools, and LLM-powered workflows for diverse clients.")
+            }
         }
 
         Divider()
 
-        @ Role: education-section
         Section("Education") {
-            Text("B.Sc. Computer Engineering") { weight: horizontal }
-            Text("Universidade Estadual de Feira de Santana (UEFS) — Feira de Santana, Bahia, Brasil")
-            Text("2023 – 2029")
-            row { wrap: true
+            Text("B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil")
+            row {
+                collapse: true
                 Badge("IoT Certificate") { variant: info }
-                Badge("Programming Marathon") { variant: info }
+                Badge("Programming Marathon Participant") { variant: info }
             }
         }
 
         Divider()
 
-        @ Role: strengths-section
-        Section("Strengths") {
+        Section("Languages & Strengths") {
+            Text("Languages:")
             row {
                 collapse: true
-                column {
-                    Text("Self-directed learner") { weight: horizontal }
-                    Text("Picks up new tools and languages quickly by building real projects.")
-                }
-                column {
-                    Text("Problem finder & solver") { weight: horizontal }
-                    Text("Naturally spots edge cases and failure modes others overlook.")
-                }
+                Badge("Portuguese — Native") { variant: info }
+                Badge("English — Advanced R&L / Conversational") { variant: info }
             }
-            row {
-                collapse: true
-                column {
-                    Text("Detail-oriented") { weight: horizontal }
-                    Text("Careful about correctness, error handling, and UX polish.")
-                }
-                column {
-                    Text("Tool builder mindset") { weight: horizontal }
-                    Text("Enjoys creating developer tools and automation that make life easier.")
-                }
-            }
+            Text("Strengths:")
+            Text("• Self-directed learner — picks up tools quickly by building real projects")
+            Text("• Problem finder & solver — spots edge cases and failure modes others overlook")
+            Text("• Detail-oriented — correctness, error handling, UX polish")
+            Text("• Tool builder — creating developer tools and automation that simplify workflows")
         }
 
         Divider()
 
-        @ Role: languages-section
-        Section("Languages") {
-            Text("Portuguese — Native")
-            Text("English — Advanced reading & listening / Conversational speaking & writing")
-        }
-
-        Divider()
-
-        @ Role: beyond-code-section
         Section("Beyond Code") {
-            Text("🐧 Linux enthusiast — Debian daily driver, Arch at heart, eyeing Void Linux")
-            Text("🔧 Harness engineering — deep into AI/automation as a hobby and craft")
-            Text("🎮 MOBA player — for when the terminal needs a break")
+            Text("• 🐧 Linux enthusiast — Debian daily driver, Arch at heart, eyeing Void Linux")
+            Text("• 🔧 Harness engineering — deep into AI/automation as a hobby and craft")
+            Text("• 🎮 MOBA player — when the terminal needs a break")
         }
 
         Divider()
 
-        @ Role: connect-section
-        Section("Connect") {
-            row {
-                @ A11y: external-link
-                Link("GitHub")
-                @ A11y: external-link
-                Link("LinkedIn")
-                @ A11y: external-link
-                Link("Email")
+        @ Call to action
+        Section("Currently") {
+            Text("Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.")
+            Text("\"The best way to predict the future is to build it.\"")
+
+            @ role: primary-action
+            Button("Get in touch →") {
+                on click { toggle(contactOpen) }
             }
         }
     }
-}
 
-@ Role: contact-page — form with validation and submission feedback
-page Contact() {
-    state name = ""
-    state email = ""
-    state message = ""
-    state submitting = false
-    state submitted = false
+    @ Page-level contact modal — outside scrollable column
+    if contactOpen {
+        Modal("Get in Touch") {
+            on close { contactOpen = false }
 
-    column {
-        scrollable: true
-        align: (center, top)
-
-        row {
-            Link("← Back to home") {
-                on click { back() }
+            Link("📧 dev.davi.macedo.gomes@gmail.com") {
+                on click { Toast("Open email client") }
             }
-        }
-
-        @ Role: contact-intro
-        Section("Get in touch") {
-            Text("I'm open to freelance contracts, internships, and full-time opportunities — remote or hybrid.")
-            Text("Prefer email directly? dev.davi.macedo.gomes@gmail.com")
-        }
-
-        Divider()
-
-        @ Role: contact-form
-        Section("Send a message") {
-            if submitted {
-                @ Role: success-state — confirmation after form submission
-                Alert("Thanks for reaching out! I'll get back to you as soon as possible.") {
-                    variant: success
-                }
-                Button("Send another message") {
-                    on click {
-                        submitted = false
-                        name = ""
-                        email = ""
-                        message = ""
-                    }
-                }
-            } else {
-                Form {
-                    on submit { validate() }
-
-                    Input("Your name") {
-                        required: true
-                        placeholder: "Name"
-                        error: name == "" && submitting ? "Name is required" : false
-                        on input { name = value }
-                    }
-
-                    Input("Your email") {
-                        required: true
-                        placeholder: "you@example.com"
-                        error: email == "" && submitting ? "Email is required" : false
-                        on input { email = value }
-                    }
-
-                    Input("Message") {
-                        required: true
-                        placeholder: "Tell me about your project or opportunity..."
-                        error: message == "" && submitting ? "Message is required" : false
-                        on input { message = value }
-                    }
-
-                    @ Role: primary-action
-                    Button("Send message") {
-                        loading: submitting
-                        on click {
-                            if name != "" && email != "" && message != "" {
-                                submitting = true
-                                delay(1500, Toast("Message sent! I'll get back to you soon."))
-                                delay(1500, submitted = true)
-                                delay(1500, submitting = false)
-                            } else {
-                                submitting = true
-                                delay(100, submitting = false)
-                            }
-                        }
-                    }
-                }
+            Link("🐙 github.com/DaviMGDev") {
+                on click { Toast("Open GitHub") }
             }
-        }
+            Link("🔗 linkedin.com/in/dav1-maced0-g0mes-dev") {
+                on click { Toast("Open LinkedIn") }
+            }
 
-        Divider()
-
-        @ Role: alternative-contact
-        Section("Or find me on") {
-            row {
-                @ A11y: external-link
-                Link("GitHub")
-                @ A11y: external-link
-                Link("LinkedIn")
+            Button("Close") {
+                on click { contactOpen = false }
             }
         }
     }
