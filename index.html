@@ -691,27 +691,19 @@
       margin-top: var(--space-lg);
     }
 
-    /* Card thumbnail placeholder */
+    /* Card thumbnail — project screenshot */
     .card-thumb {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-sm);
-      padding: var(--space-xl) var(--space-md);
+      display: block;
+      width: 100%;
+      height: auto;
       margin-bottom: var(--space-md);
-      border: 2px dashed var(--color-tertiary);
-      background: var(--color-background);
-      color: var(--color-tertiary);
+      border: 2px solid var(--color-secondary);
       image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      background: var(--color-background);
     }
     .card:hover .card-thumb {
-      border-color: var(--color-secondary);
-      color: var(--color-secondary);
-    }
-    .thumb-label {
-      text-transform: uppercase;
-      color: inherit;
+      border-color: var(--color-primary);
     }
 
     /* Featured card */
@@ -748,7 +740,7 @@
     .carousel-inner {
       display: flex;
       gap: var(--space-md);
-      animation: carousel-scroll 24s steps(64) infinite;
+      animation: carousel-scroll 45s linear infinite;
       width: max-content;
     }
     .carousel-track:hover .carousel-inner {
@@ -1264,10 +1256,7 @@
 
             <!-- Featured: RouteHub -->
             <article class="card featured" aria-label="RouteHub — Featured project">
-              <div class="card-thumb" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
-              </div>
+              <img class="card-thumb" src="assets/routehub_screenshot.webp" alt="RouteHub project screenshot" width="800" height="500" loading="lazy">
               <h3 class="headline-pixel card-title" data-i18n="projects.routehub.title">RouteHub — Bus Transportation Platform</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.routehub.subtitle">
@@ -1297,10 +1286,7 @@
 
             <!-- my-agent -->
             <article class="card">
-              <div class="card-thumb" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
-              </div>
+              <img class="card-thumb" src="assets/myagent_screenshot.webp" alt="my-agent project screenshot" width="800" height="500" loading="lazy">
               <h3 class="headline-pixel card-title" data-i18n="projects.myagent.title">my-agent — LLM Agent Framework</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.myagent.subtitle">
@@ -1326,10 +1312,7 @@
 
             <!-- unipm -->
             <article class="card">
-              <div class="card-thumb" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
-              </div>
+              <img class="card-thumb" src="assets/unipm_screenshot.webp" alt="unipm project screenshot" width="800" height="500" loading="lazy">
               <h3 class="headline-pixel card-title" data-i18n="projects.unipm.title">unipm — Universal Package Manager</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.unipm.subtitle">
@@ -1354,10 +1337,7 @@
 
             <!-- denteclean -->
             <article class="card">
-              <div class="card-thumb" aria-hidden="true">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
-              </div>
+              <img class="card-thumb" src="assets/denteclean_screenshot.webp" alt="denteclean project screenshot" width="800" height="500" loading="lazy">
               <h3 class="headline-pixel card-title" data-i18n="projects.denteclean.title">denteclean — Dental Clinic Landing Page</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.denteclean.subtitle">
