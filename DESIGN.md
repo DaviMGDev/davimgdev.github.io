@@ -15,7 +15,7 @@ colors:
   highlight: "#C0C0C0"
   midtone: "#999999"
   shadow: "#262626"
-  background: "#D4D4D4"
+  background: "#FCFCFC"
 typography:
   display-pixel:
     fontFamily: "Press Start 2P, monospace"
@@ -99,7 +99,17 @@ A strictly monochromatic palette built from 5 core grayscale values, achieving v
 - **Highlight (#C0C0C0):** Light gray for dithered highlights and sparkle accents.
 - **Midtone (#999999):** Transitional gray for smooth dithering patterns.
 - **Shadow (#262626):** Deep gray for subtle depth and recessed areas.
-- **Background (#D4D4D4):** The overall canvas color — a neutral, cool gray.
+- **Background (#FCFCFC):** The overall canvas color — a bright, near-white that blends with browser chrome.
+
+## Theming
+
+Three switchable theme modes, toggled via the header button (cycles light → dark → auto):
+
+- **Dark (explicit):** Always dark regardless of system preference. Colors from `:root` defaults.
+- **Light (explicit):** Always light regardless of system preference. Uses light palette above.
+- **Auto (default):** Follows the operating system's `prefers-color-scheme` setting. Defaults to dark if no system preference is available.
+
+The `data-theme` attribute on `<html>` drives all three modes (`"dark"`, `"light"`, `"auto"`). The user's choice is persisted in `localStorage` under the key `theme`.
 
 ## Typography
 

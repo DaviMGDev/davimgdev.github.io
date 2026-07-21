@@ -64,8 +64,9 @@
     /* =========================================================================
        LIGHT THEME — color token overrides
        ========================================================================= */
+    /* Auto mode — follows system preference via media query */
     @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]) {
+      [data-theme="auto"] {
         --color-primary: #0D0D0D;
         --color-primary-hover: #1A1A1A;
         --color-secondary: #404040;
@@ -78,13 +79,13 @@
         --color-highlight: #C0C0C0;
         --color-midtone: #999999;
         --color-shadow: #262626;
-        --color-background: #D4D4D4;
+        --color-background: #FCFCFC;
         --color-border: #404040;
         --color-border-light: #999999;
       }
     }
+    /* Explicit light — always light regardless of system */
     [data-theme="light"] {
-      /* overrides also when JS sets the attribute explicitly */
       --color-primary: #0D0D0D;
       --color-primary-hover: #1A1A1A;
       --color-secondary: #404040;
@@ -97,9 +98,27 @@
       --color-highlight: #C0C0C0;
       --color-midtone: #999999;
       --color-shadow: #262626;
-      --color-background: #D4D4D4;
+      --color-background: #FCFCFC;
       --color-border: #404040;
       --color-border-light: #999999;
+    }
+    /* Explicit dark — always dark regardless of system */
+    [data-theme="dark"] {
+      --color-primary: #E0E0E0;
+      --color-primary-hover: #C0C0C0;
+      --color-secondary: #888888;
+      --color-text-muted: #999999;
+      --color-tertiary: #707070;
+      --color-neutral: #3A3A3A;
+      --color-surface: #2A2A2A;
+      --color-on-primary: #1A1A1A;
+      --color-on-surface: #DCDCDC;
+      --color-highlight: #505050;
+      --color-midtone: #606060;
+      --color-shadow: #0A0A0A;
+      --color-background: #1A1A1A;
+      --color-border: #888888;
+      --color-border-light: #555555;
     }
 
     /* =========================================================================
@@ -184,7 +203,7 @@
       z-index: 0;
     }
     @media (prefers-color-scheme: light) {
-      :root:not([data-theme="dark"]) body::after {
+      [data-theme="auto"] body::after {
         background-image: repeating-linear-gradient(
           transparent,
           transparent 2px,
@@ -199,6 +218,14 @@
         transparent 2px,
         rgba(0,0,0,0.03) 2px,
         rgba(0,0,0,0.03) 4px
+      );
+    }
+    [data-theme="dark"] body::after {
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.02) 2px,
+        rgba(255,255,255,0.02) 4px
       );
     }
 
@@ -396,8 +423,11 @@
       border-color: var(--color-primary);
     }
     .icon-sun { display: none; }
-    [data-theme="light"] .icon-moon { display: none; }
+    .icon-moon { display: none; }
+    .icon-auto { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: block; }
+    [data-theme="auto"] .icon-auto { display: block; }
 
     /* Mobile: show hamburger, hide navbar */
     @media (max-width: 768px) {
@@ -1219,13 +1249,17 @@
         <span class="lang-sep">/</span>
         <span class="lang-option active" data-lang="pt">PT</span>
       </button>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sun">
           <circle cx="10" cy="10" r="4" fill="currentColor"/>
           <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.93 3.93l1.41 1.41M14.66 14.66l1.41 1.41M3.93 16.07l1.41-1.41M14.66 5.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-moon">
           <path d="M17 12.5A7.5 7.5 0 0110 3a7.5 7.5 0 000 15 7.5 7.5 0 007-5.5z" fill="currentColor"/>
+        </svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-auto">
+          <rect x="2" y="3" width="16" height="11" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M7 17h6M10 14v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
@@ -1263,13 +1297,17 @@
           <span class="lang-sep">/</span>
           <span class="lang-option active" data-lang="pt">PT</span>
         </button>
-        <button id="menu-theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+        <button id="menu-theme-toggle" class="theme-toggle" aria-label="Toggle theme" type="button">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sun">
             <circle cx="10" cy="10" r="4" fill="currentColor"/>
             <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.93 3.93l1.41 1.41M14.66 14.66l1.41 1.41M3.93 16.07l1.41-1.41M14.66 5.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-moon">
             <path d="M17 12.5A7.5 7.5 0 0110 3a7.5 7.5 0 000 15 7.5 7.5 0 007-5.5z" fill="currentColor"/>
+          </svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-auto">
+            <rect x="2" y="3" width="16" height="11" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M7 17h6M10 14v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </button>
       </div>
@@ -1688,7 +1726,7 @@
       'use strict';
 
       // =====================================================================
-      // DARK/LIGHT THEME
+      // DARK/LIGHT/AUTO THEME
       // =====================================================================
       const themeToggle = document.getElementById('theme-toggle');
       const metaScheme = document.querySelector('meta[name="color-scheme"]');
@@ -1702,36 +1740,31 @@
       }
 
       function getTheme() {
-        return getStoredTheme() || getSystemTheme();
+        return getStoredTheme() || 'auto';
       }
 
-      function applyTheme(theme, persist) {
-        if (theme === 'light') {
-          document.documentElement.setAttribute('data-theme', 'light');
-        } else {
-          document.documentElement.removeAttribute('data-theme');
-        }
-        if (metaScheme) metaScheme.setAttribute('content', theme === 'light' ? 'light' : 'dark');
-        if (persist) localStorage.setItem('theme', theme);
+      function applyTheme(preference, persist) {
+        const resolved = preference === 'auto' ? getSystemTheme() : preference;
+        document.documentElement.setAttribute('data-theme', preference);
+        if (metaScheme) metaScheme.setAttribute('content', resolved);
+        if (persist) localStorage.setItem('theme', preference);
       }
 
-      // Apply on load — do NOT persist (let CSS media query handle default)
+      // Apply on load — default to auto (follows system)
       applyTheme(getTheme(), false);
 
       function toggleTheme() {
-        const current = document.documentElement.hasAttribute('data-theme') ? 'light' : 'dark';
-        const next = current === 'light' ? 'dark' : 'light';
-        applyTheme(next, true); // persist only on manual toggle
+        const current = getStoredTheme() || 'auto';
+        const next = current === 'light' ? 'dark' : current === 'dark' ? 'auto' : 'light';
+        applyTheme(next, true);
       }
       if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
       var menuThemeToggle = document.getElementById('menu-theme-toggle');
       if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
 
-      // Listen for system theme changes (only if no manual override)
-      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-        if (!getStoredTheme()) {
-          applyTheme(e.matches ? 'light' : 'dark', false);
-        }
+      // Listen for system theme changes (re-applies auto, or updates meta for explicit)
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function() {
+        applyTheme(getTheme(), false);
       });
 
       // =====================================================================
