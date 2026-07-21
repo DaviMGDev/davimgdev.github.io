@@ -194,9 +194,55 @@
     }
 
     /* =========================================================================
-       HAMBURGER TOGGLE — fixed, always visible
+       NAVBAR — sticky bar, desktop only
+       ========================================================================= */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--container-padding);
+      background: var(--color-background);
+      border-bottom: 2px solid var(--color-primary);
+    }
+    .nav-logo {
+      font-family: var(--font-headline);
+      font-size: 14px;
+      color: var(--color-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      image-rendering: pixelated;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: var(--space-lg);
+    }
+    .nav-links a {
+      font-family: var(--font-caption);
+      font-size: 12px;
+      color: var(--color-on-surface);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      border-bottom-color: var(--color-primary);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    /* =========================================================================
+       HAMBURGER TOGGLE — mobile only
        ========================================================================= */
     .nav-toggle {
+      display: none; /* shown via media query */
       position: fixed;
       top: var(--space-md);
       right: var(--space-md);
@@ -205,7 +251,6 @@
       border: 2px solid var(--color-primary);
       cursor: pointer;
       padding: 4px;
-      display: flex;
       align-items: center;
       justify-content: center;
       color: var(--color-on-surface);
@@ -217,7 +262,7 @@
     }
 
     /* =========================================================================
-       MENU OVERLAY — fullscreen
+       MENU OVERLAY — fullscreen, mobile only
        ========================================================================= */
     .menu-overlay {
       position: fixed;
@@ -284,6 +329,8 @@
       align-items: center;
       gap: var(--space-lg);
     }
+
+    /* Shared toggles */
     .lang-toggle {
       background: none;
       border: 2px solid var(--color-secondary);
@@ -321,6 +368,16 @@
     .icon-sun { display: none; }
     [data-theme="light"] .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
+
+    /* Mobile: show hamburger, hide navbar */
+    @media (max-width: 768px) {
+      #navbar {
+        display: none;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+    }
 
     /* =========================================================================
        ROOT LAYOUT
@@ -397,7 +454,7 @@
        ========================================================================= */
     .section {
       padding-block: var(--space-section);
-      scroll-margin-top: var(--space-lg);
+      scroll-margin-top: 56px;
     }
     .section.compact {
       padding-block: var(--space-2xl);
@@ -1114,7 +1171,37 @@
   <!-- =====================================================================
        NAVBAR — sticky, minimal
        ===================================================================== -->
-  <!-- Hamburger toggle — fixed position -->
+  <!-- =====================================================================
+       NAVBAR — sticky bar (desktop) / hidden (mobile)
+       ===================================================================== -->
+  <nav id="navbar" aria-label="Main navigation">
+    <a href="#identity" class="nav-logo">DMG</a>
+    <ul class="nav-links">
+      <li><a href="#identity" data-i18n="nav.home">Home</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#tech-stack" data-i18n="nav.stack">Stack</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" type="button">
+        <span class="lang-option" data-lang="en">EN</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-option active" data-lang="pt">PT</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sun">
+          <circle cx="10" cy="10" r="4" fill="currentColor"/>
+          <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.93 3.93l1.41 1.41M14.66 14.66l1.41 1.41M3.93 16.07l1.41-1.41M14.66 5.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-moon">
+          <path d="M17 12.5A7.5 7.5 0 0110 3a7.5 7.5 0 000 15 7.5 7.5 0 007-5.5z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hamburger toggle — fixed position, mobile only -->
   <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" type="button">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="5" width="18" height="2" fill="currentColor"/>
@@ -1123,7 +1210,7 @@
     </svg>
   </button>
 
-  <!-- Fullscreen menu overlay -->
+  <!-- Fullscreen menu overlay (mobile) -->
   <div id="menu-overlay" class="menu-overlay" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <div class="menu-content">
       <button id="menu-close" class="menu-close" aria-label="Close menu" type="button">
@@ -1141,12 +1228,12 @@
         </ul>
       </nav>
       <div class="menu-actions">
-        <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" type="button">
+        <button id="menu-lang-toggle" class="lang-toggle" aria-label="Switch language" type="button">
           <span class="lang-option" data-lang="en">EN</span>
           <span class="lang-sep">/</span>
           <span class="lang-option active" data-lang="pt">PT</span>
         </button>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+        <button id="menu-theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sun">
             <circle cx="10" cy="10" r="4" fill="currentColor"/>
             <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.93 3.93l1.41 1.41M14.66 14.66l1.41 1.41M3.93 16.07l1.41-1.41M14.66 5.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1594,10 +1681,13 @@
 
       applyTheme(getTheme());
 
-      themeToggle.addEventListener('click', function() {
+      function toggleTheme() {
         const current = document.documentElement.hasAttribute('data-theme') ? 'light' : 'dark';
         applyTheme(current === 'light' ? 'dark' : 'light');
-      });
+      }
+      if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+      var menuThemeToggle = document.getElementById('menu-theme-toggle');
+      if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
 
       // =====================================================================
       // MOBILE NAV TOGGLE — menu overlay
@@ -1804,9 +1894,8 @@
         document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
         localStorage.setItem('lang', lang);
 
-        // Update toggle button
-        const opts = langToggle.querySelectorAll('.lang-option');
-        opts.forEach(function(opt) {
+        // Update all toggle buttons (desktop + mobile)
+        document.querySelectorAll('.lang-option').forEach(function(opt) {
           opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
         });
 
@@ -1826,10 +1915,13 @@
       const currentLang = getLang();
       applyLang(currentLang);
 
-      langToggle.addEventListener('click', function() {
+      function toggleLang() {
         const current = document.documentElement.getAttribute('lang') === 'pt-BR' ? 'pt' : 'en';
         applyLang(current === 'pt' ? 'en' : 'pt');
-      });
+      }
+      if (langToggle) langToggle.addEventListener('click', toggleLang);
+      var menuLangToggle = document.getElementById('menu-lang-toggle');
+      if (menuLangToggle) menuLangToggle.addEventListener('click', toggleLang);
 
       // =====================================================================
       // CAROUSEL — clone items for infinite scroll
