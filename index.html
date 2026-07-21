@@ -553,7 +553,7 @@
       font-weight: 400;
       line-height: 1.3;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 2px 8px;
       white-space: nowrap;
       background: var(--color-primary);
       color: var(--color-on-primary);
@@ -655,9 +655,6 @@
        CARD — pixel-card component from DESIGN.md
        ========================================================================= */
     .card {
-      display: flex;
-      flex-direction: row;
-      gap: var(--space-lg);
       background: var(--color-surface);
       border: 2px solid var(--color-secondary);
       padding: var(--space-md);
@@ -666,60 +663,53 @@
     .card:hover {
       border-color: var(--color-primary);
     }
-    .card-body {
-      flex: 1;
-      min-width: 0;
-    }
     .card-title {
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
     }
     .card-subtitle {
       color: var(--color-text-muted);
       font-family: var(--font-body);
       font-size: 18px;
       line-height: 1.5;
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
     }
     .card-text {
       color: var(--color-on-surface);
       font-family: var(--font-body);
       font-size: 18px;
       line-height: 1.5;
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .card-actions {
-      margin-top: var(--space-md);
+      margin-top: var(--space-sm);
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-md);
+      gap: var(--space-sm);
       align-items: center;
     }
     .card + .card {
-      margin-top: var(--space-lg);
+      margin-top: 0;
     }
 
-    /* Card thumbnail — side preview */
+    /* Card thumbnail — stacked on top */
     .card-thumb {
       display: block;
-      width: 320px;
-      flex-shrink: 0;
-      align-self: stretch;
+      width: 100%;
+      height: 150px;
       object-fit: cover;
+      object-position: top;
       border: 2px solid var(--color-secondary);
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       background: var(--color-background);
+      margin-bottom: var(--space-sm);
     }
     .card:hover .card-thumb {
       border-color: var(--color-primary);
-    }
-    @media (max-width: 768px) {
-      .card {
-        flex-direction: column;
-      }
-      .card-thumb {
-        width: 100%;
-      }
     }
 
     /* Featured card */
@@ -727,6 +717,7 @@
       border-color: var(--color-primary);
       border-width: 2px;
       position: relative;
+      grid-column: 1 / -1;
     }
     .card.featured::before {
       content: '★ FEATURED';
@@ -803,9 +794,14 @@
        PROJECTS GRID
        ========================================================================= */
     .projects-section {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-lg);
+    }
+    @media (max-width: 768px) {
+      .projects-section {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* =========================================================================
@@ -877,7 +873,7 @@
     .mb-lg { margin-bottom: var(--space-lg); }
     .gap-md { gap: var(--space-md); }
     .about-text { max-width: 680px; }
-    .badge-row { margin-bottom: var(--space-md); }
+    .badge-row { margin-bottom: var(--space-xs); }
     .card-text-last { margin-bottom: 0; }
     .spacer-bottom { height: var(--space-2xl); }
 
