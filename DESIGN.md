@@ -3,8 +3,8 @@ version: alpha
 name: Davi Macêdo Gomes — Developer Portfolio
 description: >
   Design system for a personal developer portfolio website. Dark-mode-first,
-  terminal-inspired aesthetic with a refined editorial typographic voice. Built
-  on Astro 5 SSG with React 19 islands and Tailwind CSS v4.
+  terminal-inspired aesthetic with a refined editorial typographic voice.
+  Vanilla HTML/CSS/JS with CSS custom properties for design tokens.
 colors:
   base: "#09090B"
   surface: "#131316"
@@ -103,7 +103,7 @@ spacing:
   "2xl": 48px
   "3xl": 64px
   "4xl": 96px
-  section: 128px
+  section: 80px
 
 components:
   button-primary:
@@ -205,379 +205,8 @@ the brand), reflecting a developer who lives in the terminal.
 **Target audience:** Fellow developers, open-source collaborators, freelance
 clients, and potential employers in AI/automation and backend infrastructure.
 
-**Technical foundation:** Astro 5 for static site generation, React 19 for
-interactive islands, TypeScript throughout, Tailwind CSS v4 for utility-first
-styling. Content is authored in Markdown and validated through Astro Content
-Collections. The entire site builds to static HTML/CSS/JS for deployment to
-GitHub Pages with zero server-side runtime.
-
-## Architecture
-
-### Framework & Rendering Strategy
-
-**Astro 5 (SSG)** generates pure static HTML at build time. No client-side
-JavaScript is shipped for content pages. React 19 components hydrate only
-where interactivity is required — mobile navigation drawer, contact form,
-and project filters — as isolated "islands". This is the `client:load` and
-`client:visible` hydration strategy.
-
-**Why Astro over pure React/Next.js:**
-
-- Zero JavaScript baseline for content pages
-- Content Collections provide type-safe Markdown authoring with Zod schema
-  validation at build time
-- Built-in image optimization (`astro:assets`) for project screenshots
-- Built on Vite (familiar from RouteHub) — shared tooling and config
-- Native Markdown/MDX support with frontmatter parsing
-- Trivial GitHub Pages deployment (static `dist/` output)
-
-### Route Map
-
-| Route        | Page      | Source                           |
-| ------------ | --------- | -------------------------------- |
-| `/`          | Home      | `src/pages/index.astro`          |
-| `/projects/` | Projects  | `src/pages/projects/index.astro` |
-| `/about/`    | About     | `src/pages/about.astro`          |
-| `/contact/`  | Contact   | `src/pages/contact.astro`        |
-| `/404`       | Not Found | `src/pages/404.astro`            |
-
-All routes are file-based (Astro's default). The `/projects/` page uses
-Astro's `getStaticPaths()` to generate one page from the content collection;
-individual project pages are not generated unless a project detail route is
-added later.
-
-### Directory Structure
-
-```
-src/
-├── components/
-│   ├── layout/
-│   │   ├── BaseLayout.astro        # <html>, <head>, global shell
-│   │   ├── Header.astro            # Fixed nav bar + mobile drawer
-│   │   ├── Footer.astro            # Social links, copyright
-│   │   └── MobileNav.tsx           # Mobile drawer (React island)
-│   ├── ui/
-│   │   ├── Button.astro            # Polymorphic button/link
-│   │   ├── Badge.astro             # Tag/chip pill
-│   │   ├── Card.astro              # Generic surface card
-│   │   ├── Container.astro         # Max-width wrapper
-│   │   ├── Section.astro           # Page section (heading + content)
-│   │   └── Divider.astro           # Thematic <hr>
-│   ├── home/
-│   │   ├── HeroSection.astro       # Name, role, tagline, CTAs
-│   │   ├── TechStackGrid.astro     # Technology categories grid
-│   │   ├── FeaturedProjects.astro  # 2–3 featured project cards
-│   │   └── StrengthsGrid.astro     # Key strengths as cards
-│   ├── projects/
-│   │   ├── ProjectCard.astro       # Single project summary card
-│   │   ├── ProjectGrid.astro       # Responsive card grid
-│   │   └── ProjectFilter.tsx       # Tag-based filter (React island)
-│   ├── about/
-│   │   ├── AboutHero.astro         # Photo + introductory paragraph
-│   │   ├── Timeline.astro          # Experience + education timeline
-│   │   └── BeyondCode.astro        # Personal interests grid
-│   └── contact/
-│       ├── ContactForm.tsx          # Form with validation (React island)
-│       └── SocialLinks.astro       # Platform link cards
-├── content/
-│   ├── projects/
-│   │   ├── routehub.md
-│   │   ├── my-agent.md
-│   │   ├── unipm.md
-│   │   ├── denteclean.md
-│   │   └── experiments.md
-│   └── config.ts                   # Site metadata, social links, nav items
-├── layouts/
-│   └── BaseLayout.astro            # Re-export for Astro conventions
-├── pages/
-│   ├── index.astro
-│   ├── projects/
-│   │   └── index.astro
-│   ├── about.astro
-│   ├── contact.astro
-│   └── 404.astro
-├── styles/
-│   └── global.css                  # Tailwind directives, CSS custom props
-├── types/
-│   └── index.ts                    # Shared TypeScript interfaces
-└── consts.ts                       # Inline constants (breakpoints, etc.)
-```
-
-## Component Hierarchy
-
-### Layout Shell
-
-```
-BaseLayout.astro
-├── Header.astro
-│   ├── Navigation links (home, projects, about, contact)
-│   └── MobileNav.tsx (client:visible)
-├── <slot /> ← page content
-└── Footer.astro
-    └── SocialLinks.astro
-```
-
-### Home Page (`/`)
-
-```
-HeroSection.astro
-  ├── Button.astro ×2 (View Projects, Get in Touch)
-TechStackGrid.astro
-  └── Badge.astro ×N (technology tags, grouped by category)
-FeaturedProjects.astro
-  └── ProjectCard.astro ×3
-StrengthsGrid.astro
-  └── Card.astro ×4 (icon + heading + description)
-```
-
-### Projects Page (`/projects/`)
-
-```
-Container.astro
-├── Section.astro (heading + description)
-├── ProjectFilter.tsx (client:visible)
-│   └── Badge.astro ×N (filter tags)
-└── ProjectGrid.astro
-    └── ProjectCard.astro ×N
-```
-
-### About Page (`/about/`)
-
-```
-Container.astro
-├── AboutHero.astro
-├── Section.astro → Timeline.astro (Experience)
-├── Section.astro → Timeline.astro (Education)
-├── Section.astro → StrengthsGrid.astro (Strengths)
-├── Section.astro → BeyondCode.astro (Interests)
-└── Section.astro → SocialLinks.astro (Connect)
-```
-
-### Contact Page (`/contact/`)
-
-```
-Container.astro
-├── Section.astro (heading + intro)
-├── ContactForm.tsx (client:load)
-└── SocialLinks.astro
-```
-
-### Component Prop Contracts
-
-Every reusable component exposes a typed interface. Below are the prop
-signatures for key components. Astro components use `Astro.props` with
-TypeScript generics; React islands use standard `interface Props`.
-
-#### `BaseLayout.astro`
-
-```ts
-interface Props {
-  title: string; // <title> tag value
-  description: string; // <meta name="description">
-  ogImage?: string; // Open Graph image URL
-}
-```
-
-#### `Button.astro`
-
-```ts
-interface Props {
-  variant: "primary" | "ghost"; // visual style
-  size?: "md" | "lg"; // defaults to "md"
-  href?: string; // renders <a> if set, <button> otherwise
-  external?: boolean; // adds rel="noopener" and target="_blank"
-  type?: "button" | "submit"; // only when href is undefined
-}
-```
-
-#### `Badge.astro`
-
-```ts
-interface Props {
-  text: string;
-  variant?: "default" | "primary"; // defaults to "default"
-  size?: "sm" | "md"; // defaults to "sm"
-}
-```
-
-#### `Card.astro`
-
-```ts
-interface Props {
-  href?: string; // makes card a clickable link
-  interactive?: boolean; // adds hover styles
-  class?: string; // additional Tailwind classes
-}
-```
-
-#### `Section.astro`
-
-```ts
-interface Props {
-  title?: string; // section heading
-  subtitle?: string; // supporting description
-  id?: string; // anchor target for skip navigation
-}
-```
-
-#### `Container.astro`
-
-```ts
-interface Props {
-  size?: "md" | "lg"; // max-width: 768px or 1024px
-  class?: string;
-}
-```
-
-#### `ProjectCard.astro`
-
-```ts
-interface Props {
-  title: string;
-  description: string;
-  url: string;
-  tags: string[];
-  image?: string; // path to screenshot
-  featured?: boolean;
-}
-```
-
-#### `ProjectFilter.tsx`
-
-```ts
-interface Props {
-  tags: string[]; // all available filter tags
-  activeTag: string | null; // currently selected tag
-  onFilterChange: (tag: string | null) => void;
-}
-```
-
-#### `ContactForm.tsx`
-
-```ts
-// No external props — self-contained form with internal state.
-// Uses Web3Forms or Formspree for serverless submission.
-```
-
-#### `Timeline.astro`
-
-```ts
-interface Props {
-  items: Array<{
-    title: string;
-    subtitle: string;
-    period: string;
-    description?: string;
-    tags?: string[];
-  }>;
-}
-```
-
-#### `SocialLinks.astro`
-
-```ts
-interface Props {
-  variant?: "inline" | "card"; // defaults to "inline"
-  class?: string;
-}
-```
-
-## Data Flow
-
-### Content Sources
-
-All content is **static at build time**. There is no external API, database,
-or CMS. Content flows through three channels:
-
-| Source                      | Format                      | Purpose                                                       |
-| --------------------------- | --------------------------- | ------------------------------------------------------------- |
-| `src/content/projects/*.md` | Markdown + YAML frontmatter | Project entries                                               |
-| `src/content/config.ts`     | TypeScript object           | Site metadata, nav items, social links, tech stack categories |
-| `public/images/*`           | PNG/WebP                    | Project screenshots, avatar                                   |
-
-### Data Journey (Build Time)
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ 1. AUTHOR                                                       │
-│    Markdown files (projects/*.md)                               │
-│    TypeScript config (config.ts)                                │
-│    Static assets (images/)                                      │
-└──────────────────────┬──────────────────────────────────────────┘
-                       │ astro build
-                       ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 2. CONTENT COLLECTION                                           │
-│    Zod schema validates frontmatter                             │
-│    getCollection("projects") → typed Project[] array            │
-│    config.ts exports → imported at build time                   │
-└──────────────────────┬──────────────────────────────────────────┘
-                       │ import / getCollection()
-                       ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 3. ASTRO PAGES                                                  │
-│    *.astro files query collections in frontmatter               │
-│    Pass typed data as props to components                       │
-│    React islands receive data via props at render time          │
-└──────────────────────┬──────────────────────────────────────────┘
-                       │ SSG render
-                       ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ 4. STATIC OUTPUT (dist/)                                        │
-│    Pure HTML + CSS + minimal JS (only React islands)            │
-│    Optimized images via <Image /> component                     │
-│    No runtime data fetching                                     │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### Content Collection Schema
-
-```ts
-// src/content/config.ts
-import { defineCollection, z } from "astro:content";
-
-const projects = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    url: z.string().url(),
-    tags: z.array(z.string()),
-    featured: z.boolean().default(false),
-    image: z.string().optional(),
-    order: z.number().default(999),
-  }),
-});
-
-export const collections = { projects };
-```
-
-### State Management
-
-No global state store. Each React island manages its own local state:
-
-- **ProjectFilter.tsx** — `useState<string | null>` for active filter tag
-- **ContactForm.tsx** — `useState` for form fields, submission status, and
-  validation errors
-- **MobileNav.tsx** — `useState<boolean>` for open/close state
-
-The site is dark-only. A single `<meta name="color-scheme" content="dark">`
-in `<head>` tells the browser to render native controls (scrollbars, form
-inputs) in their dark variant. No theme toggle, no `localStorage`, no FOUC
-risk.
-
-### Static Config
-
-```ts
-// src/content/config.ts (site metadata section)
-export const SITE = {
-  name: "Davi Macêdo Gomes",
-  title: "Full-Stack Developer + AI Engineer",
-  url: "https://davimgdev.github.io",
-  email: "dev.davi.macedo.gomes@gmail.com",
-  github: "https://github.com/DaviMGDev",
-  linkedin: "https://linkedin.com/in/dav1-maced0-g0mes-dev",
-} as const;
-```
+**Technical foundation:** Vanilla HTML/CSS/JS with CSS custom properties for
+design tokens. Static HTML deployed to GitHub Pages.
 
 ## Colors
 
@@ -656,9 +285,8 @@ substance — a developer who reads and writes, not just compiles.
 | `label-sm`    | 11px / 500 | Badges, chips, timestamps               |
 | `code-md`     | 14px / 450 | Tech tags, inline code, terminal blocks |
 
-**Implementation in Tailwind:** Each token maps to a Tailwind utility class
-via `@theme` in Tailwind v4 or `theme.extend.fontSize` in Tailwind v3. The
-`fontFamily` tokens map to `fontFamily` in the theme config.
+**Implementation:** Each token maps to a CSS class in the stylesheet. The
+`fontFamily` tokens are defined as CSS custom properties in `:root`.
 
 ## Layout
 
@@ -904,72 +532,34 @@ CSS; no JavaScript is required for this behavior.
 
 ### Rendering Strategy
 
-**Static Site Generation (SSG)** via Astro. Every page is pre-rendered to
-HTML at build time. No server-side rendering, no client-side routing, no
-hydration waterfall for content. React islands hydrate independently and only
-when the component enters the viewport (`client:visible`) or on page load
-when interactivity is critical (`client:load` for the contact form).
+Static HTML served via GitHub Pages. No server-side rendering, no client-side
+routing. JavaScript is minimal — only modal interaction and scroll reveal
+animations.
 
 ### JavaScript Budget
 
-| Component           | Hydration        | Estimated JS |
-| ------------------- | ---------------- | ------------ |
-| `MobileNav.tsx`     | `client:visible` | <2 KB        |
-| `ProjectFilter.tsx` | `client:visible` | <3 KB        |
-| `ContactForm.tsx`   | `client:load`    | <5 KB        |
-
-**Total JS budget: <10 KB** (uncompressed). Most pages ship 0 KB of
-JavaScript (no islands present). The projects page ships ~3 KB (filter
-island). The contact page ships ~5 KB (form island).
+The site ships a single `<script>` block with modal handling, scroll reveal
+via IntersectionObserver, and skip-link navigation. Estimated total JS:
+<3 KB (uncompressed).
 
 ### Image Handling
 
-- **Astro `<Image />` component:** All images pass through `astro:assets` for
-  automatic optimization — format conversion (WebP), resizing, and
-  compression.
-- **Responsive images:** `<Image />` generates `srcset` with `1x`/`2x`
-  variants and explicit `width`/`height` to prevent Cumulative Layout Shift.
 - **Lazy loading:** Below-fold images use `loading="lazy"`. Above-fold hero
   images use `fetchpriority="high"`.
 - **Placeholders:** Project card images use a CSS background color matching
   `{colors.surface-elevated}` while loading to prevent layout jumping.
-- **No external images.** All assets are committed to the repository. No
-  third-party image CDN dependencies.
-
-### Bundle Splitting
-
-Astro automatically code-splits by page. Additionally:
-
-- React and ReactDOM are loaded once per page that uses islands (shared
-  chunk).
-- `ContactForm.tsx` is a separate chunk loaded only on `/contact/`.
-- `ProjectFilter.tsx` is a separate chunk loaded only on `/projects/`.
-- Font files (Newsreader, Geist, JetBrains Mono) are self-hosted as `woff2`
-  with `font-display: swap` and `preload` for critical weights (400, 600,
-  650).
 
 ### Font Loading Strategy
 
-```html
-<link
-  rel="preload"
-  href="/fonts/geist-regular.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
-```
-
-Critical fonts (Geist Regular 400, Geist Semibold 600, Newsreader 650) are
-preloaded. All fonts use `font-display: swap` to render text immediately with
-a fallback while the custom font loads.
+Fonts are loaded from jsDelivr CDN with `font-display: swap` for immediate
+rendering. Critical weights (Geist Regular 400, Medium 500, SemiBold 600;
+Newsreader 650) are loaded via `@font-face` declarations.
 
 ### CSS Strategy
 
-Tailwind CSS v4 with its JIT compiler. Only used utility classes are included
-in the final bundle. Estimated CSS size: <15 KB (gzipped). No CSS-in-JS
-runtime. Global styles are minimal — reset, font-face declarations, custom
-properties, and Tailwind directives.
+All styles are in a single `<style>` block in `index.html`. CSS custom
+properties define design tokens. No build step, no CSS-in-JS runtime. Global
+styles include reset, font-face declarations, and component classes.
 
 ## Do's and Don'ts
 

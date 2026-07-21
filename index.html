@@ -6,6 +6,7 @@
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Davi Macêdo Gomes — Full-Stack Developer + AI Engineer. Portfolio showcasing projects, skills, and experience." />
   <title>Davi Macêdo Gomes — Full-Stack Developer + AI Engineer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090B'/><path d='M8 22L16 10L24 22Z' fill='none' stroke='%2300DCA5' stroke-width='2.5' stroke-linejoin='round'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=JetBrains+Mono:wght@450&display=swap" as="style" />
@@ -48,7 +49,7 @@
       --space-2xl: 48px;
       --space-3xl: 64px;
       --space-4xl: 96px;
-      --space-section: 128px;
+      --space-section: 80px;
 
       /* Rounded */
       --radius-sm: 4px;
@@ -58,7 +59,7 @@
       --radius-full: 9999px;
 
       /* Layout */
-      --container-max: 1024px;
+      --container-max: 1200px;
       --container-padding: 24px;
     }
 
@@ -67,21 +68,21 @@
        ========================================================================= */
     @font-face {
       font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-regular.woff2') format('woff2');
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-medium.woff2') format('woff2');
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
       font-weight: 500;
       font-style: normal;
       font-display: swap;
     }
     @font-face {
       font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-semibold.woff2') format('woff2');
+      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
       font-weight: 600;
       font-style: normal;
       font-display: swap;
@@ -100,17 +101,13 @@
        VIEWPORT SAFETY (Interspec Rule 1)
        ========================================================================= */
     html {
-      height: 100dvh;
-      height: 100vh; /* fallback */
-      overflow: hidden;
       background-color: var(--color-base);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
     }
     body {
-      height: 100%;
-      overflow: hidden;
       font-family: var(--font-body);
       color: var(--color-text-primary);
       background-color: var(--color-base);
@@ -142,10 +139,6 @@
        ROOT LAYOUT — Viewport-safe, scrollable interior
        ========================================================================= */
     #root {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      overflow: hidden;
       position: relative;
     }
 
@@ -162,28 +155,18 @@
       z-index: 0;
     }
 
-    .scrollable {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      position: relative;
-      z-index: 1;
-    }
-
     /* Scrollbar styling */
-    .scrollable::-webkit-scrollbar {
+    ::-webkit-scrollbar {
       width: 8px;
     }
-    .scrollable::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
       background: transparent;
     }
-    .scrollable::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
       background: var(--color-border);
       border-radius: var(--radius-full);
     }
-    .scrollable::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover {
       background: var(--color-text-tertiary);
     }
 
@@ -404,20 +387,8 @@
       color: var(--color-text-secondary);
       border: none;
     }
-    .badge.info {
-      background: var(--color-info);
-      color: var(--color-on-primary);
-    }
-    .badge.success {
-      background: var(--color-success);
-      color: var(--color-on-primary);
-    }
-    .badge.warning {
-      background: var(--color-warning);
-      color: var(--color-on-primary);
-    }
-    .badge.error {
-      background: var(--color-error);
+    .badge.primary {
+      background: var(--color-primary);
       color: var(--color-on-primary);
     }
     @media (max-width: 768px) {
@@ -501,6 +472,9 @@
     }
     .btn-ghost:hover {
       background: var(--color-surface-elevated);
+    }
+    .btn-full {
+      width: 100%;
     }
 
     /* =========================================================================
@@ -745,6 +719,10 @@
     .mb-md { margin-bottom: var(--space-md); }
     .mb-lg { margin-bottom: var(--space-lg); }
     .gap-md { gap: var(--space-md); }
+    .about-text { max-width: 680px; }
+    .badge-row { margin-bottom: var(--space-md); }
+    .card-text-last { margin-bottom: 0; }
+    .spacer-bottom { height: var(--space-2xl); }
 
     /* =========================================================================
        MODAL (Interspec Rule 5: fixed positioning)
@@ -832,6 +810,10 @@
       line-height: 1.55;
       transition: background 0.2s ease, color 0.2s ease;
     }
+    .modal-link-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
     .modal-link:hover {
       background: rgba(0, 220, 165, 0.1);
       color: var(--color-primary);
@@ -841,55 +823,7 @@
       outline-offset: 2px;
     }
 
-    /* =========================================================================
-       TOAST
-       ========================================================================= */
-    .toast-container {
-      position: fixed;
-      bottom: var(--space-lg);
-      right: var(--space-lg);
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-sm);
-      pointer-events: none;
-    }
-    .toast {
-      background: var(--color-surface-elevated);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-md);
-      padding: var(--space-md) var(--space-lg);
-      color: var(--color-text-primary);
-      font-size: 14px;
-      line-height: 1.55;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      pointer-events: auto;
-      animation: toast-in 0.3s ease forwards;
-      max-width: 360px;
-    }
-    .toast.out {
-      animation: toast-out 0.3s ease forwards;
-    }
-    @keyframes toast-in {
-      from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    @keyframes toast-out {
-      from {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      to {
-        opacity: 0;
-        transform: translateY(16px) scale(0.95);
-      }
-    }
+
 
     /* =========================================================================
        CURSOR BLINK EFFECT (terminal-inspired accent)
@@ -969,9 +903,6 @@
       #root {
         overflow: visible;
       }
-      .scrollable {
-        overflow: visible;
-      }
       .modal-overlay {
         display: none !important;
       }
@@ -1000,7 +931,7 @@
        ROOT: viewport-filling container with internal scrolling
        ===================================================================== -->
   <div id="root">
-    <main id="main-content" class="scrollable" role="main" aria-label="Main content">
+    <main id="main-content" role="main" aria-label="Main content">
       <div class="container">
 
         <!-- ================================================================
@@ -1012,20 +943,23 @@
           </h1>
 
           <div class="identity-role-row">
-            <span class="badge info">Full-Stack Developer + AI Engineer</span>
+            <span class="badge">Full-Stack Developer + AI Engineer</span>
             <span class="body-md text-secondary">📍 Remote / Feira de Santana, BA, Brasil</span>
           </div>
 
           <div class="identity-links">
-            <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="link" data-toast="Open email client">
+            <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="link">
               📧 Email
             </a>
-            <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="link" data-toast="Open GitHub profile">
+            <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="link">
               🐙 GitHub
             </a>
-            <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="link" data-toast="Open LinkedIn profile">
+            <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="link">
               🔗 LinkedIn
             </a>
+            <button id="hero-contact-btn" class="btn btn-primary" type="button">
+              Get in touch →
+            </button>
           </div>
         </section>
 
@@ -1036,7 +970,7 @@
              ================================================================ -->
         <section id="about" class="section" aria-labelledby="about-title">
           <h2 id="about-title" class="headline-lg section-title">About Me</h2>
-          <p class="body-md text-block" style="max-width: 680px;">
+          <p class="body-md text-block about-text">
             Full-stack developer and AI engineer passionate about building practical tools
             that bridge the gap between complex systems and real-world usability. Currently
             pursuing Computer Engineering at UEFS while freelancing — delivering web
@@ -1115,7 +1049,7 @@
             <article class="card featured" aria-label="RouteHub — Featured project">
               <h3 class="headline-md card-title">RouteHub — Bus Transportation Platform</h3>
               <p class="card-subtitle">
-                <span class="code-md" style="color: var(--color-text-secondary);">
+                <span class="code-md text-secondary">
                   Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven
                 </span>
               </p>
@@ -1125,16 +1059,16 @@
                 trip booking, check-in, PDF reports, and notifications. Built spec-first with
                 <span class="code-md">specs/</span> defining every story and edge case.
               </p>
-              <div class="row collapse gap-sm" style="margin-bottom: var(--space-md);">
-                <span class="badge info">React</span>
-                <span class="badge info">FastAPI</span>
-                <span class="badge info">PostgreSQL</span>
-                <span class="badge info">Docker</span>
-                <span class="badge info">JWT</span>
-                <span class="badge success">Spec-Driven</span>
+              <div class="row collapse gap-sm badge-row">
+                <span class="badge">React</span>
+                <span class="badge">FastAPI</span>
+                <span class="badge">PostgreSQL</span>
+                <span class="badge">Docker</span>
+                <span class="badge">JWT</span>
+                <span class="badge primary">Spec-Driven</span>
               </div>
               <div class="card-actions">
-                <a href="https://github.com/DaviMGDev/RouteHub" target="_blank" rel="noopener noreferrer" class="link link-external" data-toast="Open RouteHub repo">
+                <a href="https://github.com/DaviMGDev/RouteHub" target="_blank" rel="noopener noreferrer" class="link link-external">
                   View on GitHub →
                 </a>
               </div>
@@ -1144,7 +1078,7 @@
             <article class="card">
               <h3 class="headline-md card-title">my-agent — LLM Agent Framework</h3>
               <p class="card-subtitle">
-                <span class="code-md" style="color: var(--color-text-secondary);">
+                <span class="code-md text-secondary">
                   Go · LLM · Tool-Calling · Streaming · Mock Implementation
                 </span>
               </p>
@@ -1153,13 +1087,13 @@
                 agent loop, and MockLLM for testing without API keys. Supports streaming via
                 iterator pattern, with CI pipeline via GitHub Actions.
               </p>
-              <div class="row collapse gap-sm" style="margin-bottom: var(--space-md);">
-                <span class="badge info">Go</span>
-                <span class="badge info">Tool-Calling</span>
-                <span class="badge info">Streaming</span>
+              <div class="row collapse gap-sm badge-row">
+                <span class="badge">Go</span>
+                <span class="badge">Tool-Calling</span>
+                <span class="badge">Streaming</span>
               </div>
               <div class="card-actions">
-                <a href="https://github.com/DaviMGDev/my-agent" target="_blank" rel="noopener noreferrer" class="link link-external" data-toast="Open my-agent repo">
+                <a href="https://github.com/DaviMGDev/my-agent" target="_blank" rel="noopener noreferrer" class="link link-external">
                   View on GitHub →
                 </a>
               </div>
@@ -1169,7 +1103,7 @@
             <article class="card">
               <h3 class="headline-md card-title">unipm — Universal Package Manager</h3>
               <p class="card-subtitle">
-                <span class="code-md" style="color: var(--color-text-secondary);">
+                <span class="code-md text-secondary">
                   Go · CLI · Cross-Platform · Distrobox
                 </span>
               </p>
@@ -1178,12 +1112,12 @@
                 Distrobox under one CLI. Interactive source selection when packages exist
                 in multiple ecosystems. Gherkin-based BDD test suite.
               </p>
-              <div class="row collapse gap-sm" style="margin-bottom: var(--space-md);">
-                <span class="badge info">Go</span>
-                <span class="badge info">CLI</span>
+              <div class="row collapse gap-sm badge-row">
+                <span class="badge">Go</span>
+                <span class="badge">CLI</span>
               </div>
               <div class="card-actions">
-                <a href="https://github.com/DaviMGDev/unipm" target="_blank" rel="noopener noreferrer" class="link link-external" data-toast="Open unipm repo">
+                <a href="https://github.com/DaviMGDev/unipm" target="_blank" rel="noopener noreferrer" class="link link-external">
                   View on GitHub →
                 </a>
               </div>
@@ -1193,7 +1127,7 @@
             <article class="card">
               <h3 class="headline-md card-title">denteclean — Dental Clinic Landing Page</h3>
               <p class="card-subtitle">
-                <span class="code-md" style="color: var(--color-text-secondary);">
+                <span class="code-md text-secondary">
                   HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks
                 </span>
               </p>
@@ -1202,17 +1136,17 @@
                 zero build steps — pure HTML/CSS/JS with full responsive design across desktop,
                 tablet, and mobile. Deployed via GitHub Pages.
               </p>
-              <div class="row collapse gap-sm" style="margin-bottom: var(--space-md);">
-                <span class="badge info">HTML5</span>
-                <span class="badge info">CSS3</span>
-                <span class="badge info">Vanilla JS</span>
-                <span class="badge success">Responsive</span>
+              <div class="row collapse gap-sm badge-row">
+                <span class="badge">HTML5</span>
+                <span class="badge">CSS3</span>
+                <span class="badge">Vanilla JS</span>
+                <span class="badge primary">Responsive</span>
               </div>
               <div class="card-actions">
-                <a href="https://davimgdev.github.io/denteclean/" target="_blank" rel="noopener noreferrer" class="link link-external" data-toast="Open live demo">
+                <a href="https://davimgdev.github.io/denteclean/" target="_blank" rel="noopener noreferrer" class="link link-external">
                   🔗 Live Demo →
                 </a>
-                <a href="https://github.com/DaviMGDev/denteclean" target="_blank" rel="noopener noreferrer" class="link link-external" data-toast="Open denteclean repo">
+                <a href="https://github.com/DaviMGDev/denteclean" target="_blank" rel="noopener noreferrer" class="link link-external">
                   View on GitHub →
                 </a>
               </div>
@@ -1220,8 +1154,8 @@
 
             <!-- Early Experiments (compact) -->
             <section aria-label="Early Experiments">
-              <h3 class="headline-sm section-title" style="color: var(--color-text-secondary); margin-bottom: var(--space-md);">
-                Early Experiments
+              <h3 class="headline-sm section-title text-secondary mb-md">
+                Side Projects
               </h3>
               <ul class="compact-list">
                 <li>TUI Dental Clinic System — Terminal-based management interface (exploratory)</li>
@@ -1241,7 +1175,7 @@
           <div class="card">
             <h3 class="headline-md card-title">Freelance Developer</h3>
             <p class="card-subtitle">Less than 1 year</p>
-            <p class="card-text" style="margin-bottom: 0;">
+            <p class="card-text card-text-last">
               Full-stack applications, CLI tools, and LLM-powered workflows for diverse clients.
             </p>
           </div>
@@ -1254,12 +1188,12 @@
              ================================================================ -->
         <section id="education" class="section" aria-labelledby="edu-title">
           <h2 id="edu-title" class="headline-lg section-title">Education</h2>
-          <p class="body-md text-block" style="margin-bottom: var(--space-md);">
+          <p class="body-md text-block mb-md">
             B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil
           </p>
           <div class="row collapse gap-sm">
-            <span class="badge info">IoT Certificate</span>
-            <span class="badge info">Programming Marathon Participant</span>
+            <span class="badge">IoT Certificate</span>
+            <span class="badge">Programming Marathon Participant</span>
           </div>
         </section>
 
@@ -1271,13 +1205,13 @@
         <section id="languages" class="section" aria-labelledby="lang-title">
           <h2 id="lang-title" class="headline-lg section-title">Languages &amp; Strengths</h2>
 
-          <p class="body-md text-secondary" style="margin-bottom: var(--space-sm);">Languages:</p>
-          <div class="row collapse gap-sm" style="margin-bottom: var(--space-lg);">
-            <span class="badge info">Portuguese — Native</span>
-            <span class="badge info">English — Advanced R&amp;L / Conversational</span>
+          <p class="body-md text-secondary mb-sm">Languages:</p>
+          <div class="row collapse gap-sm mb-lg">
+            <span class="badge">Portuguese — Native</span>
+            <span class="badge">English — Advanced R&amp;L / Conversational</span>
           </div>
 
-          <p class="body-md text-secondary" style="margin-bottom: var(--space-sm);">Strengths:</p>
+          <p class="body-md text-secondary mb-sm">Strengths:</p>
           <div class="text-block">
             <p class="text-item">• Self-directed learner — picks up tools quickly by building real projects</p>
             <p class="text-item">• Problem finder &amp; solver — spots edge cases and failure modes others overlook</p>
@@ -1320,7 +1254,7 @@
         </section>
 
         <!-- Spacer for bottom breathing room -->
-        <div style="height: var(--space-2xl);"></div>
+        <div class="spacer-bottom"></div>
 
       </div>
       <!-- end .container -->
@@ -1341,29 +1275,26 @@
       </button>
       <h2 id="modal-title" class="headline-md modal-title">Get in Touch</h2>
       <div class="modal-links">
-        <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="modal-link" data-toast="Open email client">
-          <span style="font-size: 18px;">📧</span>
+        <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="modal-link">
+          <span class="modal-link-icon">📧</span>
           dev.davi.macedo.gomes@gmail.com
         </a>
-        <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="modal-link" data-toast="Open GitHub">
-          <span style="font-size: 18px;">🐙</span>
+        <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="modal-link">
+          <span class="modal-link-icon">🐙</span>
           github.com/DaviMGDev
         </a>
-        <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="modal-link" data-toast="Open LinkedIn">
-          <span style="font-size: 18px;">🔗</span>
+        <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="modal-link">
+          <span class="modal-link-icon">🔗</span>
           linkedin.com/in/dav1-maced0-g0mes-dev
         </a>
       </div>
-      <button id="modal-close-btn-bottom" class="btn btn-ghost" type="button" style="width: 100%;">
+      <button id="modal-close-btn-bottom" class="btn btn-ghost btn-full" type="button">
         Close
       </button>
     </div>
   </div>
 
-  <!-- =====================================================================
-       TOAST CONTAINER
-       ===================================================================== -->
-  <div id="toast-container" class="toast-container" aria-live="polite" aria-relevant="additions"></div>
+
 
   <!-- =====================================================================
        JAVASCRIPT
@@ -1377,6 +1308,7 @@
       // =====================================================================
       const modalOverlay = document.getElementById('contact-modal');
       const openBtn = document.getElementById('get-in-touch-btn');
+      const heroBtn = document.getElementById('hero-contact-btn');
       const closeBtn = document.getElementById('modal-close-btn');
       const closeBottomBtn = document.getElementById('modal-close-btn-bottom');
 
@@ -1397,6 +1329,7 @@
       }
 
       openBtn.addEventListener('click', openModal);
+      heroBtn.addEventListener('click', openModal);
 
       closeBtn.addEventListener('click', closeModal);
       closeBottomBtn.addEventListener('click', closeModal);
@@ -1438,53 +1371,17 @@
       });
 
       // =====================================================================
-      // Toast
-      // =====================================================================
-      var toastContainer = document.getElementById('toast-container');
-
-      function showToast(message) {
-        var toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        toastContainer.appendChild(toast);
-
-        // Remove after 2.5s with animation
-        setTimeout(function() {
-          toast.classList.add('out');
-          setTimeout(function() {
-            if (toast.parentNode) {
-              toast.parentNode.removeChild(toast);
-            }
-          }, 300);
-        }, 2500);
-      }
-
-      // Expose for click handlers
-      window.showToast = showToast;
-
-      // Attach toast to all elements with data-toast attribute
-      document.addEventListener('click', function(e) {
-        var target = e.target.closest('[data-toast]');
-        if (target) {
-          var message = target.getAttribute('data-toast');
-          if (message) {
-            showToast(message);
-          }
-        }
-      });
-
-      // =====================================================================
       // Scroll-triggered reveal animation (progressive enhancement)
       // =====================================================================
       if ('IntersectionObserver' in window) {
-        var sections = document.querySelectorAll('.section');
+        const sections = document.querySelectorAll('.section');
         sections.forEach(function(section) {
           section.style.opacity = '0';
           section.style.transform = 'translateY(20px)';
           section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         });
 
-        var observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver(function(entries) {
           entries.forEach(function(entry) {
             if (entry.isIntersecting) {
               entry.target.style.opacity = '1';
@@ -1510,11 +1407,11 @@
       // =====================================================================
       document.querySelector('.skip-link').addEventListener('click', function(e) {
         e.preventDefault();
-        var target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.setAttribute('tabindex', '-1');
-          target.focus();
-          target.scrollIntoView({ behavior: 'smooth' });
+        const anchor = document.querySelector(this.getAttribute('href'));
+        if (anchor) {
+          anchor.setAttribute('tabindex', '-1');
+          anchor.focus();
+          anchor.scrollIntoView({ behavior: 'smooth' });
         }
       });
 
