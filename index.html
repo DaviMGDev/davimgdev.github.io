@@ -702,13 +702,13 @@
     .card-thumb {
       display: block;
       width: 320px;
-      height: auto;
       flex-shrink: 0;
+      align-self: stretch;
+      object-fit: cover;
       border: 2px solid var(--color-secondary);
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       background: var(--color-background);
-      align-self: flex-start;
     }
     .card:hover .card-thumb {
       border-color: var(--color-primary);
