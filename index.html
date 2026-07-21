@@ -16,22 +16,22 @@
        DESIGN TOKENS (from DESIGN.md — Davi Pixel Avatar Design System)
        ========================================================================= */
     :root {
-      /* Colors — monochromatic grayscale palette */
-      --color-primary: #0D0D0D;
-      --color-primary-hover: #1A1A1A;
-      --color-secondary: #404040;
-      --color-text-muted: #555555;
-      --color-tertiary: #808080;
-      --color-neutral: #DCDCDC;
-      --color-surface: #E8E8E8;
-      --color-on-primary: #FFFFFF;
-      --color-on-surface: #0D0D0D;
-      --color-highlight: #C0C0C0;
-      --color-midtone: #999999;
-      --color-shadow: #262626;
-      --color-background: #D4D4D4;
-      --color-border: #404040;
-      --color-border-light: #999999;
+      /* Colors — monochromatic grayscale palette (dark = default) */
+      --color-primary: #E0E0E0;
+      --color-primary-hover: #C0C0C0;
+      --color-secondary: #888888;
+      --color-text-muted: #999999;
+      --color-tertiary: #707070;
+      --color-neutral: #3A3A3A;
+      --color-surface: #2A2A2A;
+      --color-on-primary: #1A1A1A;
+      --color-on-surface: #DCDCDC;
+      --color-highlight: #505050;
+      --color-midtone: #606060;
+      --color-shadow: #0A0A0A;
+      --color-background: #1A1A1A;
+      --color-border: #888888;
+      --color-border-light: #555555;
 
       /* Typography families — pixel/bitmap fonts only */
       --font-display: 'Press Start 2P', monospace;
@@ -59,6 +59,52 @@
       /* Layout */
       --container-max: 1200px;
       --container-padding: 24px;
+    }
+
+    /* =========================================================================
+       LIGHT THEME — color token overrides
+       ========================================================================= */
+    [data-theme="light"] {
+      --color-primary: #0D0D0D;
+      --color-primary-hover: #1A1A1A;
+      --color-secondary: #404040;
+      --color-text-muted: #555555;
+      --color-tertiary: #808080;
+      --color-neutral: #DCDCDC;
+      --color-surface: #E8E8E8;
+      --color-on-primary: #FFFFFF;
+      --color-on-surface: #0D0D0D;
+      --color-highlight: #C0C0C0;
+      --color-midtone: #999999;
+      --color-shadow: #262626;
+      --color-background: #D4D4D4;
+      --color-border: #404040;
+      --color-border-light: #999999;
+    }
+
+    /* =========================================================================
+       PIXELATED SCROLLBAR
+       ========================================================================= */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-background);
+      border-left: 2px solid var(--color-secondary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-primary);
+      border: 2px solid var(--color-background);
+      image-rendering: pixelated;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-primary-hover);
+    }
+    /* Firefox */
+    html {
+      scrollbar-color: var(--color-primary) var(--color-background);
+      scrollbar-width: auto;
     }
 
     /* =========================================================================
@@ -90,7 +136,7 @@
     }
 
     /* =========================================================================
-       DITHERING TEXTURE — checkerboard noise overlay
+       BACKGROUND TEXTURE — checkerboard + scanlines
        ========================================================================= */
     body::before {
       content: '';
@@ -99,9 +145,31 @@
       background-image:
         repeating-conic-gradient(var(--color-highlight) 0% 25%, transparent 0% 50%);
       background-size: 4px 4px;
-      opacity: 0.08;
+      opacity: 0.12;
       pointer-events: none;
       z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(255,255,255,0.02) 2px,
+        rgba(255,255,255,0.02) 4px
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    [data-theme="light"] body::after {
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
     }
 
     /* =========================================================================
@@ -123,6 +191,102 @@
     }
     .skip-link:focus {
       top: var(--space-md);
+    }
+
+    /* =========================================================================
+       NAVBAR — sticky, pixel-aligned
+       ========================================================================= */
+    #navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--container-padding);
+      background: var(--color-background);
+      border-bottom: 2px solid var(--color-primary);
+    }
+    .nav-logo {
+      font-family: var(--font-headline);
+      font-size: 14px;
+      color: var(--color-primary);
+      text-decoration: none;
+      text-transform: uppercase;
+      image-rendering: pixelated;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: var(--space-lg);
+    }
+    .nav-links a {
+      font-family: var(--font-caption);
+      font-size: 12px;
+      color: var(--color-on-surface);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      border-bottom-color: var(--color-primary);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .lang-toggle {
+      background: none;
+      border: 2px solid var(--color-secondary);
+      cursor: pointer;
+      padding: 2px 6px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--color-on-surface);
+      font-family: var(--font-caption);
+      font-size: 11px;
+      text-transform: uppercase;
+      image-rendering: pixelated;
+    }
+    .lang-toggle:hover {
+      border-color: var(--color-primary);
+    }
+    .lang-option { opacity: 0.5; }
+    .lang-option.active { opacity: 1; font-weight: bold; }
+    .lang-sep { opacity: 0.5; }
+    .theme-toggle {
+      background: none;
+      border: 2px solid var(--color-secondary);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-on-surface);
+      image-rendering: pixelated;
+    }
+    .theme-toggle:hover {
+      border-color: var(--color-primary);
+    }
+    .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: var(--space-md);
+      }
+      .nav-links a {
+        font-size: 11px;
+      }
+    }
+    @media (max-width: 480px) {
+      .nav-links {
+        gap: var(--space-sm);
+      }
     }
 
     /* =========================================================================
@@ -200,7 +364,7 @@
        ========================================================================= */
     .section {
       padding-block: var(--space-section);
-      scroll-margin-top: var(--space-lg);
+      scroll-margin-top: 56px;
     }
     .section.compact {
       padding-block: var(--space-2xl);
@@ -232,17 +396,35 @@
     }
 
     /* =========================================================================
-       IDENTITY / HERO
+       IDENTITY / HERO — full viewport
        ========================================================================= */
     #identity {
-      padding-top: clamp(var(--space-3xl), 10vh, var(--space-section));
-      padding-bottom: var(--space-section);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      padding-block: var(--space-lg);
     }
     .identity-name {
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-md);
       color: var(--color-primary);
       image-rendering: pixelated;
+    }
+    .hero-illustration {
+      margin-bottom: var(--space-lg);
+      position: relative;
+      width: 80px;
+      height: 80px;
+      image-rendering: pixelated;
+    }
+    /* Pixel-art terminal/computer icon drawn with box-shadow */
+    .hero-pixel {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--color-primary);
     }
     .identity-role-row {
       display: flex;
@@ -270,40 +452,30 @@
     }
 
     /* =========================================================================
-       PORTFOLIO / AVATAR FRAME (DESIGN.md avatar-frame component)
+       AVATAR FRAME (DESIGN.md avatar-frame component)
        ========================================================================= */
-    #portfolio {
-      text-align: center;
-    }
     .avatar-frame {
-      display: inline-block;
+      flex-shrink: 0;
       background-color: var(--color-background);
       padding: var(--space-lg);
       border: 2px solid var(--color-primary);
       image-rendering: pixelated;
       position: relative;
-      /* Dithering border accent */
       box-shadow:
         4px 4px 0 0 var(--color-primary),
         -4px -4px 0 0 var(--color-midtone);
     }
     .avatar-image {
       display: block;
-      max-width: 256px;
+      max-width: 200px;
       width: 100%;
       height: auto;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       border: 2px solid var(--color-secondary);
     }
-    .avatar-caption {
-      margin-top: var(--space-md);
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-    }
-    /* Sparkle accents — small pixel decorations */
     .avatar-frame::after {
-      content: '✦';
+      content: '\2726';
       position: absolute;
       top: -12px;
       right: -12px;
@@ -316,6 +488,28 @@
         -1px 1px 0 var(--color-primary);
       line-height: 1;
       image-rendering: pixelated;
+    }
+
+    /* About Me layout — avatar + bio side by side */
+    .about-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-xl);
+    }
+    .about-content {
+      max-width: 680px;
+    }
+    @media (max-width: 768px) {
+      .about-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-content {
+        text-align: center;
+      }
+      .avatar-image {
+        max-width: 150px;
+      }
     }
 
     /* =========================================================================
@@ -497,6 +691,29 @@
       margin-top: var(--space-lg);
     }
 
+    /* Card thumbnail placeholder */
+    .card-thumb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      padding: var(--space-xl) var(--space-md);
+      margin-bottom: var(--space-md);
+      border: 2px dashed var(--color-tertiary);
+      background: var(--color-background);
+      color: var(--color-tertiary);
+      image-rendering: pixelated;
+    }
+    .card:hover .card-thumb {
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+    }
+    .thumb-label {
+      text-transform: uppercase;
+      color: inherit;
+    }
+
     /* Featured card */
     .card.featured {
       border-color: var(--color-primary);
@@ -520,89 +737,57 @@
     }
 
     /* =========================================================================
-       TABLE
+       CAROUSEL — infinite scroll tech stack
        ========================================================================= */
-    .table-wrapper {
-      overflow-x: auto;
-      max-height: 60vh;
-      overflow-y: auto;
+    .carousel-track {
+      overflow: hidden;
+      border-block: 2px solid var(--color-secondary);
+      padding-block: var(--space-md);
+      position: relative;
+    }
+    .carousel-inner {
+      display: flex;
+      gap: var(--space-md);
+      animation: carousel-scroll 24s steps(64) infinite;
+      width: max-content;
+    }
+    .carousel-track:hover .carousel-inner {
+      animation-play-state: paused;
+    }
+    @keyframes carousel-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .carousel-item {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      background: var(--color-surface);
       border: 2px solid var(--color-secondary);
-      -webkit-overflow-scrolling: touch;
+      padding: var(--space-md);
+      min-width: 280px;
+      max-width: 380px;
+      white-space: normal;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-body);
+    .carousel-item:hover {
+      border-color: var(--color-primary);
     }
-    thead th {
-      background: var(--color-primary);
-      color: var(--color-on-primary);
-      font-family: var(--font-label);
-      font-size: 14px;
-      font-weight: 400;
+    .carousel-cat {
+      font-family: var(--font-headline);
+      font-size: 12px;
+      color: var(--color-primary);
       text-transform: uppercase;
-      text-align: left;
-      padding: var(--space-sm) var(--space-md);
-      border-bottom: 2px solid var(--color-primary);
-      position: sticky;
-      top: 0;
-      z-index: 1;
     }
-    tbody td {
-      padding: var(--space-sm) var(--space-md);
+    .carousel-tech {
       font-family: var(--font-body);
       font-size: 18px;
-      line-height: 1.5;
-      border-bottom: 2px solid var(--color-neutral);
       color: var(--color-on-surface);
+      line-height: 1.5;
     }
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
-    tbody tr:hover td {
-      background: var(--color-neutral);
-    }
-    tbody td:first-child {
-      color: var(--color-primary);
-      font-weight: 400;
-      white-space: nowrap;
-    }
-
-    /* Table → stacked cards on mobile */
     @media (max-width: 768px) {
-      .table-wrapper {
-        border: none;
-        max-height: none;
-        overflow: visible;
-      }
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      thead {
-        display: none;
-      }
-      tbody tr {
-        background: var(--color-surface);
-        border: 2px solid var(--color-secondary);
-        padding: var(--space-md);
-        margin-bottom: var(--space-md);
-      }
-      tbody tr:hover {
-        background: var(--color-neutral);
-      }
-      tbody td {
-        padding: var(--space-xs) 0;
-        border: none;
-      }
-      tbody td:first-child {
-        font-family: var(--font-caption);
-        font-size: 12px;
-        text-transform: uppercase;
-        color: var(--color-text-muted);
-      }
-      tbody td:last-child {
-        color: var(--color-on-surface);
-        font-size: 18px;
+      .carousel-item {
+        min-width: 240px;
       }
     }
 
@@ -889,6 +1074,36 @@
   </style>
 </head>
 <body>
+  <!-- =====================================================================
+       NAVBAR — sticky, minimal
+       ===================================================================== -->
+  <nav id="navbar" aria-label="Main navigation">
+    <a href="#identity" class="nav-logo">DMG</a>
+    <ul class="nav-links">
+      <li><a href="#identity" data-i18n="nav.home">Home</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#tech-stack" data-i18n="nav.stack">Stack</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button id="lang-toggle" class="lang-toggle" aria-label="Switch language" type="button">
+        <span class="lang-option" data-lang="en">EN</span>
+        <span class="lang-sep">/</span>
+        <span class="lang-option active" data-lang="pt">PT</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sun">
+          <circle cx="10" cy="10" r="4" fill="currentColor"/>
+          <path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.93 3.93l1.41 1.41M14.66 14.66l1.41 1.41M3.93 16.07l1.41-1.41M14.66 5.34l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-moon">
+          <path d="M17 12.5A7.5 7.5 0 0110 3a7.5 7.5 0 000 15 7.5 7.5 0 007-5.5z" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
   <!-- Skip link for keyboard users -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -903,50 +1118,86 @@
              SECTION: Identity Header
              ================================================================ -->
         <section id="identity" aria-label="Identity">
+          <!-- CSS pixel-art computer icon -->
+          <div class="hero-illustration" aria-hidden="true">
+            <div class="hero-pixel" style="top:0;left:24px"></div>
+            <div class="hero-pixel" style="top:0;left:32px"></div>
+            <div class="hero-pixel" style="top:0;left:40px"></div>
+            <div class="hero-pixel" style="top:0;left:48px"></div>
+            <div class="hero-pixel" style="top:8px;left:16px"></div>
+            <div class="hero-pixel" style="top:8px;left:56px"></div>
+            <div class="hero-pixel" style="top:16px;left:8px"></div>
+            <div class="hero-pixel" style="top:16px;left:16px"></div>
+            <div class="hero-pixel" style="top:16px;left:24px"></div>
+            <div class="hero-pixel" style="top:16px;left:32px"></div>
+            <div class="hero-pixel" style="top:16px;left:40px"></div>
+            <div class="hero-pixel" style="top:16px;left:48px"></div>
+            <div class="hero-pixel" style="top:16px;left:56px"></div>
+            <div class="hero-pixel" style="top:16px;left:64px"></div>
+            <div class="hero-pixel" style="top:24px;left:8px"></div>
+            <div class="hero-pixel" style="top:24px;left:24px"></div>
+            <div class="hero-pixel" style="top:24px;left:32px"></div>
+            <div class="hero-pixel" style="top:24px;left:40px"></div>
+            <div class="hero-pixel" style="top:24px;left:48px"></div>
+            <div class="hero-pixel" style="top:24px;left:64px"></div>
+            <div class="hero-pixel" style="top:32px;left:8px"></div>
+            <div class="hero-pixel" style="top:32px;left:16px"></div>
+            <div class="hero-pixel" style="top:32px;left:24px"></div>
+            <div class="hero-pixel" style="top:32px;left:32px"></div>
+            <div class="hero-pixel" style="top:32px;left:40px"></div>
+            <div class="hero-pixel" style="top:32px;left:48px"></div>
+            <div class="hero-pixel" style="top:32px;left:56px"></div>
+            <div class="hero-pixel" style="top:32px;left:64px"></div>
+            <div class="hero-pixel" style="top:40px;left:8px"></div>
+            <div class="hero-pixel" style="top:40px;left:24px"></div>
+            <div class="hero-pixel" style="top:40px;left:48px"></div>
+            <div class="hero-pixel" style="top:40px;left:64px"></div>
+            <div class="hero-pixel" style="top:48px;left:8px"></div>
+            <div class="hero-pixel" style="top:48px;left:64px"></div>
+            <div class="hero-pixel" style="top:56px;left:8px"></div>
+            <div class="hero-pixel" style="top:56px;left:16px"></div>
+            <div class="hero-pixel" style="top:56px;left:24px"></div>
+            <div class="hero-pixel" style="top:56px;left:48px"></div>
+            <div class="hero-pixel" style="top:56px;left:56px"></div>
+            <div class="hero-pixel" style="top:56px;left:64px"></div>
+            <div class="hero-pixel" style="top:64px;left:0"></div>
+            <div class="hero-pixel" style="top:64px;left:8px"></div>
+            <div class="hero-pixel" style="top:64px;left:16px"></div>
+            <div class="hero-pixel" style="top:64px;left:24px"></div>
+            <div class="hero-pixel" style="top:64px;left:32px"></div>
+            <div class="hero-pixel" style="top:64px;left:40px"></div>
+            <div class="hero-pixel" style="top:64px;left:48px"></div>
+            <div class="hero-pixel" style="top:64px;left:56px"></div>
+            <div class="hero-pixel" style="top:64px;left:64px"></div>
+            <div class="hero-pixel" style="top:64px;left:72px"></div>
+          </div>
+
           <h1 class="display-pixel identity-name">
             Davi Macêdo Gomes<span class="cursor-blink" aria-hidden="true"></span>
           </h1>
 
           <div class="identity-role-row">
-            <span class="badge">Full-Stack Developer + AI Engineer</span>
-            <span class="body-pixel text-secondary">📍 Remote / Feira de Santana, BA, Brasil</span>
+            <span class="badge" data-i18n="hero.role">Full-Stack Developer + AI Engineer</span>
+            <span class="body-pixel text-secondary" data-i18n="hero.location">Remote / Feira de Santana, BA, Brasil</span>
           </div>
 
           <div class="identity-links">
             <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="link">
-              📧 Email
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="14" height="11" stroke="currentColor" stroke-width="1.5"/><path d="M1 3l7 6 7-6" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span data-i18n="hero.email">Email</span>
             </a>
             <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="link">
-              🐙 GitHub
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12c-3 1-3-1-4-2m4 2v-3m0 0c-2-1-3-3-2-5a3 3 0 012-1c0-1 0-2 2-2s2 1 2 2c.7 0 1.3.3 2 1a3 3 0 01-2 5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="hero.github">GitHub</span>
             </a>
             <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="link">
-              🔗 LinkedIn
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="4" width="4" height="10" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="3" r="1" stroke="currentColor" stroke-width="1.5"/><path d="M7 10V8.5c0-1 .7-1.5 1.5-1.5s1.5.5 1.5 1.5V10M9 10v-3M8 14h5V7H8v7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span data-i18n="hero.linkedin">LinkedIn</span>
             </a>
             <button id="hero-contact-btn" class="btn btn-primary" type="button">
-              Get in touch →
+              <span data-i18n="hero.cta">Get in touch</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
-        </section>
-
-        <hr class="divider section-divider" aria-hidden="true">
-
-        <!-- ================================================================
-             SECTION: Portfolio (Pixel Avatar)
-             ================================================================ -->
-        <section id="portfolio" class="section" aria-labelledby="portfolio-title">
-          <h2 id="portfolio-title" class="headline-pixel section-title">Portfolio</h2>
-          <div class="avatar-frame">
-            <img
-              src="davi_pixel_avatar.png"
-              alt="Davi Macêdo Gomes pixel art portrait — 8-bit style avatar"
-              class="avatar-image"
-              width="256"
-              height="256"
-            >
-          </div>
-          <p class="caption-pixel avatar-caption mt-md">
-            Pixel Art Portrait &mdash; 8-bit Avatar
-          </p>
         </section>
 
         <hr class="divider section-divider" aria-hidden="true">
@@ -955,15 +1206,28 @@
              SECTION: About Me
              ================================================================ -->
         <section id="about" class="section" aria-labelledby="about-title">
-          <h2 id="about-title" class="headline-pixel section-title">About Me</h2>
-          <p class="body-pixel text-block about-text">
-            Full-stack developer and AI engineer passionate about building practical tools
-            that bridge the gap between complex systems and real-world usability. Currently
-            pursuing Computer Engineering at UEFS while freelancing — delivering web
-            applications and AI-powered automation. I thrive at the intersection of backend
-            engineering, CLI tooling, and LLM-based agent systems, always looking to simplify
-            developer experience and automate the tedious.
-          </p>
+          <h2 id="about-title" class="headline-pixel section-title" data-i18n="about.title">About Me</h2>
+          <div class="about-layout">
+            <div class="avatar-frame">
+              <img
+                src="davi_pixel_avatar.png"
+                alt="Davi Macêdo Gomes pixel art portrait — 8-bit style avatar"
+                class="avatar-image"
+                width="256"
+                height="256"
+              >
+            </div>
+            <div class="about-content">
+              <p class="body-pixel" data-i18n="about.bio">
+                Full-stack developer and AI engineer passionate about building practical tools
+                that bridge the gap between complex systems and real-world usability. Currently
+                pursuing Computer Engineering at UEFS while freelancing — delivering web
+                applications and AI-powered automation. I thrive at the intersection of backend
+                engineering, CLI tooling, and LLM-based agent systems, always looking to simplify
+                developer experience and automate the tedious.
+              </p>
+            </div>
+          </div>
         </section>
 
         <hr class="divider section-divider" aria-hidden="true">
@@ -972,52 +1236,20 @@
              SECTION: Tech Stack
              ================================================================ -->
         <section id="tech-stack" class="section" aria-labelledby="tech-title">
-          <h2 id="tech-title" class="headline-pixel section-title">Tech Stack</h2>
+          <h2 id="tech-title" class="headline-pixel section-title" data-i18n="stack.title">Tech Stack</h2>
 
-          <section class="table-wrapper" aria-label="Technology categories table">
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">Category</th>
-                  <th scope="col">Technologies</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Languages</td>
-                  <td>Python, Go, JavaScript / TypeScript, HTML, CSS, Shell</td>
-                </tr>
-                <tr>
-                  <td>Frontend</td>
-                  <td>React, HTMX, Vite, Tailwind CSS, vanilla JS</td>
-                </tr>
-                <tr>
-                  <td>Backend</td>
-                  <td>FastAPI, Gin, Go std lib, Django</td>
-                </tr>
-                <tr>
-                  <td>Databases</td>
-                  <td>PostgreSQL, MySQL, SQLite</td>
-                </tr>
-                <tr>
-                  <td>AI / LLM</td>
-                  <td>LangChain, OpenAI API, tool-calling agents, LLM orchestration</td>
-                </tr>
-                <tr>
-                  <td>DevOps</td>
-                  <td>Docker, Git, CI/CD (GitHub Actions), Linux, Bash</td>
-                </tr>
-                <tr>
-                  <td>Testing</td>
-                  <td>Gherkin (BDD), MSW (API mocking), Go tests</td>
-                </tr>
-                <tr>
-                  <td>Editor</td>
-                  <td>Neovim, VS Code · Agent: pi</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+          <div class="carousel-track" aria-label="Technology categories — scroll to explore">
+            <div class="carousel-inner" id="carousel-inner">
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.lang">Languages</span><span class="carousel-tech" data-i18n="stack.lang_val">Python, Go, JS/TS, HTML, CSS, Shell</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.frontend">Frontend</span><span class="carousel-tech" data-i18n="stack.frontend_val">React, HTMX, Vite, Tailwind CSS</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.backend">Backend</span><span class="carousel-tech" data-i18n="stack.backend_val">FastAPI, Gin, Go std lib, Django</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.db">Databases</span><span class="carousel-tech" data-i18n="stack.db_val">PostgreSQL, MySQL, SQLite</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.ai">AI / LLM</span><span class="carousel-tech" data-i18n="stack.ai_val">LangChain, OpenAI API, agents</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.devops">DevOps</span><span class="carousel-tech" data-i18n="stack.devops_val">Docker, Git, CI/CD, Linux, Bash</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.test">Testing</span><span class="carousel-tech" data-i18n="stack.test_val">Gherkin (BDD), MSW, Go tests</span></div>
+              <div class="carousel-item"><span class="carousel-cat" data-i18n="stack.editor">Editor</span><span class="carousel-tech" data-i18n="stack.editor_val">Neovim, VS Code, pi</span></div>
+            </div>
+          </div>
         </section>
 
         <hr class="divider section-divider" aria-hidden="true">
@@ -1026,19 +1258,23 @@
              SECTION: Projects
              ================================================================ -->
         <section id="projects" class="section" aria-labelledby="projects-title">
-          <h2 id="projects-title" class="headline-pixel section-title">Projects</h2>
+          <h2 id="projects-title" class="headline-pixel section-title" data-i18n="projects.title">Projects</h2>
 
           <div class="projects-section">
 
             <!-- Featured: RouteHub -->
             <article class="card featured" aria-label="RouteHub — Featured project">
-              <h3 class="headline-pixel card-title">RouteHub — Bus Transportation Platform</h3>
+              <div class="card-thumb" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
+              </div>
+              <h3 class="headline-pixel card-title" data-i18n="projects.routehub.title">RouteHub — Bus Transportation Platform</h3>
               <p class="card-subtitle">
-                <span class="code-pixel text-secondary">
+                <span class="code-pixel text-secondary" data-i18n="projects.routehub.subtitle">
                   Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven
                 </span>
               </p>
-              <p class="card-text">
+              <p class="card-text" data-i18n="projects.routehub.desc">
                 Digital platform for managing, scheduling, and monitoring institutional bus
                 transportation. Serves students, staff, drivers, and administrators with auth,
                 trip booking, check-in, PDF reports, and notifications. Built spec-first with
@@ -1054,20 +1290,24 @@
               </div>
               <div class="card-actions">
                 <a href="https://github.com/DaviMGDev/RouteHub" target="_blank" rel="noopener noreferrer" class="link link-external">
-                  View on GitHub →
+                  <span data-i18n="projects.routehub.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </article>
 
             <!-- my-agent -->
             <article class="card">
-              <h3 class="headline-pixel card-title">my-agent — LLM Agent Framework</h3>
+              <div class="card-thumb" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
+              </div>
+              <h3 class="headline-pixel card-title" data-i18n="projects.myagent.title">my-agent — LLM Agent Framework</h3>
               <p class="card-subtitle">
-                <span class="code-pixel text-secondary">
+                <span class="code-pixel text-secondary" data-i18n="projects.myagent.subtitle">
                   Go · LLM · Tool-Calling · Streaming · Mock Implementation
                 </span>
               </p>
-              <p class="card-text">
+              <p class="card-text" data-i18n="projects.myagent.desc">
                 Go-based LLM agent framework with a provider-agnostic interface, tool-calling
                 agent loop, and MockLLM for testing without API keys. Supports streaming via
                 iterator pattern, with CI pipeline via GitHub Actions.
@@ -1079,20 +1319,24 @@
               </div>
               <div class="card-actions">
                 <a href="https://github.com/DaviMGDev/my-agent" target="_blank" rel="noopener noreferrer" class="link link-external">
-                  View on GitHub →
+                  <span data-i18n="projects.myagent.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </article>
 
             <!-- unipm -->
             <article class="card">
-              <h3 class="headline-pixel card-title">unipm — Universal Package Manager</h3>
+              <div class="card-thumb" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
+              </div>
+              <h3 class="headline-pixel card-title" data-i18n="projects.unipm.title">unipm — Universal Package Manager</h3>
               <p class="card-subtitle">
-                <span class="code-pixel text-secondary">
+                <span class="code-pixel text-secondary" data-i18n="projects.unipm.subtitle">
                   Go · CLI · Cross-Platform · Distrobox
                 </span>
               </p>
-              <p class="card-text">
+              <p class="card-text" data-i18n="projects.unipm.desc">
                 Meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and
                 Distrobox under one CLI. Interactive source selection when packages exist
                 in multiple ecosystems. Gherkin-based BDD test suite.
@@ -1103,20 +1347,24 @@
               </div>
               <div class="card-actions">
                 <a href="https://github.com/DaviMGDev/unipm" target="_blank" rel="noopener noreferrer" class="link link-external">
-                  View on GitHub →
+                  <span data-i18n="projects.unipm.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </article>
 
             <!-- denteclean -->
             <article class="card">
-              <h3 class="headline-pixel card-title">denteclean — Dental Clinic Landing Page</h3>
+              <div class="card-thumb" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="28" height="24" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="14" r="5" stroke="currentColor" stroke-width="2"/><path d="M10 28l4-7h4l4 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span class="caption-pixel thumb-label" data-i18n="projects.thumb">screenshot coming soon</span>
+              </div>
+              <h3 class="headline-pixel card-title" data-i18n="projects.denteclean.title">denteclean — Dental Clinic Landing Page</h3>
               <p class="card-subtitle">
-                <span class="code-pixel text-secondary">
+                <span class="code-pixel text-secondary" data-i18n="projects.denteclean.subtitle">
                   HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks
                 </span>
               </p>
-              <p class="card-text">
+              <p class="card-text" data-i18n="projects.denteclean.desc">
                 Static single-page site for a fictional premium dental clinic. Zero frameworks,
                 zero build steps — pure HTML/CSS/JS with full responsive design across desktop,
                 tablet, and mobile. Deployed via GitHub Pages.
@@ -1129,42 +1377,19 @@
               </div>
               <div class="card-actions">
                 <a href="https://davimgdev.github.io/denteclean/" target="_blank" rel="noopener noreferrer" class="link link-external">
-                  🔗 Live Demo →
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M8 2v4M8 10v4M2 8h4M10 8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> <span data-i18n="projects.denteclean.live">Live Demo</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
                 <a href="https://github.com/DaviMGDev/denteclean" target="_blank" rel="noopener noreferrer" class="link link-external">
-                  View on GitHub →
+                  <span data-i18n="projects.denteclean.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </article>
 
-            <!-- Early Experiments (compact) -->
-            <section aria-label="Early Experiments">
-              <h3 class="headline-pixel section-title text-secondary mb-md">
-                Side Projects
-              </h3>
-              <ul class="compact-list">
-                <li>TUI Dental Clinic System — Terminal-based management interface (exploratory)</li>
-                <li>Manga Translator (PT-BR) — OpenCV-based English-to-Portuguese manga translation pipeline</li>
-              </ul>
-            </section>
+
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true">
 
-        <!-- ================================================================
-             SECTION: Experience
-             ================================================================ -->
-        <section id="experience" class="section" aria-labelledby="exp-title">
-          <h2 id="exp-title" class="headline-pixel section-title">Experience</h2>
-          <div class="card">
-            <h3 class="headline-pixel card-title">Freelance Developer</h3>
-            <p class="card-subtitle">Less than 1 year</p>
-            <p class="card-text card-text-last">
-              Full-stack applications, CLI tools, and LLM-powered workflows for diverse clients.
-            </p>
-          </div>
-        </section>
 
         <hr class="divider section-divider" aria-hidden="true">
 
@@ -1172,13 +1397,13 @@
              SECTION: Education
              ================================================================ -->
         <section id="education" class="section" aria-labelledby="edu-title">
-          <h2 id="edu-title" class="headline-pixel section-title">Education</h2>
-          <p class="body-pixel text-block mb-md">
+          <h2 id="edu-title" class="headline-pixel section-title" data-i18n="edu.title">Education</h2>
+          <p class="body-pixel text-block mb-md" data-i18n="edu.text">
             B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil
           </p>
           <div class="row collapse gap-sm">
-            <span class="badge">IoT Certificate</span>
-            <span class="badge">Programming Marathon Participant</span>
+            <span class="badge" data-i18n="edu.badge1">IoT Certificate</span>
+            <span class="badge" data-i18n="edu.badge2">Programming Marathon Participant</span>
           </div>
         </section>
 
@@ -1188,34 +1413,47 @@
              SECTION: Languages & Strengths
              ================================================================ -->
         <section id="languages" class="section" aria-labelledby="lang-title">
-          <h2 id="lang-title" class="headline-pixel section-title">Languages &amp; Strengths</h2>
+          <h2 id="lang-title" class="headline-pixel section-title" data-i18n="lang.title">Languages &amp; Strengths</h2>
 
-          <p class="body-pixel text-secondary mb-sm">Languages:</p>
+          <p class="body-pixel text-secondary mb-sm" data-i18n="lang.label">Languages:</p>
           <div class="row collapse gap-sm mb-lg">
-            <span class="badge">Portuguese — Native</span>
-            <span class="badge">English — Advanced R&amp;L / Conversational</span>
+            <span class="badge" data-i18n="lang.pt">Portuguese — Native</span>
+            <span class="badge" data-i18n="lang.en">English — Advanced R&amp;L / Conversational</span>
           </div>
 
-          <p class="body-pixel text-secondary mb-sm">Strengths:</p>
+          <p class="body-pixel text-secondary mb-sm" data-i18n="lang.strengths">Strengths:</p>
           <div class="text-block">
-            <p class="text-item">• Self-directed learner — picks up tools quickly by building real projects</p>
-            <p class="text-item">• Problem finder &amp; solver — spots edge cases and failure modes others overlook</p>
-            <p class="text-item">• Detail-oriented — correctness, error handling, UX polish</p>
-            <p class="text-item">• Tool builder — creating developer tools and automation that simplify workflows</p>
+            <p class="text-item" data-i18n="lang.s1">• Self-directed learner — picks up tools quickly by building real projects</p>
+            <p class="text-item" data-i18n="lang.s2">• Problem finder &amp; solver — spots edge cases and failure modes others overlook</p>
+            <p class="text-item" data-i18n="lang.s3">• Detail-oriented — correctness, error handling, UX polish</p>
+            <p class="text-item" data-i18n="lang.s4">• Tool builder — creating developer tools and automation that simplify workflows</p>
           </div>
         </section>
 
         <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
-             SECTION: Beyond Code
+             SECTION: Contact
              ================================================================ -->
-        <section id="beyond-code" class="section" aria-labelledby="beyond-title">
-          <h2 id="beyond-title" class="headline-pixel section-title">Beyond Code</h2>
-          <div class="text-block">
-            <p class="text-item">• 🐧 Linux enthusiast — Debian daily driver, Arch at heart, eyeing Void Linux</p>
-            <p class="text-item">• 🔧 Harness engineering — deep into AI/automation as a hobby and craft</p>
-            <p class="text-item">• 🎮 MOBA player — when the terminal needs a break</p>
+        <section id="contact" class="section" aria-labelledby="contact-title">
+          <h2 id="contact-title" class="headline-pixel section-title" data-i18n="contact.title">Say Hi</h2>
+          <p class="body-pixel text-block mb-lg" data-i18n="contact.text">
+            Open to freelance contracts, internships, and full-time opportunities — remote or
+            hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.
+          </p>
+          <div class="row collapse gap-lg items-center">
+            <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="14" height="11" stroke="currentColor" stroke-width="1.5"/><path d="M1 3l7 6 7-6" stroke="currentColor" stroke-width="1.5"/></svg>
+              <span data-i18n="contact.email">Email me</span>
+            </a>
+            <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12c-3 1-3-1-4-2m4 2v-3m0 0c-2-1-3-3-2-5a3 3 0 012-1c0-1 0-2 2-2s2 1 2 2c.7 0 1.3.3 2 1a3 3 0 01-2 5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span data-i18n="contact.github">GitHub</span>
+            </a>
+            <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="4" width="4" height="10" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="3" r="1" stroke="currentColor" stroke-width="1.5"/><path d="M7 10V8.5c0-1 .7-1.5 1.5-1.5s1.5.5 1.5 1.5V10M9 10v-3M8 14h5V7H8v7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span data-i18n="contact.linkedin">LinkedIn</span>
+            </a>
           </div>
         </section>
 
@@ -1225,16 +1463,12 @@
              SECTION: Currently (Call to Action)
              ================================================================ -->
         <section id="currently" class="section" aria-labelledby="current-title">
-          <h2 id="current-title" class="headline-pixel section-title">Currently</h2>
-          <p class="body-pixel text-block">
-            Open to freelance contracts, internships, and full-time opportunities — remote or
-            hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.
-          </p>
-          <blockquote class="quote">
+          <h2 id="current-title" class="headline-pixel section-title" data-i18n="currently.title">Currently</h2>
+          <blockquote class="quote" data-i18n="currently.quote">
             "The best way to predict the future is to build it."
           </blockquote>
           <button id="get-in-touch-btn" class="btn btn-primary" type="button">
-            Get in touch →
+            <span data-i18n="currently.cta">Get in touch</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </section>
 
@@ -1257,22 +1491,22 @@
           <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <h2 id="modal-title" class="headline-pixel modal-title">Get in Touch</h2>
+      <h2 id="modal-title" class="headline-pixel modal-title" data-i18n="modal.title">Get in Touch</h2>
       <div class="modal-links">
         <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="modal-link">
-          <span class="modal-link-icon">📧</span>
+          <span class="modal-link-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="2" width="14" height="11" stroke="currentColor" stroke-width="1.5"/><path d="M1 3l7 6 7-6" stroke="currentColor" stroke-width="1.5"/></svg></span>
           dev.davi.macedo.gomes@gmail.com
         </a>
         <a href="https://github.com/DaviMGDev" target="_blank" rel="noopener noreferrer" class="modal-link">
-          <span class="modal-link-icon">🐙</span>
+          <span class="modal-link-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12c-3 1-3-1-4-2m4 2v-3m0 0c-2-1-3-3-2-5a3 3 0 012-1c0-1 0-2 2-2s2 1 2 2c.7 0 1.3.3 2 1a3 3 0 01-2 5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           github.com/DaviMGDev
         </a>
         <a href="https://linkedin.com/in/dav1-maced0-g0mes-dev" target="_blank" rel="noopener noreferrer" class="modal-link">
-          <span class="modal-link-icon">🔗</span>
+          <span class="modal-link-icon"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="4" width="4" height="10" stroke="currentColor" stroke-width="1.5"/><circle cx="3" cy="3" r="1" stroke="currentColor" stroke-width="1.5"/><path d="M7 10V8.5c0-1 .7-1.5 1.5-1.5s1.5.5 1.5 1.5V10M9 10v-3M8 14h5V7H8v7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
           linkedin.com/in/dav1-maced0-g0mes-dev
         </a>
       </div>
-      <button id="modal-close-btn-bottom" class="btn btn-ghost btn-full" type="button">
+      <button id="modal-close-btn-bottom" class="btn btn-ghost btn-full" type="button" data-i18n="modal.close">
         Close
       </button>
     </div>
@@ -1286,6 +1520,238 @@
       'use strict';
 
       // =====================================================================
+      // DARK/LIGHT THEME
+      // =====================================================================
+      const themeToggle = document.getElementById('theme-toggle');
+      const metaScheme = document.querySelector('meta[name="color-scheme"]');
+
+      function getTheme() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') return stored;
+        return 'dark';
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        if (metaScheme) metaScheme.setAttribute('content', theme === 'light' ? 'light' : 'dark');
+        localStorage.setItem('theme', theme);
+      }
+
+      applyTheme(getTheme());
+
+      themeToggle.addEventListener('click', function() {
+        const current = document.documentElement.hasAttribute('data-theme') ? 'light' : 'dark';
+        applyTheme(current === 'light' ? 'dark' : 'light');
+      });
+
+      // =====================================================================
+      // BILINGUAL (i18n)
+      // =====================================================================
+      const translations = {
+        en: {
+          'nav.home': 'Home',
+          'nav.about': 'About',
+          'nav.projects': 'Projects',
+          'nav.stack': 'Stack',
+          'nav.contact': 'Contact',
+          'hero.role': 'Full-Stack Developer + AI Engineer',
+          'hero.location': 'Remote / Feira de Santana, BA, Brasil',
+          'hero.email': 'Email',
+          'hero.github': 'GitHub',
+          'hero.linkedin': 'LinkedIn',
+          'hero.cta': 'Get in touch',
+          'about.title': 'About Me',
+          'about.bio': 'Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing Computer Engineering at UEFS while freelancing — delivering web applications and AI-powered automation. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems, always looking to simplify developer experience and automate the tedious.',
+          'stack.title': 'Tech Stack',
+          'stack.lang': 'Languages',
+          'stack.lang_val': 'Python, Go, JS/TS, HTML, CSS, Shell',
+          'stack.frontend': 'Frontend',
+          'stack.frontend_val': 'React, HTMX, Vite, Tailwind CSS',
+          'stack.backend': 'Backend',
+          'stack.backend_val': 'FastAPI, Gin, Go std lib, Django',
+          'stack.db': 'Databases',
+          'stack.db_val': 'PostgreSQL, MySQL, SQLite',
+          'stack.ai': 'AI / LLM',
+          'stack.ai_val': 'LangChain, OpenAI API, agents',
+          'stack.devops': 'DevOps',
+          'stack.devops_val': 'Docker, Git, CI/CD, Linux, Bash',
+          'stack.test': 'Testing',
+          'stack.test_val': 'Gherkin (BDD), MSW, Go tests',
+          'stack.editor': 'Editor',
+          'stack.editor_val': 'Neovim, VS Code, pi',
+          'projects.title': 'Projects',
+          'projects.routehub.title': 'RouteHub — Bus Transportation Platform',
+          'projects.routehub.subtitle': 'Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven',
+          'projects.routehub.desc': 'Digital platform for managing, scheduling, and monitoring institutional bus transportation. Serves students, staff, drivers, and administrators with auth, trip booking, check-in, PDF reports, and notifications. Built spec-first with <span class="code-pixel">specs/</span> defining every story and edge case.',
+          'projects.routehub.link': 'View on GitHub',
+          'projects.myagent.title': 'my-agent — LLM Agent Framework',
+          'projects.myagent.subtitle': 'Go · LLM · Tool-Calling · Streaming · Mock Implementation',
+          'projects.myagent.desc': 'Go-based LLM agent framework with a provider-agnostic interface, tool-calling agent loop, and MockLLM for testing without API keys. Supports streaming via iterator pattern, with CI pipeline via GitHub Actions.',
+          'projects.myagent.link': 'View on GitHub',
+          'projects.unipm.title': 'unipm — Universal Package Manager',
+          'projects.unipm.subtitle': 'Go · CLI · Cross-Platform · Distrobox',
+          'projects.unipm.desc': 'Meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox under one CLI. Interactive source selection when packages exist in multiple ecosystems. Gherkin-based BDD test suite.',
+          'projects.unipm.link': 'View on GitHub',
+          'projects.denteclean.title': 'denteclean — Dental Clinic Landing Page',
+          'projects.denteclean.subtitle': 'HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks',
+          'projects.denteclean.desc': 'Static single-page site for a fictional premium dental clinic. Zero frameworks, zero build steps — pure HTML/CSS/JS with full responsive design across desktop, tablet, and mobile. Deployed via GitHub Pages.',
+          'projects.denteclean.live': 'Live Demo',
+          'projects.denteclean.link': 'View on GitHub',
+          'projects.thumb': 'screenshot coming soon',
+          'edu.title': 'Education',
+          'edu.text': 'B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil',
+          'edu.badge1': 'IoT Certificate',
+          'edu.badge2': 'Programming Marathon Participant',
+          'lang.title': 'Languages & Strengths',
+          'lang.label': 'Languages:',
+          'lang.pt': 'Portuguese — Native',
+          'lang.en': 'English — Advanced R&L / Conversational',
+          'lang.strengths': 'Strengths:',
+          'lang.s1': 'Self-directed learner — picks up tools quickly by building real projects',
+          'lang.s2': 'Problem finder & solver — spots edge cases and failure modes others overlook',
+          'lang.s3': 'Detail-oriented — correctness, error handling, UX polish',
+          'lang.s4': 'Tool builder — creating developer tools and automation that simplify workflows',
+          'contact.title': 'Say Hi',
+          'contact.text': 'Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.',
+          'contact.email': 'Email me',
+          'contact.github': 'GitHub',
+          'contact.linkedin': 'LinkedIn',
+          'currently.title': 'Currently',
+          'currently.quote': '"The best way to predict the future is to build it."',
+          'currently.cta': 'Get in touch',
+          'modal.title': 'Get in Touch',
+          'modal.close': 'Close',
+        },
+        pt: {
+          'nav.home': 'Início',
+          'nav.about': 'Sobre',
+          'nav.projects': 'Projetos',
+          'nav.stack': 'Stack',
+          'nav.contact': 'Contato',
+          'hero.role': 'Desenvolvedor Full-Stack + Engenheiro de IA',
+          'hero.location': 'Remoto / Feira de Santana, BA, Brasil',
+          'hero.email': 'Email',
+          'hero.github': 'GitHub',
+          'hero.linkedin': 'LinkedIn',
+          'hero.cta': 'Entre em contato',
+          'about.title': 'Sobre Mim',
+          'about.bio': 'Desenvolvedor full-stack e engenheiro de IA apaixonado por construir ferramentas práticas que conectam sistemas complexos à usabilidade real. Atualmente cursando Engenharia da Computação na UEFS enquanto atua como freelancer — entregando aplicações web e automações com IA. Atuo na interseção entre backend, ferramentas CLI e sistemas de agentes baseados em LLMs, sempre buscando simplificar a experiência do desenvolvedor e automatizar o tedioso.',
+          'stack.title': 'Tecnologias',
+          'stack.lang': 'Linguagens',
+          'stack.lang_val': 'Python, Go, JS/TS, HTML, CSS, Shell',
+          'stack.frontend': 'Frontend',
+          'stack.frontend_val': 'React, HTMX, Vite, Tailwind CSS',
+          'stack.backend': 'Backend',
+          'stack.backend_val': 'FastAPI, Gin, Go std lib, Django',
+          'stack.db': 'Banco de Dados',
+          'stack.db_val': 'PostgreSQL, MySQL, SQLite',
+          'stack.ai': 'IA / LLM',
+          'stack.ai_val': 'LangChain, OpenAI API, agentes',
+          'stack.devops': 'DevOps',
+          'stack.devops_val': 'Docker, Git, CI/CD, Linux, Bash',
+          'stack.test': 'Testes',
+          'stack.test_val': 'Gherkin (BDD), MSW, Go tests',
+          'stack.editor': 'Editor',
+          'stack.editor_val': 'Neovim, VS Code, pi',
+          'projects.title': 'Projetos',
+          'projects.routehub.title': 'RouteHub — Plataforma de Transporte',
+          'projects.routehub.subtitle': 'Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven',
+          'projects.routehub.desc': 'Plataforma digital para gerenciamento, agendamento e monitoramento de transporte institucional. Atende alunos, servidores, motoristas e administradores com autenticação, reserva de viagens, check-in, relatórios em PDF e notificações. Construído com abordagem spec-first usando <span class="code-pixel">specs/</span> para definir cada história e caso de borda.',
+          'projects.routehub.link': 'Ver no GitHub',
+          'projects.myagent.title': 'my-agent — Framework de Agentes LLM',
+          'projects.myagent.subtitle': 'Go · LLM · Tool-Calling · Streaming · Mock Implementation',
+          'projects.myagent.desc': 'Framework de agentes LLM em Go com interface agnóstica de provedor, loop de agente com chamada de ferramentas e MockLLM para testes sem chaves de API. Suporta streaming via padrão iterator, com pipeline CI via GitHub Actions.',
+          'projects.myagent.link': 'Ver no GitHub',
+          'projects.unipm.title': 'unipm — Gerenciador de Pacotes Universal',
+          'projects.unipm.subtitle': 'Go · CLI · Multi-Plataforma · Distrobox',
+          'projects.unipm.desc': 'Meta gerenciador de pacotes que unifica apt, npm, pip, flatpak, brew, pacman e Distrobox em uma única CLI. Seleção interativa de fonte quando pacotes existem em múltiplos ecossistemas. Suíte de testes BDD com Gherkin.',
+          'projects.unipm.link': 'Ver no GitHub',
+          'projects.denteclean.title': 'denteclean — Landing Page de Clínica Odontológica',
+          'projects.denteclean.subtitle': 'HTML5 · CSS3 · Vanilla JS · Responsivo · Sem Frameworks',
+          'projects.denteclean.desc': 'Site estático de página única para uma clínica odontológica premium fictícia. Zero frameworks, zero etapas de build — HTML/CSS/JS puro com design responsivo completo para desktop, tablet e mobile. Publicado via GitHub Pages.',
+          'projects.denteclean.live': 'Demo ao Vivo',
+          'projects.denteclean.link': 'Ver no GitHub',
+          'projects.thumb': 'screenshot em breve',
+          'edu.title': 'Formação',
+          'edu.text': 'Bacharelado em Engenharia da Computação (2023 – 2029) — UEFS, Bahia, Brasil',
+          'edu.badge1': 'Certificado IoT',
+          'edu.badge2': 'Participante de Maratona de Programação',
+          'lang.title': 'Idiomas & Diferenciais',
+          'lang.label': 'Idiomas:',
+          'lang.pt': 'Português — Nativo',
+          'lang.en': 'Inglês — Leitura/Escrita Avançada / Conversação',
+          'lang.strengths': 'Diferenciais:',
+          'lang.s1': 'Autoaprendizado — aprende ferramentas rapidamente construindo projetos reais',
+          'lang.s2': 'Identificação e resolução de problemas — encontra casos de borda e modos de falha que outros não veem',
+          'lang.s3': 'Detalhista — corretude, tratamento de erros, polimento de UX',
+          'lang.s4': 'Construtor de ferramentas — criando automações que simplificam fluxos de trabalho',
+          'contact.title': 'Fale Comigo',
+          'contact.text': 'Aberto a contratos freelance, estágios e oportunidades efetivas — remoto ou híbrido. Maior interesse em IA/automação, ferramentas para desenvolvedores e infraestrutura de backend.',
+          'contact.email': 'Me mande um email',
+          'contact.github': 'GitHub',
+          'contact.linkedin': 'LinkedIn',
+          'currently.title': 'Atualmente',
+          'currently.quote': '"A melhor forma de prever o futuro é construí-lo."',
+          'currently.cta': 'Entre em contato',
+          'modal.title': 'Entre em Contato',
+          'modal.close': 'Fechar',
+        }
+      };
+
+      const langToggle = document.getElementById('lang-toggle');
+
+      function getLang() {
+        const stored = localStorage.getItem('lang');
+        if (stored === 'pt' || stored === 'en') return stored;
+        const browserLang = navigator.language || navigator.userLanguage || '';
+        return browserLang.startsWith('pt') ? 'pt' : 'en';
+      }
+
+      function applyLang(lang) {
+        document.documentElement.setAttribute('lang', lang === 'pt' ? 'pt-BR' : 'en');
+        localStorage.setItem('lang', lang);
+
+        // Update toggle button
+        const opts = langToggle.querySelectorAll('.lang-option');
+        opts.forEach(function(opt) {
+          opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+        });
+
+        // Update all i18n elements
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          const key = el.getAttribute('data-i18n');
+          if (translations[lang] && translations[lang][key]) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+              el.value = translations[lang][key];
+            } else {
+              el.innerHTML = translations[lang][key];
+            }
+          }
+        });
+      }
+
+      const currentLang = getLang();
+      applyLang(currentLang);
+
+      langToggle.addEventListener('click', function() {
+        const current = document.documentElement.getAttribute('lang') === 'pt-BR' ? 'pt' : 'en';
+        applyLang(current === 'pt' ? 'en' : 'pt');
+      });
+
+      // =====================================================================
+      // CAROUSEL — clone items for infinite scroll
+      // =====================================================================
+      const inner = document.getElementById('carousel-inner');
+      if (inner) {
+        const items = inner.innerHTML;
+        inner.innerHTML = items + items;
+      }
+
+      // =====================================================================
       // Modal
       // =====================================================================
       const modalOverlay = document.getElementById('contact-modal');
@@ -1297,7 +1763,6 @@
       function openModal() {
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-        // Focus first focusable element inside modal
         setTimeout(function() {
           const firstLink = modalOverlay.querySelector('.modal-link');
           if (firstLink) firstLink.focus();
@@ -1310,50 +1775,46 @@
         openBtn.focus();
       }
 
-      openBtn.addEventListener('click', openModal);
-      heroBtn.addEventListener('click', openModal);
+      if (openBtn) openBtn.addEventListener('click', openModal);
+      if (heroBtn) heroBtn.addEventListener('click', openModal);
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (closeBottomBtn) closeBottomBtn.addEventListener('click', closeModal);
 
-      closeBtn.addEventListener('click', closeModal);
-      closeBottomBtn.addEventListener('click', closeModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) closeModal();
+        });
 
-      // Click outside modal content to close
-      modalOverlay.addEventListener('click', function(e) {
-        if (e.target === modalOverlay) {
-          closeModal();
-        }
-      });
+        modalOverlay.addEventListener('keydown', function(e) {
+          if (e.key !== 'Tab') return;
+          const focusable = modalOverlay.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        });
+      }
 
-      // Escape key to close
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        if (e.key === 'Escape' && modalOverlay && modalOverlay.classList.contains('active')) {
           closeModal();
-        }
-      });
-
-      // Trap focus within modal
-      modalOverlay.addEventListener('keydown', function(e) {
-        if (e.key !== 'Tab') return;
-        const focusable = modalOverlay.querySelectorAll(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          }
-        } else {
-          if (document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
         }
       });
 
       // =====================================================================
-      // Scroll-triggered reveal animation (progressive enhancement)
+      // Scroll-triggered reveal animation
       // =====================================================================
       if ('IntersectionObserver' in window) {
         const sections = document.querySelectorAll('.section');
@@ -1377,7 +1838,6 @@
           observer.observe(section);
         });
       } else {
-        // Fallback: make all sections visible immediately
         document.querySelectorAll('.section').forEach(function(section) {
           section.style.opacity = '1';
           section.style.transform = 'none';
@@ -1385,17 +1845,20 @@
       }
 
       // =====================================================================
-      // Smooth anchor scroll for skip link
+      // Skip link smooth scroll
       // =====================================================================
-      document.querySelector('.skip-link').addEventListener('click', function(e) {
-        e.preventDefault();
-        const anchor = document.querySelector(this.getAttribute('href'));
-        if (anchor) {
-          anchor.setAttribute('tabindex', '-1');
-          anchor.focus();
-          anchor.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+      const skipLink = document.querySelector('.skip-link');
+      if (skipLink) {
+        skipLink.addEventListener('click', function(e) {
+          e.preventDefault();
+          const anchor = document.querySelector(this.getAttribute('href'));
+          if (anchor) {
+            anchor.setAttribute('tabindex', '-1');
+            anchor.focus();
+            anchor.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
 
     })();
   </script>
