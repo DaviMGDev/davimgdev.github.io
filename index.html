@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="dark light">
   <meta name="description" content="Davi Macêdo Gomes — Full-Stack Developer + AI Engineer. Portfólio com projetos, habilidades e experiência.">
   <title>Davi Macêdo Gomes — Full-Stack Developer + AI Engineer</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0D0D'/><rect x='8' y='10' width='16' height='12' fill='%23FFFFFF'/></svg>">
@@ -64,7 +64,27 @@
     /* =========================================================================
        LIGHT THEME — color token overrides
        ========================================================================= */
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --color-primary: #0D0D0D;
+        --color-primary-hover: #1A1A1A;
+        --color-secondary: #404040;
+        --color-text-muted: #555555;
+        --color-tertiary: #808080;
+        --color-neutral: #DCDCDC;
+        --color-surface: #E8E8E8;
+        --color-on-primary: #FFFFFF;
+        --color-on-surface: #0D0D0D;
+        --color-highlight: #C0C0C0;
+        --color-midtone: #999999;
+        --color-shadow: #262626;
+        --color-background: #D4D4D4;
+        --color-border: #404040;
+        --color-border-light: #999999;
+      }
+    }
     [data-theme="light"] {
+      /* overrides also when JS sets the attribute explicitly */
       --color-primary: #0D0D0D;
       --color-primary-hover: #1A1A1A;
       --color-secondary: #404040;
@@ -162,6 +182,16 @@
       background-size: 100% 4px;
       pointer-events: none;
       z-index: 0;
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) body::after {
+        background-image: repeating-linear-gradient(
+          transparent,
+          transparent 2px,
+          rgba(0,0,0,0.03) 2px,
+          rgba(0,0,0,0.03) 4px
+        );
+      }
     }
     [data-theme="light"] body::after {
       background-image: repeating-linear-gradient(
@@ -1663,36 +1693,44 @@
       const themeToggle = document.getElementById('theme-toggle');
       const metaScheme = document.querySelector('meta[name="color-scheme"]');
 
-      function getTheme() {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'light' || stored === 'dark') return stored;
+      function getSystemTheme() {
         return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       }
 
-      function applyTheme(theme) {
+      function getStoredTheme() {
+        return localStorage.getItem('theme');
+      }
+
+      function getTheme() {
+        return getStoredTheme() || getSystemTheme();
+      }
+
+      function applyTheme(theme, persist) {
         if (theme === 'light') {
           document.documentElement.setAttribute('data-theme', 'light');
         } else {
           document.documentElement.removeAttribute('data-theme');
         }
         if (metaScheme) metaScheme.setAttribute('content', theme === 'light' ? 'light' : 'dark');
-        localStorage.setItem('theme', theme);
+        if (persist) localStorage.setItem('theme', theme);
       }
 
-      applyTheme(getTheme());
+      // Apply on load — do NOT persist (let CSS media query handle default)
+      applyTheme(getTheme(), false);
 
       function toggleTheme() {
         const current = document.documentElement.hasAttribute('data-theme') ? 'light' : 'dark';
-        applyTheme(current === 'light' ? 'dark' : 'light');
+        const next = current === 'light' ? 'dark' : 'light';
+        applyTheme(next, true); // persist only on manual toggle
       }
       if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
       var menuThemeToggle = document.getElementById('menu-theme-toggle');
       if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
 
-      // Listen for system theme changes (if no manual override)
+      // Listen for system theme changes (only if no manual override)
       window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
-        if (!localStorage.getItem('theme')) {
-          applyTheme(e.matches ? 'light' : 'dark');
+        if (!getStoredTheme()) {
+          applyTheme(e.matches ? 'light' : 'dark', false);
         }
       });
 
