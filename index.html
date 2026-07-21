@@ -1666,7 +1666,7 @@
       function getTheme() {
         const stored = localStorage.getItem('theme');
         if (stored === 'light' || stored === 'dark') return stored;
-        return 'dark';
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
       }
 
       function applyTheme(theme) {
@@ -1688,6 +1688,13 @@
       if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
       var menuThemeToggle = document.getElementById('menu-theme-toggle');
       if (menuThemeToggle) menuThemeToggle.addEventListener('click', toggleTheme);
+
+      // Listen for system theme changes (if no manual override)
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+          applyTheme(e.matches ? 'light' : 'dark');
+        }
+      });
 
       // =====================================================================
       // MOBILE NAV TOGGLE — menu overlay
