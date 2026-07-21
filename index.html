@@ -655,6 +655,9 @@
        CARD — pixel-card component from DESIGN.md
        ========================================================================= */
     .card {
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-lg);
       background: var(--color-surface);
       border: 2px solid var(--color-secondary);
       padding: var(--space-md);
@@ -662,6 +665,10 @@
     }
     .card:hover {
       border-color: var(--color-primary);
+    }
+    .card-body {
+      flex: 1;
+      min-width: 0;
     }
     .card-title {
       margin-bottom: var(--space-md);
@@ -691,19 +698,28 @@
       margin-top: var(--space-lg);
     }
 
-    /* Card thumbnail — project screenshot */
+    /* Card thumbnail — side preview */
     .card-thumb {
       display: block;
-      width: 100%;
+      width: 320px;
       height: auto;
-      margin-bottom: var(--space-md);
+      flex-shrink: 0;
       border: 2px solid var(--color-secondary);
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       background: var(--color-background);
+      align-self: flex-start;
     }
     .card:hover .card-thumb {
       border-color: var(--color-primary);
+    }
+    @media (max-width: 768px) {
+      .card {
+        flex-direction: column;
+      }
+      .card-thumb {
+        width: 100%;
+      }
     }
 
     /* Featured card */
@@ -1257,6 +1273,7 @@
             <!-- Featured: RouteHub -->
             <article class="card featured" aria-label="RouteHub — Featured project">
               <img class="card-thumb" src="assets/routehub_screenshot.webp" alt="RouteHub project screenshot" width="800" height="500" loading="lazy">
+              <div class="card-body">
               <h3 class="headline-pixel card-title" data-i18n="projects.routehub.title">RouteHub — Bus Transportation Platform</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.routehub.subtitle">
@@ -1282,11 +1299,13 @@
                   <span data-i18n="projects.routehub.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
+              </div>
             </article>
 
             <!-- my-agent -->
             <article class="card">
               <img class="card-thumb" src="assets/myagent_screenshot.webp" alt="my-agent project screenshot" width="800" height="500" loading="lazy">
+              <div class="card-body">
               <h3 class="headline-pixel card-title" data-i18n="projects.myagent.title">my-agent — LLM Agent Framework</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.myagent.subtitle">
@@ -1308,11 +1327,13 @@
                   <span data-i18n="projects.myagent.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
+              </div>
             </article>
 
             <!-- unipm -->
             <article class="card">
               <img class="card-thumb" src="assets/unipm_screenshot.webp" alt="unipm project screenshot" width="800" height="500" loading="lazy">
+              <div class="card-body">
               <h3 class="headline-pixel card-title" data-i18n="projects.unipm.title">unipm — Universal Package Manager</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.unipm.subtitle">
@@ -1333,11 +1354,13 @@
                   <span data-i18n="projects.unipm.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
+              </div>
             </article>
 
             <!-- denteclean -->
             <article class="card">
               <img class="card-thumb" src="assets/denteclean_screenshot.webp" alt="denteclean project screenshot" width="800" height="500" loading="lazy">
+              <div class="card-body">
               <h3 class="headline-pixel card-title" data-i18n="projects.denteclean.title">denteclean — Dental Clinic Landing Page</h3>
               <p class="card-subtitle">
                 <span class="code-pixel text-secondary" data-i18n="projects.denteclean.subtitle">
@@ -1362,6 +1385,7 @@
                 <a href="https://github.com/DaviMGDev/denteclean" target="_blank" rel="noopener noreferrer" class="link link-external">
                   <span data-i18n="projects.denteclean.link">View on GitHub</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
+              </div>
               </div>
             </article>
 
