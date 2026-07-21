@@ -1,46 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <meta name="description" content="Davi Macêdo Gomes — Full-Stack Developer + AI Engineer. Portfolio showcasing projects, skills, and experience." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Davi Macêdo Gomes — Full-Stack Developer + AI Engineer. Portfolio showcasing projects, skills, and experience.">
   <title>Davi Macêdo Gomes — Full-Stack Developer + AI Engineer</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090B'/><path d='M8 22L16 10L24 22Z' fill='none' stroke='%2300DCA5' stroke-width='2.5' stroke-linejoin='round'/></svg>" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=JetBrains+Mono:wght@450&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,650&family=JetBrains+Mono:wght@450&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230D0D0D'/><rect x='8' y='10' width='16' height='12' fill='%23FFFFFF'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=VT323&amp;family=Silkscreen&amp;display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Silkscreen&display=swap" rel="stylesheet">
   <style>
     /* =========================================================================
-       DESIGN TOKENS (from DESIGN.md)
+       DESIGN TOKENS (from DESIGN.md — Davi Pixel Avatar Design System)
        ========================================================================= */
     :root {
-      /* Colors */
-      --color-base: #09090B;
-      --color-surface: #131316;
-      --color-surface-elevated: #1D1D21;
-      --color-primary: #00DCA5;
-      --color-primary-hover: #00FFBF;
-      --color-secondary: #7C8EE4;
-      --color-accent: #FF6B6B;
-      --color-text-primary: #EDEDF0;
-      --color-text-secondary: #A1A1AA;
-      --color-text-tertiary: #71717A;
-      --color-border: #27272A;
-      --color-success: #22C55E;
-      --color-warning: #F59E0B;
-      --color-error: #EF4444;
-      --color-info: #3B82F6;
-      --color-on-primary: #09090B;
+      /* Colors — monochromatic grayscale palette */
+      --color-primary: #0D0D0D;
+      --color-primary-hover: #1A1A1A;
+      --color-secondary: #404040;
+      --color-text-muted: #555555;
+      --color-tertiary: #808080;
+      --color-neutral: #DCDCDC;
+      --color-surface: #E8E8E8;
+      --color-on-primary: #FFFFFF;
+      --color-on-surface: #0D0D0D;
+      --color-highlight: #C0C0C0;
+      --color-midtone: #999999;
+      --color-shadow: #262626;
+      --color-background: #D4D4D4;
+      --color-border: #404040;
+      --color-border-light: #999999;
 
-      /* Typography families */
-      --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
-      --font-body: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-code: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      /* Typography families — pixel/bitmap fonts only */
+      --font-display: 'Press Start 2P', monospace;
+      --font-headline: 'Press Start 2P', monospace;
+      --font-body: 'VT323', monospace;
+      --font-label: 'VT323', monospace;
+      --font-caption: 'Silkscreen', monospace;
+      --font-code: 'VT323', monospace;
 
-      /* Typography scales (used via classes) */
-      /* Spacing */
+      /* Spacing — 4px grid unit */
+      --grid-unit: 4px;
       --space-xs: 4px;
       --space-sm: 8px;
       --space-md: 16px;
@@ -48,44 +50,15 @@
       --space-xl: 32px;
       --space-2xl: 48px;
       --space-3xl: 64px;
-      --space-4xl: 96px;
       --space-section: 80px;
 
-      /* Rounded */
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
-      --radius-full: 9999px;
+      /* Rounded — pixel-perfect (0px) */
+      --radius-none: 0px;
+      --radius-pixel: 0px;
 
       /* Layout */
       --container-max: 1200px;
       --container-padding: 24px;
-    }
-
-    /* =========================================================================
-       FONT-FACE: Geist (self-hosted via CDN)
-       ========================================================================= */
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Geist';
-      src: url('https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
     }
 
     /* =========================================================================
@@ -98,23 +71,41 @@
     }
 
     /* =========================================================================
-       VIEWPORT SAFETY (Interspec Rule 1)
+       VIEWPORT SAFETY
        ========================================================================= */
     html {
-      background-color: var(--color-base);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
+      background-color: var(--color-background);
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: unset;
+      text-rendering: optimizeSpeed;
       scroll-behavior: smooth;
     }
     body {
       font-family: var(--font-body);
-      color: var(--color-text-primary);
-      background-color: var(--color-base);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--color-on-surface);
+      background-color: var(--color-background);
     }
 
     /* =========================================================================
-       SKIP LINK (Accessibility)
+       DITHERING TEXTURE — checkerboard noise overlay
+       ========================================================================= */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-conic-gradient(var(--color-highlight) 0% 25%, transparent 0% 50%);
+      background-size: 4px 4px;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =========================================================================
+       SKIP LINK
        ========================================================================= */
     .skip-link {
       position: absolute;
@@ -124,54 +115,26 @@
       padding: var(--space-sm) var(--space-md);
       background: var(--color-primary);
       color: var(--color-on-primary);
-      font-family: var(--font-body);
-      font-size: 14px;
-      font-weight: 500;
-      border-radius: var(--radius-md);
+      font-family: var(--font-caption);
+      font-size: 12px;
+      border: 2px solid var(--color-primary);
       text-decoration: none;
-      transition: top 0.2s ease;
+      transition: top 0s;
     }
     .skip-link:focus {
       top: var(--space-md);
     }
 
     /* =========================================================================
-       ROOT LAYOUT — Viewport-safe, scrollable interior
+       ROOT LAYOUT
        ========================================================================= */
     #root {
       position: relative;
-    }
-
-    /* Background texture — subtle terminal grid noise */
-    #root::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 25% 0%, rgba(0, 220, 165, 0.015) 0%, transparent 50%),
-        radial-gradient(circle at 75% 100%, rgba(124, 142, 228, 0.015) 0%, transparent 50%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--color-border);
-      border-radius: var(--radius-full);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--color-text-tertiary);
+      z-index: 1;
     }
 
     /* =========================================================================
-       CONTENT CONTAINER (Interspec Rule 2: max-width + centering)
+       CONTENT CONTAINER
        ========================================================================= */
     .container {
       max-width: var(--container-max);
@@ -181,87 +144,55 @@
     }
 
     /* =========================================================================
-       TYPOGRAPHY
+       TYPOGRAPHY — pixel-perfect scale from DESIGN.md
        ========================================================================= */
-    .display-lg {
+    .display-pixel {
       font-family: var(--font-display);
-      font-size: clamp(36px, 5.5vw, 56px);
-      font-weight: 650;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-    }
-    .display-md {
-      font-family: var(--font-display);
-      font-size: clamp(30px, 4vw, 40px);
-      font-weight: 650;
-      line-height: 1.1;
-      letter-spacing: -0.015em;
-    }
-    .headline-lg {
-      font-family: var(--font-body);
-      font-size: clamp(26px, 3vw, 32px);
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-    .headline-md {
-      font-family: var(--font-body);
-      font-size: clamp(20px, 2.5vw, 24px);
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -0.005em;
-    }
-    .headline-sm {
-      font-family: var(--font-body);
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-    .body-lg {
-      font-family: var(--font-body);
-      font-size: clamp(16px, 1.8vw, 18px);
+      font-size: 32px;
       font-weight: 400;
-      line-height: 1.7;
+      line-height: 1.4;
+      letter-spacing: 0em;
+      text-transform: uppercase;
     }
-    .body-md {
-      font-family: var(--font-body);
+    .headline-pixel {
+      font-family: var(--font-headline);
       font-size: 16px;
       font-weight: 400;
-      line-height: 1.65;
+      line-height: 1.4;
+      text-transform: uppercase;
     }
-    .body-sm {
+    .body-pixel {
       font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .label-pixel {
+      font-family: var(--font-label);
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.55;
+      line-height: 1.3;
     }
-    .label-md {
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 500;
+    .caption-pixel {
+      font-family: var(--font-caption);
+      font-size: 12px;
+      font-weight: 400;
       line-height: 1.2;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
     }
-    .label-sm {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 1.2;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .code-md {
+    .code-pixel {
       font-family: var(--font-code);
-      font-size: 14px;
-      font-weight: 450;
-      line-height: 1.6;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.5;
     }
     .text-secondary {
-      color: var(--color-text-secondary);
+      color: var(--color-text-muted);
     }
     .text-tertiary {
-      color: var(--color-text-tertiary);
+      color: var(--color-tertiary);
+    }
+    .text-primary {
+      color: var(--color-primary);
     }
 
     /* =========================================================================
@@ -278,20 +209,19 @@
       margin-bottom: var(--space-lg);
     }
     .section-subtitle {
-      color: var(--color-text-secondary);
+      color: var(--color-text-muted);
       margin-top: var(--space-sm);
     }
 
     /* =========================================================================
-       DIVIDER
+       DIVIDER — pixel border
        ========================================================================= */
     .divider {
       border: none;
-      height: 1px;
+      height: 2px;
       background: var(--color-border);
       margin: 0;
     }
-    /* Section dividers use negative margin to collapse with section padding */
     .divider.section-divider {
       margin: 0 calc(-1 * var(--container-padding));
     }
@@ -307,35 +237,85 @@
     #identity {
       padding-top: clamp(var(--space-3xl), 10vh, var(--space-section));
       padding-bottom: var(--space-section);
+      text-align: center;
     }
     .identity-name {
       margin-bottom: var(--space-lg);
-      background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--color-primary);
+      image-rendering: pixelated;
     }
     .identity-role-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: center;
       gap: var(--space-md);
       margin-bottom: var(--space-md);
     }
     .identity-links {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: var(--space-sm) var(--space-lg);
     }
     @media (max-width: 768px) {
       .identity-role-row {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
       .identity-links {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
+    }
+
+    /* =========================================================================
+       PORTFOLIO / AVATAR FRAME (DESIGN.md avatar-frame component)
+       ========================================================================= */
+    #portfolio {
+      text-align: center;
+    }
+    .avatar-frame {
+      display: inline-block;
+      background-color: var(--color-background);
+      padding: var(--space-lg);
+      border: 2px solid var(--color-primary);
+      image-rendering: pixelated;
+      position: relative;
+      /* Dithering border accent */
+      box-shadow:
+        4px 4px 0 0 var(--color-primary),
+        -4px -4px 0 0 var(--color-midtone);
+    }
+    .avatar-image {
+      display: block;
+      max-width: 256px;
+      width: 100%;
+      height: auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      border: 2px solid var(--color-secondary);
+    }
+    .avatar-caption {
+      margin-top: var(--space-md);
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+    }
+    /* Sparkle accents — small pixel decorations */
+    .avatar-frame::after {
+      content: '✦';
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      font-size: 16px;
+      color: var(--color-highlight);
+      text-shadow:
+        1px 1px 0 var(--color-primary),
+        -1px -1px 0 var(--color-primary),
+        1px -1px 0 var(--color-primary),
+        -1px 1px 0 var(--color-primary);
+      line-height: 1;
+      image-rendering: pixelated;
     }
 
     /* =========================================================================
@@ -374,18 +354,16 @@
     .badge {
       display: inline-flex;
       align-items: center;
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 1.2;
-      letter-spacing: 0.05em;
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
       text-transform: uppercase;
       padding: 4px 12px;
-      border-radius: var(--radius-full);
       white-space: nowrap;
-      background: var(--color-surface-elevated);
-      color: var(--color-text-secondary);
-      border: none;
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      border: 2px solid var(--color-primary);
     }
     .badge.primary {
       background: var(--color-primary);
@@ -402,60 +380,61 @@
        LINK
        ========================================================================= */
     .link {
-      color: var(--color-text-primary);
+      color: var(--color-primary);
       text-decoration: none;
       font-family: var(--font-body);
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
-      line-height: 1.65;
-      transition: color 0.2s ease;
+      line-height: 1.5;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: var(--space-xs);
+      border-bottom: 2px solid transparent;
+      transition: border-color 0s;
     }
     .link:hover {
-      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
     }
     .link:focus-visible {
       outline: 2px solid var(--color-primary);
       outline-offset: 2px;
-      border-radius: var(--radius-sm);
     }
     .link-external {
       color: var(--color-primary);
     }
     .link-external:hover {
-      color: var(--color-primary-hover);
+      border-bottom-color: var(--color-highlight);
     }
 
     /* =========================================================================
-       BUTTON
+       BUTTON — pixel-button component from DESIGN.md
        ========================================================================= */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: var(--space-sm);
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.2;
-      letter-spacing: 0.04em;
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
       text-transform: uppercase;
-      padding: 10px 24px;
-      border-radius: var(--radius-md);
-      border: none;
+      padding: 8px 16px;
+      border: 2px solid var(--color-primary);
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
       white-space: nowrap;
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      image-rendering: pixelated;
     }
     .btn:active {
-      transform: scale(0.97);
+      background: var(--color-on-primary);
+      color: var(--color-primary);
     }
     .btn:focus-visible {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid var(--color-highlight);
       outline-offset: 2px;
     }
     .btn-primary {
@@ -464,49 +443,47 @@
     }
     .btn-primary:hover {
       background: var(--color-primary-hover);
-      box-shadow: 0 0 24px rgba(0, 220, 165, 0.25);
+      border-color: var(--color-primary-hover);
     }
     .btn-ghost {
       background: transparent;
-      color: var(--color-text-primary);
+      color: var(--color-primary);
     }
     .btn-ghost:hover {
-      background: var(--color-surface-elevated);
+      background: var(--color-primary);
+      color: var(--color-on-primary);
     }
     .btn-full {
       width: 100%;
     }
 
     /* =========================================================================
-       CARD
+       CARD — pixel-card component from DESIGN.md
        ========================================================================= */
     .card {
       background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-xl);
-      transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      border: 2px solid var(--color-secondary);
+      padding: var(--space-md);
+      transition: border-color 0s;
     }
     .card:hover {
-      background: var(--color-surface-elevated);
-      border-color: rgba(0, 220, 165, 0.15);
-      transform: translateY(-2px);
+      border-color: var(--color-primary);
     }
     .card-title {
       margin-bottom: var(--space-md);
     }
     .card-subtitle {
-      color: var(--color-text-secondary);
+      color: var(--color-text-muted);
       font-family: var(--font-body);
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 18px;
+      line-height: 1.5;
       margin-bottom: var(--space-md);
     }
     .card-text {
-      color: var(--color-text-secondary);
+      color: var(--color-on-surface);
       font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.65;
+      font-size: 18px;
+      line-height: 1.5;
       margin-bottom: var(--space-md);
     }
     .card-actions {
@@ -522,26 +499,24 @@
 
     /* Featured card */
     .card.featured {
-      border-color: rgba(0, 220, 165, 0.2);
+      border-color: var(--color-primary);
+      border-width: 2px;
       position: relative;
     }
     .card.featured::before {
-      content: '★ Featured';
+      content: '★ FEATURED';
       position: absolute;
-      top: -1px;
+      top: -2px;
       right: var(--space-xl);
       background: var(--color-primary);
       color: var(--color-on-primary);
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-family: var(--font-caption);
+      font-size: 12px;
       text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      padding: 4px 12px;
     }
     .card.featured:hover {
-      border-color: rgba(0, 220, 165, 0.4);
+      border-color: var(--color-primary);
     }
 
     /* =========================================================================
@@ -551,20 +526,8 @@
       overflow-x: auto;
       max-height: 60vh;
       overflow-y: auto;
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--color-border);
+      border: 2px solid var(--color-secondary);
       -webkit-overflow-scrolling: touch;
-    }
-    .table-wrapper::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .table-wrapper::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .table-wrapper::-webkit-scrollbar-thumb {
-      background: var(--color-border);
-      border-radius: var(--radius-full);
     }
     table {
       width: 100%;
@@ -572,35 +535,36 @@
       font-family: var(--font-body);
     }
     thead th {
-      background: var(--color-surface-elevated);
-      color: var(--color-text-secondary);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      font-family: var(--font-label);
+      font-size: 14px;
+      font-weight: 400;
       text-transform: uppercase;
       text-align: left;
-      padding: var(--space-md) var(--space-lg);
-      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-sm) var(--space-md);
+      border-bottom: 2px solid var(--color-primary);
       position: sticky;
       top: 0;
       z-index: 1;
     }
     tbody td {
-      padding: var(--space-md) var(--space-lg);
-      font-size: 14px;
-      line-height: 1.55;
-      border-bottom: 1px solid var(--color-border);
-      color: var(--color-text-primary);
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.5;
+      border-bottom: 2px solid var(--color-neutral);
+      color: var(--color-on-surface);
     }
     tbody tr:last-child td {
       border-bottom: none;
     }
     tbody tr:hover td {
-      background: rgba(255, 255, 255, 0.01);
+      background: var(--color-neutral);
     }
     tbody td:first-child {
       color: var(--color-primary);
-      font-weight: 500;
+      font-weight: 400;
       white-space: nowrap;
     }
 
@@ -619,27 +583,26 @@
       }
       tbody tr {
         background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-lg);
-        padding: var(--space-md) var(--space-lg);
+        border: 2px solid var(--color-secondary);
+        padding: var(--space-md);
         margin-bottom: var(--space-md);
       }
       tbody tr:hover {
-        background: var(--color-surface-elevated);
+        background: var(--color-neutral);
       }
       tbody td {
         padding: var(--space-xs) 0;
         border: none;
       }
       tbody td:first-child {
-        font-size: 11px;
-        letter-spacing: 0.05em;
+        font-family: var(--font-caption);
+        font-size: 12px;
         text-transform: uppercase;
-        color: var(--color-text-tertiary);
+        color: var(--color-text-muted);
       }
       tbody td:last-child {
-        color: var(--color-text-primary);
-        font-size: 14px;
+        color: var(--color-on-surface);
+        font-size: 18px;
       }
     }
 
@@ -653,7 +616,7 @@
     }
 
     /* =========================================================================
-       COMPACT LIST (Early Experiments)
+       COMPACT LIST
        ========================================================================= */
     .compact-list {
       list-style: none;
@@ -661,21 +624,21 @@
     }
     .compact-list li {
       padding: var(--space-sm) 0;
-      color: var(--color-text-secondary);
-      font-size: 15px;
-      line-height: 1.65;
+      color: var(--color-on-surface);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.5;
       position: relative;
       padding-left: var(--space-lg);
     }
     .compact-list li::before {
-      content: '·';
+      content: '▸';
       position: absolute;
       left: 0;
       color: var(--color-primary);
-      font-weight: 700;
     }
     .compact-list li:hover {
-      color: var(--color-text-primary);
+      color: var(--color-primary);
     }
 
     /* =========================================================================
@@ -689,23 +652,24 @@
     }
     .text-item {
       padding: var(--space-xs) 0;
-      color: var(--color-text-secondary);
-      font-size: 15px;
-      line-height: 1.65;
+      color: var(--color-on-surface);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.5;
     }
     .text-item:hover {
-      color: var(--color-text-primary);
+      color: var(--color-primary);
     }
     .quote {
-      font-family: var(--font-display);
-      font-size: clamp(18px, 2.5vw, 24px);
-      font-weight: 650;
-      line-height: 1.3;
-      color: var(--color-text-primary);
-      font-style: italic;
+      font-family: var(--font-headline);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--color-primary);
+      text-transform: uppercase;
       margin: var(--space-lg) 0;
       padding-left: var(--space-lg);
-      border-left: 2px solid var(--color-primary);
+      border-left: 4px solid var(--color-primary);
     }
 
     /* =========================================================================
@@ -725,7 +689,7 @@
     .spacer-bottom { height: var(--space-2xl); }
 
     /* =========================================================================
-       MODAL (Interspec Rule 5: fixed positioning)
+       MODAL — pixel-aligned, no blur
        ========================================================================= */
     .modal-overlay {
       position: fixed;
@@ -734,12 +698,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(9, 9, 11, 0.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(13, 13, 13, 0.88);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: opacity 0s, visibility 0s;
     }
     .modal-overlay.active {
       opacity: 1;
@@ -747,28 +709,24 @@
     }
     .modal {
       background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
+      border: 2px solid var(--color-primary);
       padding: var(--space-2xl);
       max-width: 420px;
       width: calc(100% - var(--space-xl));
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
-      transform: translateY(20px) scale(0.97);
-      transition: transform 0.3s ease;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-    }
-    .modal-overlay.active .modal {
-      transform: translateY(0) scale(1);
+      box-shadow:
+        6px 6px 0 0 var(--color-primary),
+        -6px -6px 0 0 var(--color-midtone);
     }
     .modal-close {
       position: absolute;
       top: var(--space-md);
       right: var(--space-md);
       background: none;
-      border: none;
-      color: var(--color-text-tertiary);
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
       cursor: pointer;
       font-size: 20px;
       width: 32px;
@@ -776,15 +734,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: var(--radius-sm);
-      transition: color 0.2s ease, background 0.2s ease;
+      font-family: var(--font-body);
+      line-height: 1;
     }
     .modal-close:hover {
-      color: var(--color-text-primary);
-      background: var(--color-surface-elevated);
+      background: var(--color-primary);
+      color: var(--color-on-primary);
     }
     .modal-close:focus-visible {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid var(--color-highlight);
       outline-offset: 2px;
     }
     .modal-title {
@@ -802,40 +760,39 @@
       align-items: center;
       gap: var(--space-sm);
       padding: var(--space-md);
-      background: var(--color-surface-elevated);
-      border-radius: var(--radius-md);
-      color: var(--color-text-primary);
+      background: var(--color-background);
+      border: 2px solid var(--color-secondary);
+      color: var(--color-on-surface);
       text-decoration: none;
-      font-size: 14px;
-      line-height: 1.55;
-      transition: background 0.2s ease, color 0.2s ease;
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.5;
     }
     .modal-link-icon {
-      font-size: 18px;
+      font-size: 20px;
       flex-shrink: 0;
     }
     .modal-link:hover {
-      background: rgba(0, 220, 165, 0.1);
-      color: var(--color-primary);
+      border-color: var(--color-primary);
+      background: var(--color-surface);
     }
     .modal-link:focus-visible {
       outline: 2px solid var(--color-primary);
       outline-offset: 2px;
     }
 
-
-
     /* =========================================================================
-       CURSOR BLINK EFFECT (terminal-inspired accent)
+       CURSOR BLINK — pixel-style terminal cursor
        ========================================================================= */
     .cursor-blink {
       display: inline-block;
-      width: 2px;
-      height: 0.8em;
+      width: 16px;
+      height: 24px;
       background: var(--color-primary);
-      margin-left: 2px;
-      vertical-align: baseline;
+      margin-left: 4px;
+      vertical-align: text-bottom;
       animation: blink 1s step-end infinite;
+      image-rendering: pixelated;
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
@@ -843,10 +800,10 @@
     }
 
     /* =========================================================================
-       FOCUS RING (global)
+       FOCUS RING
        ========================================================================= */
     *:focus-visible {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid var(--color-highlight);
       outline-offset: 2px;
     }
 
@@ -860,14 +817,9 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
-      .modal {
-        transform: none !important;
-      }
-      .card:hover {
-        transform: none !important;
-      }
       .btn:active {
-        transform: none !important;
+        background: var(--color-primary);
+        color: var(--color-on-primary);
       }
     }
 
@@ -880,15 +832,24 @@
         --space-section: 80px;
       }
       .card {
-        padding: var(--space-lg);
+        padding: var(--space-md);
       }
       .modal {
         padding: var(--space-lg);
+      }
+      .display-pixel {
+        font-size: 20px;
+      }
+      .avatar-image {
+        max-width: 180px;
       }
     }
     @media (max-width: 480px) {
       :root {
         --space-section: 64px;
+      }
+      .display-pixel {
+        font-size: 16px;
       }
     }
 
@@ -906,10 +867,7 @@
       .modal-overlay {
         display: none !important;
       }
-      .toast-container {
-        display: none !important;
-      }
-      #root::before {
+      body::before {
         display: none;
       }
       body {
@@ -918,7 +876,14 @@
       }
       .card {
         break-inside: avoid;
-        border-color: #ddd;
+        border-color: #000;
+      }
+      .avatar-frame {
+        border-color: #000;
+        box-shadow: none;
+      }
+      .avatar-image {
+        max-width: 150px;
       }
     }
   </style>
@@ -931,20 +896,20 @@
        ROOT: viewport-filling container with internal scrolling
        ===================================================================== -->
   <div id="root">
-    <main id="main-content" role="main" aria-label="Main content">
+    <main id="main-content" aria-label="Main content">
       <div class="container">
 
         <!-- ================================================================
              SECTION: Identity Header
              ================================================================ -->
         <section id="identity" aria-label="Identity">
-          <h1 class="display-lg identity-name">
+          <h1 class="display-pixel identity-name">
             Davi Macêdo Gomes<span class="cursor-blink" aria-hidden="true"></span>
           </h1>
 
           <div class="identity-role-row">
             <span class="badge">Full-Stack Developer + AI Engineer</span>
-            <span class="body-md text-secondary">📍 Remote / Feira de Santana, BA, Brasil</span>
+            <span class="body-pixel text-secondary">📍 Remote / Feira de Santana, BA, Brasil</span>
           </div>
 
           <div class="identity-links">
@@ -963,14 +928,35 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
+
+        <!-- ================================================================
+             SECTION: Portfolio (Pixel Avatar)
+             ================================================================ -->
+        <section id="portfolio" class="section" aria-labelledby="portfolio-title">
+          <h2 id="portfolio-title" class="headline-pixel section-title">Portfolio</h2>
+          <div class="avatar-frame">
+            <img
+              src="davi_pixel_avatar.png"
+              alt="Davi Macêdo Gomes pixel art portrait — 8-bit style avatar"
+              class="avatar-image"
+              width="256"
+              height="256"
+            >
+          </div>
+          <p class="caption-pixel avatar-caption mt-md">
+            Pixel Art Portrait &mdash; 8-bit Avatar
+          </p>
+        </section>
+
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: About Me
              ================================================================ -->
         <section id="about" class="section" aria-labelledby="about-title">
-          <h2 id="about-title" class="headline-lg section-title">About Me</h2>
-          <p class="body-md text-block about-text">
+          <h2 id="about-title" class="headline-pixel section-title">About Me</h2>
+          <p class="body-pixel text-block about-text">
             Full-stack developer and AI engineer passionate about building practical tools
             that bridge the gap between complex systems and real-world usability. Currently
             pursuing Computer Engineering at UEFS while freelancing — delivering web
@@ -980,16 +966,15 @@
           </p>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Tech Stack
              ================================================================ -->
         <section id="tech-stack" class="section" aria-labelledby="tech-title">
-          <h2 id="tech-title" class="headline-lg section-title">Tech Stack</h2>
+          <h2 id="tech-title" class="headline-pixel section-title">Tech Stack</h2>
 
-          <!-- Table wrapped for overflow safety (Interspec Rule 3) -->
-          <div class="table-wrapper" role="region" aria-label="Technology categories table">
+          <section class="table-wrapper" aria-label="Technology categories table">
             <table>
               <thead>
                 <tr>
@@ -1032,24 +1017,24 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+          </section>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Projects
              ================================================================ -->
         <section id="projects" class="section" aria-labelledby="projects-title">
-          <h2 id="projects-title" class="headline-lg section-title">Projects</h2>
+          <h2 id="projects-title" class="headline-pixel section-title">Projects</h2>
 
           <div class="projects-section">
 
             <!-- Featured: RouteHub -->
             <article class="card featured" aria-label="RouteHub — Featured project">
-              <h3 class="headline-md card-title">RouteHub — Bus Transportation Platform</h3>
+              <h3 class="headline-pixel card-title">RouteHub — Bus Transportation Platform</h3>
               <p class="card-subtitle">
-                <span class="code-md text-secondary">
+                <span class="code-pixel text-secondary">
                   Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven
                 </span>
               </p>
@@ -1057,7 +1042,7 @@
                 Digital platform for managing, scheduling, and monitoring institutional bus
                 transportation. Serves students, staff, drivers, and administrators with auth,
                 trip booking, check-in, PDF reports, and notifications. Built spec-first with
-                <span class="code-md">specs/</span> defining every story and edge case.
+                <span class="code-pixel">specs/</span> defining every story and edge case.
               </p>
               <div class="row collapse gap-sm badge-row">
                 <span class="badge">React</span>
@@ -1076,9 +1061,9 @@
 
             <!-- my-agent -->
             <article class="card">
-              <h3 class="headline-md card-title">my-agent — LLM Agent Framework</h3>
+              <h3 class="headline-pixel card-title">my-agent — LLM Agent Framework</h3>
               <p class="card-subtitle">
-                <span class="code-md text-secondary">
+                <span class="code-pixel text-secondary">
                   Go · LLM · Tool-Calling · Streaming · Mock Implementation
                 </span>
               </p>
@@ -1101,9 +1086,9 @@
 
             <!-- unipm -->
             <article class="card">
-              <h3 class="headline-md card-title">unipm — Universal Package Manager</h3>
+              <h3 class="headline-pixel card-title">unipm — Universal Package Manager</h3>
               <p class="card-subtitle">
-                <span class="code-md text-secondary">
+                <span class="code-pixel text-secondary">
                   Go · CLI · Cross-Platform · Distrobox
                 </span>
               </p>
@@ -1125,9 +1110,9 @@
 
             <!-- denteclean -->
             <article class="card">
-              <h3 class="headline-md card-title">denteclean — Dental Clinic Landing Page</h3>
+              <h3 class="headline-pixel card-title">denteclean — Dental Clinic Landing Page</h3>
               <p class="card-subtitle">
-                <span class="code-md text-secondary">
+                <span class="code-pixel text-secondary">
                   HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks
                 </span>
               </p>
@@ -1154,7 +1139,7 @@
 
             <!-- Early Experiments (compact) -->
             <section aria-label="Early Experiments">
-              <h3 class="headline-sm section-title text-secondary mb-md">
+              <h3 class="headline-pixel section-title text-secondary mb-md">
                 Side Projects
               </h3>
               <ul class="compact-list">
@@ -1165,15 +1150,15 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Experience
              ================================================================ -->
         <section id="experience" class="section" aria-labelledby="exp-title">
-          <h2 id="exp-title" class="headline-lg section-title">Experience</h2>
+          <h2 id="exp-title" class="headline-pixel section-title">Experience</h2>
           <div class="card">
-            <h3 class="headline-md card-title">Freelance Developer</h3>
+            <h3 class="headline-pixel card-title">Freelance Developer</h3>
             <p class="card-subtitle">Less than 1 year</p>
             <p class="card-text card-text-last">
               Full-stack applications, CLI tools, and LLM-powered workflows for diverse clients.
@@ -1181,14 +1166,14 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Education
              ================================================================ -->
         <section id="education" class="section" aria-labelledby="edu-title">
-          <h2 id="edu-title" class="headline-lg section-title">Education</h2>
-          <p class="body-md text-block mb-md">
+          <h2 id="edu-title" class="headline-pixel section-title">Education</h2>
+          <p class="body-pixel text-block mb-md">
             B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil
           </p>
           <div class="row collapse gap-sm">
@@ -1197,21 +1182,21 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Languages & Strengths
              ================================================================ -->
         <section id="languages" class="section" aria-labelledby="lang-title">
-          <h2 id="lang-title" class="headline-lg section-title">Languages &amp; Strengths</h2>
+          <h2 id="lang-title" class="headline-pixel section-title">Languages &amp; Strengths</h2>
 
-          <p class="body-md text-secondary mb-sm">Languages:</p>
+          <p class="body-pixel text-secondary mb-sm">Languages:</p>
           <div class="row collapse gap-sm mb-lg">
             <span class="badge">Portuguese — Native</span>
             <span class="badge">English — Advanced R&amp;L / Conversational</span>
           </div>
 
-          <p class="body-md text-secondary mb-sm">Strengths:</p>
+          <p class="body-pixel text-secondary mb-sm">Strengths:</p>
           <div class="text-block">
             <p class="text-item">• Self-directed learner — picks up tools quickly by building real projects</p>
             <p class="text-item">• Problem finder &amp; solver — spots edge cases and failure modes others overlook</p>
@@ -1220,13 +1205,13 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Beyond Code
              ================================================================ -->
         <section id="beyond-code" class="section" aria-labelledby="beyond-title">
-          <h2 id="beyond-title" class="headline-lg section-title">Beyond Code</h2>
+          <h2 id="beyond-title" class="headline-pixel section-title">Beyond Code</h2>
           <div class="text-block">
             <p class="text-item">• 🐧 Linux enthusiast — Debian daily driver, Arch at heart, eyeing Void Linux</p>
             <p class="text-item">• 🔧 Harness engineering — deep into AI/automation as a hobby and craft</p>
@@ -1234,14 +1219,14 @@
           </div>
         </section>
 
-        <hr class="divider section-divider" aria-hidden="true" />
+        <hr class="divider section-divider" aria-hidden="true">
 
         <!-- ================================================================
              SECTION: Currently (Call to Action)
              ================================================================ -->
         <section id="currently" class="section" aria-labelledby="current-title">
-          <h2 id="current-title" class="headline-lg section-title">Currently</h2>
-          <p class="body-md text-block">
+          <h2 id="current-title" class="headline-pixel section-title">Currently</h2>
+          <p class="body-pixel text-block">
             Open to freelance contracts, internships, and full-time opportunities — remote or
             hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.
           </p>
@@ -1259,21 +1244,20 @@
       </div>
       <!-- end .container -->
     </main>
-    <!-- end .scrollable -->
   </div>
   <!-- end #root -->
 
   <!-- =====================================================================
-       MODAL: Get in Touch (Interspec Rule 5: fixed, outside scrollable)
+       MODAL: Get in Touch
        ===================================================================== -->
   <div id="contact-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal">
-      <button class="modal-close" id="modal-close-btn" aria-label="Close dialog">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close dialog" type="button">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <h2 id="modal-title" class="headline-md modal-title">Get in Touch</h2>
+      <h2 id="modal-title" class="headline-pixel modal-title">Get in Touch</h2>
       <div class="modal-links">
         <a href="mailto:dev.davi.macedo.gomes@gmail.com" class="modal-link">
           <span class="modal-link-icon">📧</span>
@@ -1293,8 +1277,6 @@
       </button>
     </div>
   </div>
-
-
 
   <!-- =====================================================================
        JAVASCRIPT
@@ -1377,8 +1359,8 @@
         const sections = document.querySelectorAll('.section');
         sections.forEach(function(section) {
           section.style.opacity = '0';
-          section.style.transform = 'translateY(20px)';
-          section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          section.style.transform = 'translateY(4px)';
+          section.style.transition = 'opacity 0.15s step-end, transform 0.15s step-end';
         });
 
         const observer = new IntersectionObserver(function(entries) {
