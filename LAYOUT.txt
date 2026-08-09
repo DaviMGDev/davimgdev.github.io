@@ -1,0 +1,120 @@
+# Davi Macêdo Gomes — portfolio homepage (single-screen site)
+# Widget source: index.html (authored in index.is); visual specs left to DESIGN.md
+# Icon-only controls are labeled by their aria-label
+# Decorative pixel-art, ribbons, and cursor blink come from DESIGN.md, not the DOM
+
+[Skip to main content](link #main-content)
+(nav)
+  [DMG](link #identity) [Home](link #identity) [About](link #about) [Projects](link #projects) [Stack](link #tech-stack) [Contact](link #contact)
+  [EN / PT](button) [Toggle theme](button icon=sun-moon-auto)
+# hamburger and fullscreen menu — mobile only
+[Toggle menu](button icon=hamburger)
+(overlay)
+  [Close menu](button icon=x)
+  [Home](link #identity) [About](link #about) [Projects](link #projects) [Stack](link #tech-stack) [Contact](link #contact)
+  [EN / PT](button) [Toggle theme](button icon=sun-moon-auto)
+
+(hero)
+  # decorative, aria-hidden
+  (image hero-pixel-art)
+  Davi Macêdo Gomes
+  [Full-Stack Developer + AI Engineer](badge) [Remote / Feira de Santana, BA, Brasil](text)
+  [Email](link mailto:dev.davi.macedo.gomes@gmail.com) [GitHub](link https://github.com/DaviMGDev) [LinkedIn](link https://linkedin.com/in/dav1-maced0-g0mes-dev) [Get in touch](button:primary)
+
+(divider)
+
+(section)
+  About Me
+  [Davi Macêdo Gomes pixel art portrait — 8-bit style avatar](image davi_pixel_avatar.png)
+  Full-stack developer and AI engineer passionate about building practical tools that bridge the gap between complex systems and real-world usability. Currently pursuing Computer Engineering at UEFS while freelancing — delivering web applications and AI-powered automation. I thrive at the intersection of backend engineering, CLI tooling, and LLM-based agent systems, always looking to simplify developer experience and automate the tedious.
+
+(divider)
+
+(section)
+  Tech Stack
+  (carousel)
+    [Languages](text) [Python, Go, JS/TS, HTML, CSS, Shell](text)
+    [Frontend](text) [React, HTMX, Vite, Tailwind CSS](text)
+    [Backend](text) [FastAPI, Gin, Go std lib, Django](text)
+    [Databases](text) [PostgreSQL, MySQL, SQLite](text)
+    [AI / LLM](text) [LangChain, OpenAI API, agents](text)
+    [DevOps](text) [Docker, Git, CI/CD, Linux, Bash](text)
+    [Testing](text) [Gherkin (BDD), MSW, Go tests](text)
+    [Editor](text) [Neovim, VS Code, pi](text)
+
+(divider)
+
+(section)
+  Projects
+  (card:featured)
+    # ★ FEATURED ribbon at top-right corner (design system)
+    [RouteHub project screenshot](image assets/routehub_screenshot.webp)
+    RouteHub — Bus Transportation Platform
+    Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven
+    Digital platform for managing, scheduling, and monitoring institutional bus transportation. Serves students, staff, drivers, and administrators with auth, trip booking, check-in, PDF reports, and notifications. Built spec-first with specs/ defining every story and edge case.
+    [React](badge) [FastAPI](badge) [PostgreSQL](badge) [Docker](badge) [JWT](badge) [Spec-Driven](badge:primary)
+    [View on GitHub](link:external https://github.com/DaviMGDev/RouteHub)
+  (card)
+    [my-agent project screenshot](image assets/myagent_screenshot.webp)
+    my-agent — LLM Agent Framework
+    Go · LLM · Tool-Calling · Streaming · Mock Implementation
+    Go-based LLM agent framework with a provider-agnostic interface, tool-calling agent loop, and MockLLM for testing without API keys. Supports streaming via iterator pattern, with CI pipeline via GitHub Actions.
+    [Go](badge) [Tool-Calling](badge) [Streaming](badge)
+    [View on GitHub](link:external https://github.com/DaviMGDev/my-agent)
+  (card)
+    [unipm project screenshot](image assets/unipm_screenshot.webp)
+    unipm — Universal Package Manager
+    Go · CLI · Cross-Platform · Distrobox
+    Meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox under one CLI. Interactive source selection when packages exist in multiple ecosystems. Gherkin-based BDD test suite.
+    [Go](badge) [CLI](badge)
+    [View on GitHub](link:external https://github.com/DaviMGDev/unipm)
+  (card)
+    [denteclean project screenshot](image assets/denteclean_screenshot.webp)
+    denteclean — Dental Clinic Landing Page
+    HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks
+    Static single-page site for a fictional premium dental clinic. Zero frameworks, zero build steps — pure HTML/CSS/JS with full responsive design across desktop, tablet, and mobile. Deployed via GitHub Pages.
+    [HTML5](badge) [CSS3](badge) [Vanilla JS](badge) [Responsive](badge:primary)
+    [Live Demo](link:external https://davimgdev.github.io/denteclean/) [View on GitHub](link:external https://github.com/DaviMGDev/denteclean)
+
+(divider)
+
+(section)
+  Education
+  B.Sc. Computer Engineering (2023 – 2029) — UEFS, Bahia, Brasil
+  [IoT Certificate](badge) [Programming Marathon Participant](badge)
+
+(divider)
+
+(section)
+  Languages & Strengths
+  Languages:
+  [Portuguese — Native](badge) [English — Advanced R&L / Conversational](badge)
+  Strengths:
+  • Self-directed learner — picks up tools quickly by building real projects
+  • Problem finder & solver — spots edge cases and failure modes others overlook
+  • Detail-oriented — correctness, error handling, UX polish
+  • Tool builder — creating developer tools and automation that simplify workflows
+
+(divider)
+
+(section)
+  Say Hi
+  Open to freelance contracts, internships, and full-time opportunities — remote or hybrid. Most interested in AI/automation, developer tooling, and backend infrastructure.
+  [Email me](link:primary mailto:dev.davi.macedo.gomes@gmail.com) [GitHub](link https://github.com/DaviMGDev) [LinkedIn](link https://linkedin.com/in/dav1-maced0-g0mes-dev)
+
+(divider)
+
+(section)
+  Currently
+  (quote)
+    "The best way to predict the future is to build it."
+  [Get in touch](button:primary)
+
+# overlay, shown when a "Get in touch" control is activated
+(modal)
+  [Close dialog](button icon=x)
+  Get in Touch
+  [dev.davi.macedo.gomes@gmail.com](link mailto:dev.davi.macedo.gomes@gmail.com)
+  [github.com/DaviMGDev](link https://github.com/DaviMGDev)
+  [linkedin.com/in/dav1-maced0-g0mes-dev](link https://linkedin.com/in/dav1-maced0-g0mes-dev)
+  [Close](button:ghost)
