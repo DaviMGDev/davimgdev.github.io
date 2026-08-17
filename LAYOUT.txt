@@ -90,10 +90,11 @@
   Languages:
   [Portuguese — Native](badge) [English — Advanced R&L / Conversational](badge)
   Strengths:
-  • Self-directed learner — picks up tools quickly by building real projects
-  • Problem finder & solver — spots edge cases and failure modes others overlook
-  • Detail-oriented — correctness, error handling, UX polish
-  • Tool builder — creating developer tools and automation that simplify workflows
+  (list compact)
+    [Self-directed learner — picks up tools quickly by building real projects](text)
+    [Problem finder & solver — spots edge cases and failure modes others overlook](text)
+    [Detail-oriented — correctness, error handling, UX polish](text)
+    [Tool builder — creating developer tools and automation that simplify workflows](text)
 
 (divider)
 
