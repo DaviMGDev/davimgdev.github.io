@@ -1778,11 +1778,13 @@
         menuOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         navToggle.setAttribute('aria-expanded', 'true');
+        if (menuClose) menuClose.focus();
       }
       function closeMenu() {
         menuOverlay.classList.remove('active');
         document.body.style.overflow = '';
         navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.focus();
       }
 
       if (navToggle && menuOverlay) {
@@ -1796,6 +1798,28 @@
         // Close menu when a link is clicked
         menuOverlay.querySelectorAll('a').forEach(function(link) {
           link.addEventListener('click', closeMenu);
+        });
+
+        // Trap Tab inside the open menu
+        menuOverlay.addEventListener('keydown', function(e) {
+          if (e.key !== 'Tab') return;
+          const focusable = menuOverlay.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
         });
 
         document.addEventListener('keydown', function(e) {
@@ -2018,6 +2042,7 @@
       const heroBtn = document.getElementById('hero-contact-btn');
       const closeBtn = document.getElementById('modal-close-btn');
       const closeBottomBtn = document.getElementById('modal-close-btn-bottom');
+      let modalOpener = openBtn;
 
       function openModal() {
         modalOverlay.classList.add('active');
@@ -2031,11 +2056,19 @@
       function closeModal() {
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
-        openBtn.focus();
+        if (modalOpener) modalOpener.focus();
       }
 
-      if (openBtn) openBtn.addEventListener('click', openModal);
-      if (heroBtn) heroBtn.addEventListener('click', openModal);
+      if (openBtn) {
+        modalOpener = openBtn;
+        openBtn.addEventListener('click', openModal);
+      }
+      if (heroBtn) {
+        heroBtn.addEventListener('click', function() {
+          modalOpener = heroBtn;
+          openModal();
+        });
+      }
       if (closeBtn) closeBtn.addEventListener('click', closeModal);
       if (closeBottomBtn) closeBottomBtn.addEventListener('click', closeModal);
 
