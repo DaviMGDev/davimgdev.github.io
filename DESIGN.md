@@ -50,6 +50,12 @@ typography:
     fontSize: 18px
     fontWeight: 400
     lineHeight: 1.5
+  icon-glyph:
+    description: "Glyphs on icon-only elements (modal close, link arrows) — not text roles"
+    fontSize: 20px
+  display-responsive:
+    description: "Responsive steps for the display role (media-query runs of --type-display)"
+    steps: [20px, 16px]
 rounded:
   none: 0px
   pixel: 0px
