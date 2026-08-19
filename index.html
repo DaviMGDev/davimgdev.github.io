@@ -819,9 +819,17 @@
       border: 2px solid var(--color-secondary);
       padding: var(--space-md);
       transition: border-color 0s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
     .card:hover {
       border-color: var(--color-primary);
+    }
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     .card-title {
       margin-bottom: var(--space-sm);
@@ -845,7 +853,8 @@
       overflow: hidden;
     }
     .card-actions {
-      margin-top: var(--space-sm);
+      margin-top: auto; /* pin actions to a consistent card bottom across the grid */
+      padding-top: var(--space-sm);
       display: flex;
       flex-wrap: wrap;
       gap: var(--space-sm);
@@ -869,12 +878,27 @@
       border-color: var(--color-primary);
     }
 
-    /* Featured card */
+    /* Featured card — horizontal split (thumb | body) on desktop */
     .card.featured {
       border-color: var(--color-primary);
       border-width: 2px;
       position: relative;
       grid-column: 1 / -1;
+    }
+    .card.featured {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .card.featured .card-thumb {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      margin-bottom: 0;
+    }
+    .card.featured .card-body {
+      justify-content: center;
     }
     .card.featured::before {
       content: '★ FEATURED';
@@ -1171,6 +1195,12 @@
       }
       .card {
         padding: var(--space-md);
+      }
+      .card.featured {
+        grid-template-columns: 1fr; /* collapse the split on mobile */
+      }
+      .card.featured .card-thumb {
+        height: 200px;
       }
       .modal {
         padding: var(--space-lg);
