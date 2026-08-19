@@ -1206,6 +1206,15 @@
       to { transform: translateY(110vh); }
     }
 
+    /* Phosphor cursor trail — overlay canvas (grayscale, decorative) */
+    #phosphor {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      display: block;
+    }
+
     /* =========================================================================
        REDUCED MOTION
        ========================================================================= */
@@ -1295,6 +1304,7 @@
 </head>
 <body>
   <div class="crt-sweep" aria-hidden="true"></div>
+  <canvas id="phosphor" aria-hidden="true"></canvas>
   <!-- =====================================================================
        NAVBAR — sticky bar (desktop) / hidden (mobile)
        ===================================================================== -->
@@ -2259,6 +2269,88 @@
         });
       }
 
+    })();
+
+    // =====================================================================
+    // PHOSPHOR CURSOR TRAIL — monochrome pixel trail following the pointer
+    // =====================================================================
+    (function() {
+      'use strict';
+      // Decorative overlay: fine pointers + motion only (no touch, no reduced motion).
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      var canvas = document.getElementById('phosphor');
+      if (!canvas) return;
+      var ctx = canvas.getContext && canvas.getContext('2d');
+      if (!ctx) return;
+
+      var PX = 8;          // phosphor pixel size (8px = 2 grid units)
+      var LIFE = 900;      // ms a trail pixel lingers before it fades
+      var MAX = 140;       // bounded point budget
+      var points = [];
+      var running = true;
+      var color = [96, 96, 96];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.width = canvas.width + 'px';
+        canvas.style.height = canvas.height + 'px';
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function grabColor() {
+        var cs = getComputedStyle(document.documentElement);
+        var c = cs.getPropertyValue('--color-primary') || '#606060';
+        c = c.trim();
+        if (c && c[0] === '#') {
+          var n = parseInt(c.slice(1), 16);
+          return [ (n >> 16) & 255, (n >> 8) & 255, n & 255 ];
+        }
+        return [96, 96, 96];
+      }
+
+      window.addEventListener('mousemove', function(e) {
+        points.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+        if (points.length > MAX) points.shift();
+        start(); // keep drawing while there is live trail
+      }, { passive: true });
+
+      var frameCount = 0;
+      function frame(now) {
+        if (!running) return;
+        // Refresh the accent color a few times a second so it tracks theme changes.
+        if ((frameCount++ % 40) === 0) color = grabColor();
+
+        // Drop every point that has fully faded, then draw the live ones.
+        while (points.length && now - points[0].t > LIFE) points.shift();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!points.length) return; // nothing left — loop stops here (idle)
+
+        ctx.fillStyle = 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')';
+        for (var i = 0; i < points.length; i++) {
+          var p = points[i];
+          var a = 1 - (now - p.t) / LIFE; // fade out over life
+          ctx.globalAlpha = a * 0.8;
+          ctx.fillRect(
+            Math.floor(p.x / PX) * PX,
+            Math.floor(p.y / PX) * PX,
+            PX,
+            PX
+          );
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(frame);
+      }
+
+      function start() {
+        if (running && !document.hidden) requestAnimationFrame(frame);
+      }
+
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) start();
+      });
     })();
   </script>
 </body>
