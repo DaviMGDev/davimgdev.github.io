@@ -1174,6 +1174,39 @@
     }
 
     /* =========================================================================
+       CRT SWEEP — retro power-route delight on a manual theme change
+       ========================================================================= */
+    .crt-sweep {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .crt-sweep::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 140px;
+      background: linear-gradient(to bottom,
+        transparent 0%,
+        color-mix(in srgb, var(--color-primary) 12%, transparent) 50%,
+        transparent 100%);
+    }
+    .crt-sweep.is-sweeping {
+      opacity: 1;
+    }
+    .crt-sweep.is-sweeping::after {
+      animation: crt-sweep 0.3s steps(16) forwards;
+    }
+    @keyframes crt-sweep {
+      from { transform: translateY(-140px); }
+      to { transform: translateY(110vh); }
+    }
+
+    /* =========================================================================
        REDUCED MOTION
        ========================================================================= */
     @media (prefers-reduced-motion: reduce) {
@@ -1261,6 +1294,7 @@
   </style>
 </head>
 <body>
+  <div class="crt-sweep" aria-hidden="true"></div>
   <!-- =====================================================================
        NAVBAR — sticky bar (desktop) / hidden (mobile)
        ===================================================================== -->
@@ -1819,6 +1853,19 @@
         const current = getStoredTheme() || 'auto';
         const next = current === 'light' ? 'dark' : current === 'dark' ? 'auto' : 'light';
         applyTheme(next, true);
+        triggerCrtSweep();
+      }
+      // CRT scan-sweep — a brief retro power-route when the visitor cycles themes
+      function triggerCrtSweep() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const sweep = document.querySelector('.crt-sweep');
+        if (!sweep) return;
+        sweep.classList.remove('is-sweeping');
+        void sweep.offsetWidth; // restart the animation
+        sweep.classList.add('is-sweeping');
+        window.setTimeout(function() {
+          sweep.classList.remove('is-sweeping');
+        }, 360);
       }
       if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
       var menuThemeToggle = document.getElementById('menu-theme-toggle');
