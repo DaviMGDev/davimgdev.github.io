@@ -1146,6 +1146,9 @@
     /* =========================================================================
        CURSOR BLINK — pixel-style terminal cursor
        ========================================================================= */
+    .type-name {
+      white-space: nowrap; /* keep the typed name on one line as it reveals */
+    }
     .cursor-blink {
       display: inline-block;
       width: 16px;
@@ -1155,6 +1158,7 @@
       vertical-align: text-bottom;
       animation: blink 1s step-end infinite;
       image-rendering: pixelated;
+      transition: none;
     }
     @keyframes blink {
       0%, 100% { opacity: 1; }
@@ -1409,7 +1413,7 @@
           </div>
 
           <h1 class="display-pixel identity-name">
-            Davi Macêdo Gomes<span class="cursor-blink" aria-hidden="true"></span>
+            <span class="type-name">Davi Macêdo Gomes</span><span class="cursor-blink" aria-hidden="true"></span>
           </h1>
 
           <div class="identity-role-row">
@@ -1752,6 +1756,36 @@
   <script>
     (function() {
       'use strict';
+
+      // =====================================================================
+      // HERO NAME — terminal typing reveal (single authored focal moment)
+      // =====================================================================
+      function initHeroType() {
+        var nameEl = document.querySelector('.identity-name .type-name');
+        if (!nameEl) return;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var full = nameEl.textContent;
+        // No-JS / reduced-motion / very narrow: leave the full name in the DOM.
+        if (reduce || !full) return;
+        // Reveal left-to-right, step by step — no easing, terminal-style.
+        nameEl.textContent = '';
+        var i = 0;
+        var cursor = nameEl.nextElementSibling;
+        if (cursor) cursor.style.visibility = 'visible';
+        var step = function() {
+          i += 1;
+          nameEl.textContent = full.slice(0, i);
+          if (i < full.length) {
+            window.setTimeout(step, 60);
+          }
+        };
+        window.setTimeout(step, 400); // settle after first paint, then type
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroType);
+      } else {
+        initHeroType();
+      }
 
       // =====================================================================
       // DARK/LIGHT/AUTO THEME
