@@ -1,0 +1,44 @@
+{
+  "spoken": [
+    {
+      "id": "pt",
+      "name": { "en": "Portuguese", "pt": "Português" },
+      "level": { "en": "Native", "pt": "Nativo" },
+      "badge": {
+        "en": "Portuguese — Native",
+        "pt": "Português — Nativo"
+      }
+    },
+    {
+      "id": "en",
+      "name": { "en": "English", "pt": "Inglês" },
+      "level": { "en": "Advanced R&L / Conversational", "pt": "Leitura/Escrita Avançada / Conversação" },
+      "badge": {
+        "en": "English — Advanced R&L / Conversational",
+        "pt": "Inglês — Leitura/Escrita Avançada / Conversação"
+      }
+    }
+  ],
+  "strengths": [
+    {
+      "id": "s1",
+      "en": "Self-directed learner — picks up tools quickly by building real projects",
+      "pt": "Autoaprendizado — aprende ferramentas rapidamente construindo projetos reais"
+    },
+    {
+      "id": "s2",
+      "en": "Problem finder & solver — spots edge cases and failure modes others overlook",
+      "pt": "Identificação e resolução de problemas — encontra casos de borda e modos de falha que outros não veem"
+    },
+    {
+      "id": "s3",
+      "en": "Detail-oriented — correctness, error handling, UX polish",
+      "pt": "Detalhista — corretude, tratamento de erros, polimento de UX"
+    },
+    {
+      "id": "s4",
+      "en": "Tool builder — creating developer tools and automation that simplify workflows",
+      "pt": "Construtor de ferramentas — criando automações que simplificam fluxos de trabalho"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "routehub",
+  "order": 1,
+  "featured": true,
+  "title": {
+    "en": "RouteHub — Bus Transportation Platform",
+    "pt": "RouteHub — Plataforma de Transporte"
+  },
+  "subtitle": {
+    "en": "Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven",
+    "pt": "Full-Stack · React · FastAPI · PostgreSQL · Docker · JWT · Spec-Driven"
+  },
+  "description": {
+    "en": "Digital platform for managing, scheduling, and monitoring institutional bus transportation. Serves students, staff, drivers, and administrators with auth, trip booking, check-in, PDF reports, and notifications. Built spec-first with <span class=\"code-pixel\">specs/</span> defining every story and edge case.",
+    "pt": "Plataforma digital para gerenciamento, agendamento e monitoramento de transporte institucional. Atende alunos, servidores, motoristas e administradores com autenticação, reserva de viagens, check-in, relatórios em PDF e notificações. Construído com abordagem spec-first usando <span class=\"code-pixel\">specs/</span> para definir cada história e caso de borda."
+  },
+  "screenshots": [
+    {
+      "src": "assets/routehub_screenshot.webp",
+      "alt": "RouteHub project screenshot",
+      "width": 800,
+      "height": 500
+    }
+  ],
+  "badges": [
+    { "name": "React" },
+    { "name": "FastAPI" },
+    { "name": "PostgreSQL" },
+    { "name": "Docker" },
+    { "name": "JWT" },
+    { "name": "Spec-Driven", "primary": true }
+  ],
+  "links": {
+    "github": "https://github.com/DaviMGDev/RouteHub",
+    "demo": null
+  }
+}

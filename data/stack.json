@@ -1,0 +1,74 @@
+[
+  {
+    "id": "lang",
+    "category": { "en": "Languages", "pt": "Linguagens" },
+    "value": {
+      "en": "Python, Go, JS/TS, HTML, CSS, Shell",
+      "pt": "Python, Go, JS/TS, HTML, CSS, Shell"
+    },
+    "items": ["Python", "Go", "JS/TS", "HTML", "CSS", "Shell"]
+  },
+  {
+    "id": "frontend",
+    "category": { "en": "Frontend", "pt": "Frontend" },
+    "value": {
+      "en": "React, HTMX, Vite, Tailwind CSS",
+      "pt": "React, HTMX, Vite, Tailwind CSS"
+    },
+    "items": ["React", "HTMX", "Vite", "Tailwind CSS"]
+  },
+  {
+    "id": "backend",
+    "category": { "en": "Backend", "pt": "Backend" },
+    "value": {
+      "en": "FastAPI, Gin, Go std lib, Django",
+      "pt": "FastAPI, Gin, Go std lib, Django"
+    },
+    "items": ["FastAPI", "Gin", "Go std lib", "Django"]
+  },
+  {
+    "id": "db",
+    "category": { "en": "Databases", "pt": "Banco de Dados" },
+    "value": {
+      "en": "PostgreSQL, MySQL, SQLite",
+      "pt": "PostgreSQL, MySQL, SQLite"
+    },
+    "items": ["PostgreSQL", "MySQL", "SQLite"]
+  },
+  {
+    "id": "ai",
+    "category": { "en": "AI / LLM", "pt": "IA / LLM" },
+    "value": {
+      "en": "LangChain, OpenAI API, agents",
+      "pt": "LangChain, OpenAI API, agentes"
+    },
+    "items": ["LangChain", "OpenAI API", "agents"]
+  },
+  {
+    "id": "devops",
+    "category": { "en": "DevOps", "pt": "DevOps" },
+    "value": {
+      "en": "Docker, Git, CI/CD, Linux, Bash",
+      "pt": "Docker, Git, CI/CD, Linux, Bash"
+    },
+    "items": ["Docker", "Git", "CI/CD, Linux, Bash"]
+  },
+  {
+    "id": "test",
+    "category": { "en": "Testing", "pt": "Testes" },
+    "value": {
+      "en": "Gherkin (BDD), MSW, Go tests",
+      "pt": "Gherkin (BDD), MSW, Go tests"
+    },
+    "items": ["Gherkin (BDD)", "MSW", "Go tests"]
+  },
+  {
+    "id": "editor",
+    "category": { "en": "Editor", "pt": "Editor" },
+    "value": {
+      "en": "Neovim, VS Code, pi",
+      "pt": "Neovim, VS Code, pi"
+    },
+    "items": ["Neovim", "VS Code", "pi"]
+  }
+]

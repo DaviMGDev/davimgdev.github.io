@@ -1,0 +1,34 @@
+{
+  "id": "my-agent",
+  "order": 2,
+  "featured": false,
+  "title": {
+    "en": "my-agent — LLM Agent Framework",
+    "pt": "my-agent — Framework de Agentes LLM"
+  },
+  "subtitle": {
+    "en": "Go · LLM · Tool-Calling · Streaming · Mock Implementation",
+    "pt": "Go · LLM · Tool-Calling · Streaming · Mock Implementation"
+  },
+  "description": {
+    "en": "Go-based LLM agent framework with a provider-agnostic interface, tool-calling agent loop, and MockLLM for testing without API keys. Supports streaming via iterator pattern, with CI pipeline via GitHub Actions.",
+    "pt": "Framework de agentes LLM em Go com interface agnóstica de provedor, loop de agente com chamada de ferramentas e MockLLM para testes sem chaves de API. Suporta streaming via padrão iterator, com pipeline CI via GitHub Actions."
+  },
+  "screenshots": [
+    {
+      "src": "assets/myagent_screenshot.webp",
+      "alt": "my-agent project screenshot",
+      "width": 800,
+      "height": 500
+    }
+  ],
+  "badges": [
+    { "name": "Go" },
+    { "name": "Tool-Calling" },
+    { "name": "Streaming" }
+  ],
+  "links": {
+    "github": "https://github.com/DaviMGDev/my-agent",
+    "demo": null
+  }
+}

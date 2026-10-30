@@ -1,0 +1,3 @@
+although I like how the site is done currently, I dont like how static the content is. 
+
+my idea would be to fill an .json within the repository with relevant infos that dont need to be added in a prose format, which means that can be inserted easily structured. for example, the technologies that I use/know, languages I speak/write/read, project catalog can specially be structured in a folder with a .json file for each project with some relevant screenshots.

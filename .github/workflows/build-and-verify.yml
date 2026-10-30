@@ -1,0 +1,28 @@
+name: Build & Verify
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build static site
+        run: node build.mjs
+
+      - name: Verify index.html is in sync
+        run: |
+          if ! git diff --exit-code index.html; then
+            echo "::error::index.html is out of sync with data/ or index.template.html. Please run 'node build.mjs' locally and commit the changes."
+            exit 1
+          fi

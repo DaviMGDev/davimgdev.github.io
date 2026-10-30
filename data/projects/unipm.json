@@ -1,0 +1,33 @@
+{
+  "id": "unipm",
+  "order": 3,
+  "featured": false,
+  "title": {
+    "en": "unipm — Universal Package Manager",
+    "pt": "unipm — Gerenciador de Pacotes Universal"
+  },
+  "subtitle": {
+    "en": "Go · CLI · Cross-Platform · Distrobox",
+    "pt": "Go · CLI · Multi-Plataforma · Distrobox"
+  },
+  "description": {
+    "en": "Meta package manager unifying apt, npm, pip, flatpak, brew, pacman, and Distrobox under one CLI. Interactive source selection when packages exist in multiple ecosystems. Gherkin-based BDD test suite.",
+    "pt": "Meta gerenciador de pacotes que unifica apt, npm, pip, flatpak, brew, pacman e Distrobox em uma única CLI. Seleção interativa de fonte quando pacotes existem em múltiplos ecossistemas. Suíte de testes BDD com Gherkin."
+  },
+  "screenshots": [
+    {
+      "src": "assets/unipm_screenshot.webp",
+      "alt": "unipm project screenshot",
+      "width": 800,
+      "height": 500
+    }
+  ],
+  "badges": [
+    { "name": "Go" },
+    { "name": "CLI" }
+  ],
+  "links": {
+    "github": "https://github.com/DaviMGDev/unipm",
+    "demo": null
+  }
+}

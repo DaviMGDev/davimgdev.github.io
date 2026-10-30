@@ -1,0 +1,35 @@
+{
+  "id": "denteclean",
+  "order": 4,
+  "featured": false,
+  "title": {
+    "en": "denteclean — Dental Clinic Landing Page",
+    "pt": "denteclean — Landing Page de Clínica Odontológica"
+  },
+  "subtitle": {
+    "en": "HTML5 · CSS3 · Vanilla JS · Responsive · No Frameworks",
+    "pt": "HTML5 · CSS3 · Vanilla JS · Responsivo · Sem Frameworks"
+  },
+  "description": {
+    "en": "Static single-page site for a fictional premium dental clinic. Zero frameworks, zero build steps — pure HTML/CSS/JS with full responsive design across desktop, tablet, and mobile. Deployed via GitHub Pages.",
+    "pt": "Site estático de página única para uma clínica odontológica premium fictícia. Zero frameworks, zero etapas de build — HTML/CSS/JS puro com design responsivo completo para desktop, tablet e mobile. Publicado via GitHub Pages."
+  },
+  "screenshots": [
+    {
+      "src": "assets/denteclean_screenshot.webp",
+      "alt": "denteclean project screenshot",
+      "width": 800,
+      "height": 500
+    }
+  ],
+  "badges": [
+    { "name": "HTML5" },
+    { "name": "CSS3" },
+    { "name": "Vanilla JS" },
+    { "name": "Responsive", "primary": true }
+  ],
+  "links": {
+    "github": "https://github.com/DaviMGDev/denteclean",
+    "demo": "https://davimgdev.github.io/denteclean/"
+  }
+}
